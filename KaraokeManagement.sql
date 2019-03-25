@@ -1,0 +1,143 @@
+﻿USE master
+GO
+
+IF EXISTS ( SELECT  *
+            FROM    sys.databases
+            WHERE   name = 'KaraokeManagement' )
+    DROP DATABASE KaraokeManagement
+GO
+CREATE DATABASE KaraokeManagement
+GO
+
+
+USE KaraokeManagement
+GO
+
+
+CREATE TABLE Information
+	(tenKara NVARCHAR(200),
+	diaChi NVARCHAR(200),
+	soDT VARCHAR(50),
+	phutMD INT DEFAULT 0,
+	phutHuy INT DEFAULT 0,
+	urlSMS VARCHAR(200)
+	)
+
+CREATE TABLE DiscountRule
+	(
+	tongTien INT NOT NULL,
+	triGia INT NOT NULL, 
+	trangThai BIT NOT NULL
+	)
+
+CREATE TABLE Users
+	(username VARCHAR(100) PRIMARY KEY,	
+	password VARCHAR(200) NOT NULL,
+	hoTen NVARCHAR(200) NOT NULL,
+	ngaySinh DATE NOT NULL,
+	gioiTinh BIT NOT NULL,
+	soDT VARCHAR(11) NOT NULL,
+	cmnd VARCHAR(13) NOT NULL,
+	role BIT NOT NULL,
+	isActive BIT DEFAULT 1
+	)
+
+
+
+CREATE TABLE LoaiPhong
+	(maLoai VARCHAR(10) PRIMARY KEY,
+	tenLoai NVARCHAR(200) NOT NULL,
+	giaPhong INT NOT NULl
+	)
+
+CREATE TABLE Phong
+	(maPhong VARCHAR(10) PRIMARY KEY,
+	maLoai VARCHAR(10) NOT NULL REFERENCES dbo.LoaiPhong(maLoai) ON DELETE CASCADE ON UPDATE CASCADE,
+	tinhTrang BIT NOT NULL DEFAULT 0,
+		succhua int not null
+	)
+
+CREATE TABLE NhaCungCap
+	(maNhaCC VARCHAR(10) PRIMARY KEY,
+	tenNhaCC NVARCHAR(200) NOT NULL,
+	diaChi NVARCHAR(200) NOT NULL,
+	soDT VARCHAR(11) NOT NULL
+	)
+
+CREATE TABLE LoaiDichVu
+	(
+	maLoaiDV VARCHAR(10) PRIMARY KEY, 
+	tenLoaiDV NVARCHAR(200) NOT NULL, 
+	)
+
+CREATE TABLE DichVu
+	(
+	maDV INT IDENTITY PRIMARY KEY,
+	maLoaiDV VARCHAR(10) REFERENCES dbo.LoaiDichVu(maLoaiDV) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL, 
+	tenDV NVARCHAR(200) NOT NULL,
+	giaBan BIGINT DEFAULT 0,
+	tonKho INT DEFAULT 0,	
+	hinh VARCHAR(200),
+	trangThai BIT DEFAULT 1
+	
+	)
+CREATE TABLE PhieuNhapHang
+	(maPN INT IDENTITY PRIMARY KEY,
+	maNhaCC VARCHAR(10) REFERENCES dbo.NhaCungCap(maNhaCC) ON DELETE CASCADE ON UPDATE CASCADE,
+	tongTien BIGINT DEFAULT 0,
+	ngayNhap DATE,
+	username VARCHAR(100) REFERENCES dbo.USERS(username)
+	)
+CREATE TABLE ChiTietPhieuNhap
+	(maCTPN INT IDENTITY PRIMARY KEY,
+	maPN INT REFERENCES dbo.PhieuNhapHang(maPN) ON DELETE CASCADE ON UPDATE CASCADE,
+	maDV INT NOT NULL REFERENCES dbo.DichVu(maDV) ON DELETE CASCADE ON UPDATE CASCADE,
+	donGia BIGINT NOT NULL,
+	soLuongNhap INT NOT NULL,
+	tongTien BIGINT DEFAULT 0
+	)
+	
+CREATE TABLE Voucher
+	(
+	codevoucher VARCHAR(12) PRIMARY KEY,
+	tenvoucher VARCHAR(50) NOT NULL,
+	phamtram int NOT NULL,
+	hanDung DATE,
+	)
+
+CREATE TABLE HoaDon
+	(
+	maHD INT IDENTITY PRIMARY KEY,
+	maPhong VARCHAR(10) REFERENCES dbo.Phong(maPhong) ON DELETE CASCADE ON UPDATE CASCADE,
+	codevoucher VARCHAR(12) REFERENCES dbo.Voucher(codevoucher) ON DELETE CASCADE ON UPDATE CASCADE,
+	soDT VARCHAR(11),
+	tenKH NVARCHAR(200),
+	tienDV BIGINT,
+	tienGio BIGINT DEFAULT 0,
+	tienGiamGia BIGINT,
+	thanhTien BIGINT,
+	tienKhachDua BIGINT,
+	gioDatPhong DATETIME NOT NULL,
+	gioThanhToan DATETIME NULL,
+	ghiChu NVARCHAR(1000) DEFAULT '',
+	username VARCHAR(100) REFERENCES dbo.USERS(username)
+	)
+
+CREATE TABLE ChiTietHoaDon
+	(
+	maHD INT REFERENCES dbo.HoaDon(maHD) ON DELETE CASCADE ON UPDATE CASCADE,
+	maDV INT REFERENCES dbo.DichVu(maDV),
+	soLuong INT NOT NULL,
+	thanhTien INT
+	)
+
+CREATE TABLE DatPhongOnline
+	(
+	ID int identity(1,1) primary key,
+	tenKH NVARCHAR(200),
+	soDT VARCHAR(11) NOT NULL,
+	ngaydatphong date not null,
+	giodatphong DATETIME not null,
+	maLoai VARCHAR(10) NOT NULL REFERENCES dbo.LoaiPhong(maLoai) ON DELETE CASCADE ON UPDATE CASCADE,
+	songuoi int
+	)
