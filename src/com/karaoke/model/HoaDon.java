@@ -14,20 +14,37 @@ import java.util.Date;
 public class HoaDon {
     private int maHD;
     private String maPhong;
-    private String nguoiLap;
-    private String gioDatPhong;
-    private String tenKH;
+    private String codevoucher;
     private String soDT;
+    private String tenKH;
     private long tienDV;
     private long tienGio;
-    private long tongTien;
-    private long giamGia;
+    private long tiengGiamGia;
     private long thanhTien;
     private long tienKhachDua;
+    private String gioDatPhong;
     private String gioThanhToan;
-    
+    private String ghiChu;
+    private String username;
     public HoaDon(){
         
+    }
+
+    public HoaDon(int maHD, String maPhong, String codevoucher, String soDT, String tenKH, long tienDV, long tienGio, long tiengGiamGia, long thanhTien, long tienKhachDua, String gioDatPhong, String gioThanhToan, String ghiChu, String username) {
+        this.maHD = maHD;
+        this.maPhong = maPhong;
+        this.codevoucher = codevoucher;
+        this.soDT = soDT;
+        this.tenKH = tenKH;
+        this.tienDV = tienDV;
+        this.tienGio = tienGio;
+        this.tiengGiamGia = tiengGiamGia;
+        this.thanhTien = thanhTien;
+        this.tienKhachDua = tienKhachDua;
+        this.gioDatPhong = gioDatPhong;
+        this.gioThanhToan = gioThanhToan;
+        this.ghiChu = ghiChu;
+        this.username = username;
     }
 
     public int getMaHD() {
@@ -46,28 +63,12 @@ public class HoaDon {
         this.maPhong = maPhong;
     }
 
-    public String getNguoiLap() {
-        return nguoiLap;
+    public String getCodevoucher() {
+        return codevoucher;
     }
 
-    public void setNguoiLap(String nguoiLap) {
-        this.nguoiLap = nguoiLap;
-    }
-
-    public String getGioDatPhong() {
-        return gioDatPhong;
-    }
-
-    public void setGioDatPhong(String gioDatPhong) {
-        this.gioDatPhong = gioDatPhong;
-    }
-
-    public String getTenKH() {
-        return tenKH;
-    }
-
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
+    public void setCodevoucher(String codevoucher) {
+        this.codevoucher = codevoucher;
     }
 
     public String getSoDT() {
@@ -76,6 +77,14 @@ public class HoaDon {
 
     public void setSoDT(String soDT) {
         this.soDT = soDT;
+    }
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
     }
 
     public long getTienDV() {
@@ -94,20 +103,12 @@ public class HoaDon {
         this.tienGio = tienGio;
     }
 
-    public long getTongTien() {
-        return tongTien;
+    public long getTiengGiamGia() {
+        return tiengGiamGia;
     }
 
-    public void setTongTien(long tongTien) {
-        this.tongTien = tongTien;
-    }
-
-    public long getGiamGia() {
-        return giamGia;
-    }
-
-    public void setGiamGia(long giamGia) {
-        this.giamGia = giamGia;
+    public void setTiengGiamGia(long tiengGiamGia) {
+        this.tiengGiamGia = tiengGiamGia;
     }
 
     public long getThanhTien() {
@@ -126,6 +127,14 @@ public class HoaDon {
         this.tienKhachDua = tienKhachDua;
     }
 
+    public String getGioDatPhong() {
+        return gioDatPhong;
+    }
+
+    public void setGioDatPhong(String gioDatPhong) {
+        this.gioDatPhong = gioDatPhong;
+    }
+
     public String getGioThanhToan() {
         return gioThanhToan;
     }
@@ -134,7 +143,21 @@ public class HoaDon {
         this.gioThanhToan = gioThanhToan;
     }
 
-   
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     
-    
+
 }

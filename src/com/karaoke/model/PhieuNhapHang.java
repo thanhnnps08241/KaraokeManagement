@@ -18,6 +18,13 @@ public class PhieuNhapHang {
         
     }    
 
+    public PhieuNhapHang(int maPN, String maNhaCC, long tongTien, String ngayNhap) {
+        this.maPN = maPN;
+        this.maNhaCC = maNhaCC;
+        this.tongTien = tongTien;
+        this.ngayNhap = ngayNhap;
+    }
+
     public int getMaPN() {
         return maPN;
     }

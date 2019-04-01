@@ -9,15 +9,27 @@ package com.karaoke.model;
  *
  * @author Admin
  */
-public class DichVu {    
+public class DichVu {   
+   
     private int maDV;
     private String maLoai;
     private String tenDV;
     private long giaBan;
     private int tonKho;
     private String hinh;
-    
-    public DichVu(){        
+    private boolean trangThai;
+
+    public DichVu() {
+    }
+
+    public DichVu(int maDV, String maLoai, String tenDV, long giaBan, int tonKho, String hinh, boolean trangThai) {
+        this.maDV = maDV;
+        this.maLoai = maLoai;
+        this.tenDV = tenDV;
+        this.giaBan = giaBan;
+        this.tonKho = tonKho;
+        this.hinh = hinh;
+        this.trangThai = trangThai;
     }
 
     public int getMaDV() {
@@ -67,7 +79,18 @@ public class DichVu {
     public void setHinh(String hinh) {
         this.hinh = hinh;
     }
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
     
+    
+    
+   
     
     
 }

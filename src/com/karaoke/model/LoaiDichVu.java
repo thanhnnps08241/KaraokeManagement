@@ -16,6 +16,11 @@ public class LoaiDichVu {
         
     }
 
+    public LoaiDichVu(String maLoaiDV, String tenLoaiDV) {
+        this.maLoaiDV = maLoaiDV;
+        this.tenLoaiDV = tenLoaiDV;
+    }
+
     public String getMaLoaiDV() {
         return maLoaiDV;
     }

@@ -12,9 +12,16 @@ package com.karaoke.model;
 public class Phong {
     private String maPhong;
     private String maLoai;
- //   public String tenLoai;
     private boolean tinhTrang;
+    private int succhua;
     public Phong(){
+    }
+
+    public Phong(String maPhong, String maLoai, boolean tinhTrang, int succhua) {
+        this.maPhong = maPhong;
+        this.maLoai = maLoai;
+        this.tinhTrang = tinhTrang;
+        this.succhua = succhua;
     }
 
     public String getMaPhong() {
@@ -39,6 +46,14 @@ public class Phong {
 
     public void setTinhTrang(boolean tinhTrang) {
         this.tinhTrang = tinhTrang;
+    }
+
+    public int getSucchua() {
+        return succhua;
+    }
+
+    public void setSucchua(int succhua) {
+        this.succhua = succhua;
     }
     
 }

@@ -18,6 +18,13 @@ public class NhaCungCap {
         
     }
 
+    public NhaCungCap(String maNhaCC, String tenNhaCC, String diaChi, String soDT) {
+        this.maNhaCC = maNhaCC;
+        this.tenNhaCC = tenNhaCC;
+        this.diaChi = diaChi;
+        this.soDT = soDT;
+    }
+
     public String getMaNhaCC() {
         return maNhaCC;
     }
