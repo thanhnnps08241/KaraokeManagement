@@ -10,11 +10,11 @@ import javax.swing.Icon;
  *
  * @author TVD
  */
-public class RoomDetailJPanel extends javax.swing.JPanel {
+public class ChiTietPhongJPanel extends javax.swing.JPanel {
 
     final ScheduledExecutorService svc = Executors.newScheduledThreadPool(1);
 
-    public RoomDetailJPanel() {
+    public ChiTietPhongJPanel() {
         initComponents();
         pnlLeft.setBackground(new Color(18,05,88,80));
         

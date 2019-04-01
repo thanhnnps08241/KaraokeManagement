@@ -1,24 +1,22 @@
 package com.karaoke.ui;
 
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import javax.swing.Icon;
+import javax.swing.JTable;
 
 /**
  *
- * @author TVD
+ * @author Thanh
  */
 public class QLDichVuJPanel extends javax.swing.JPanel {
 
-    Color roomColor = null;
-    Icon roomIcon = null;
-    final ScheduledExecutorService svc = Executors.newScheduledThreadPool(1);
-
     public QLDichVuJPanel() {
         initComponents();
-        
-        
+        customJTable(tblDichvu);
 
     }
 
@@ -31,11 +29,8 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlRoot = new javax.swing.JPanel();
-        tabbed = new javax.swing.JTabbedPane();
+        pnlMain = new javax.swing.JPanel();
         tabDichVu = new javax.swing.JPanel();
-        scrTable = new javax.swing.JScrollPane();
-        tblDichvu = new javax.swing.JTable();
         pnlThongtinDV = new javax.swing.JPanel();
         chkCoSan = new javax.swing.JCheckBox();
         lblMaDV = new javax.swing.JLabel();
@@ -46,12 +41,13 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         txtGiaBan = new javax.swing.JTextField();
         lblGiaBan = new javax.swing.JLabel();
         lblHinhmota = new javax.swing.JLabel();
-        btnBrowse = new javax.swing.JButton();
         lblTenDV = new javax.swing.JLabel();
         txtTenDV = new javax.swing.JTextField();
-        btnThemDV = new javax.swing.JButton();
-        btnXoaDV = new javax.swing.JButton();
-        btnNewDV = new javax.swing.JButton();
+        scrTable = new javax.swing.JScrollPane();
+        tblDichvu = new javax.swing.JTable();
+        pnlButtons = new javax.swing.JPanel();
+        lblNhapMoi = new javax.swing.JLabel();
+        lblThem = new javax.swing.JLabel();
         tabLoaiDV = new javax.swing.JPanel();
         scrTable1 = new javax.swing.JScrollPane();
         tblDSDV = new javax.swing.JTable();
@@ -75,9 +71,6 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         lblNhaCungCap2 = new javax.swing.JLabel();
         cboNhaCungCap = new javax.swing.JComboBox<>();
         txtNgayNhap = new com.toedter.calendar.JDateChooser();
-        btnThemPhieuNhap = new javax.swing.JButton();
-        btnXoaPhieuNhap = new javax.swing.JButton();
-        btnNEWPhieuNhap = new javax.swing.JButton();
         scrTable4 = new javax.swing.JScrollPane();
         tblPhieuNhap = new javax.swing.JTable();
         pnlThongtinChiTietPNH = new javax.swing.JPanel();
@@ -92,34 +85,98 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         lblThanhTien = new javax.swing.JLabel();
         txtThanhTien = new javax.swing.JTextField();
         cboLoaiDV = new javax.swing.JComboBox<>();
-        btnNEWCTPN = new javax.swing.JButton();
-        btnThemCTPN = new javax.swing.JButton();
-        btnXoaCTPN = new javax.swing.JButton();
+        pnlSubmenu = new javax.swing.JPanel();
+        lblQLDV = new javax.swing.JLabel();
+        lblQLLDV = new javax.swing.JLabel();
+        lblQLPNH = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(1050, 690));
         setMinimumSize(new java.awt.Dimension(1050, 690));
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1050, 690));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        pnlRoot.setBackground(new java.awt.Color(255, 255, 255));
-        pnlRoot.setMaximumSize(new java.awt.Dimension(1050, 690));
-        pnlRoot.setMinimumSize(new java.awt.Dimension(1050, 690));
-        pnlRoot.setOpaque(false);
-        pnlRoot.setPreferredSize(new java.awt.Dimension(1050, 690));
-        pnlRoot.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tabbed.setBackground(new java.awt.Color(255, 255, 255));
-        tabbed.setMaximumSize(new java.awt.Dimension(1200, 590));
-        tabbed.setMinimumSize(new java.awt.Dimension(1200, 590));
-        tabbed.setOpaque(true);
-        tabbed.setPreferredSize(new java.awt.Dimension(1200, 590));
+        pnlMain.setMaximumSize(new java.awt.Dimension(1200, 590));
+        pnlMain.setOpaque(false);
+        pnlMain.setPreferredSize(new java.awt.Dimension(1050, 690));
+        pnlMain.setLayout(new java.awt.CardLayout());
 
         tabDichVu.setBackground(new java.awt.Color(204, 204, 255));
         tabDichVu.setMaximumSize(new java.awt.Dimension(1200, 590));
         tabDichVu.setMinimumSize(new java.awt.Dimension(1200, 590));
+        tabDichVu.setOpaque(false);
         tabDichVu.setPreferredSize(new java.awt.Dimension(1200, 590));
         tabDichVu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnlThongtinDV.setBackground(new java.awt.Color(204, 204, 255));
+        pnlThongtinDV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Dịch vụ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlThongtinDV.setForeground(new java.awt.Color(204, 255, 255));
+        pnlThongtinDV.setOpaque(false);
+        pnlThongtinDV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        chkCoSan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        chkCoSan.setForeground(new java.awt.Color(255, 255, 255));
+        chkCoSan.setText("Có sẵn");
+        chkCoSan.setOpaque(false);
+        pnlThongtinDV.add(chkCoSan, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 90, 30));
+
+        lblMaDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblMaDV.setForeground(new java.awt.Color(255, 255, 255));
+        lblMaDV.setText("Mã Dịch vụ");
+        pnlThongtinDV.add(lblMaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 20, -1, 30));
+
+        txtMaDV.setEditable(false);
+        txtMaDV.setBackground(new java.awt.Color(255, 255, 255));
+        txtMaDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtMaDV.setForeground(new java.awt.Color(102, 0, 0));
+        pnlThongtinDV.add(txtMaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, 90, 30));
+
+        lblLoaiDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblLoaiDV.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoaiDV.setText("Loại Dịch vụ");
+        pnlThongtinDV.add(lblLoaiDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, -1, 30));
+
+        cboLoai.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        cboLoai.setForeground(new java.awt.Color(255, 255, 255));
+        pnlThongtinDV.add(cboLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 210, 30));
+
+        lblHinh.setBackground(new java.awt.Color(204, 204, 204));
+        lblHinh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblHinh.setForeground(new java.awt.Color(255, 255, 255));
+        lblHinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHinh.setText("[BROWSE]");
+        lblHinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblHinh.setMaximumSize(new java.awt.Dimension(120, 120));
+        lblHinh.setMinimumSize(new java.awt.Dimension(120, 120));
+        lblHinh.setOpaque(true);
+        lblHinh.setPreferredSize(new java.awt.Dimension(120, 120));
+        pnlThongtinDV.add(lblHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 120, 120));
+
+        txtGiaBan.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtGiaBan.setForeground(new java.awt.Color(102, 0, 0));
+        pnlThongtinDV.add(txtGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 210, 30));
+
+        lblGiaBan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblGiaBan.setForeground(new java.awt.Color(255, 255, 255));
+        lblGiaBan.setText("Giá bán");
+        pnlThongtinDV.add(lblGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, 30));
+
+        lblHinhmota.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblHinhmota.setForeground(new java.awt.Color(255, 255, 255));
+        lblHinhmota.setText("Hình ảnh");
+        pnlThongtinDV.add(lblHinhmota, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, 30));
+
+        lblTenDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblTenDV.setForeground(new java.awt.Color(255, 255, 255));
+        lblTenDV.setText("Tên Dịch vụ");
+        pnlThongtinDV.add(lblTenDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, -1, 30));
+
+        txtTenDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtTenDV.setForeground(new java.awt.Color(102, 0, 0));
+        pnlThongtinDV.add(txtTenDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 210, 30));
+
+        tabDichVu.add(pnlThongtinDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 1000, 310));
 
         tblDichvu.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
         tblDichvu.setModel(new javax.swing.table.DefaultTableModel(
@@ -145,114 +202,69 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         tblDichvu.setShowHorizontalLines(false);
         tblDichvu.setShowVerticalLines(false);
         tblDichvu.getTableHeader().setReorderingAllowed(false);
+        tblDichvu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDichvuMouseClicked(evt);
+            }
+        });
         scrTable.setViewportView(tblDichvu);
+        if (tblDichvu.getColumnModel().getColumnCount() > 0) {
+            tblDichvu.getColumnModel().getColumn(0).setMinWidth(50);
+            tblDichvu.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
 
-        tabDichVu.add(scrTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 600, 410));
+        tabDichVu.add(scrTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 1000, 240));
 
-        pnlThongtinDV.setBackground(new java.awt.Color(204, 204, 255));
-        pnlThongtinDV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Dịch vụ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14))); // NOI18N
-        pnlThongtinDV.setForeground(new java.awt.Color(204, 255, 255));
-        pnlThongtinDV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlButtons.setMaximumSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setMinimumSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setOpaque(false);
+        pnlButtons.setPreferredSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
 
-        chkCoSan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        chkCoSan.setText("Có sẵn");
-        pnlThongtinDV.add(chkCoSan, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 120, 70, 30));
-
-        lblMaDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblMaDV.setText("Mã Dịch vụ");
-        pnlThongtinDV.add(lblMaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, 30));
-
-        txtMaDV.setEditable(false);
-        txtMaDV.setBackground(new java.awt.Color(255, 255, 255));
-        txtMaDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        txtMaDV.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtinDV.add(txtMaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 90, 30));
-
-        lblLoaiDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblLoaiDV.setText("Loại Dịch vụ");
-        pnlThongtinDV.add(lblLoaiDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 30));
-
-        cboLoai.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        pnlThongtinDV.add(cboLoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, 30));
-
-        lblHinh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblHinh.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblHinh.setMaximumSize(new java.awt.Dimension(120, 120));
-        lblHinh.setMinimumSize(new java.awt.Dimension(120, 120));
-        lblHinh.setPreferredSize(new java.awt.Dimension(120, 120));
-        pnlThongtinDV.add(lblHinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 120, 120));
-
-        txtGiaBan.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        txtGiaBan.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtinDV.add(txtGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 290, 30));
-
-        lblGiaBan.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblGiaBan.setText("Giá bán");
-        pnlThongtinDV.add(lblGiaBan, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, 30));
-
-        lblHinhmota.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblHinhmota.setText("Hình ảnh");
-        pnlThongtinDV.add(lblHinhmota, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, 30));
-
-        btnBrowse.setText("Chọn");
-        btnBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseActionPerformed(evt);
+        lblNhapMoi.setBackground(new java.awt.Color(0, 102, 0));
+        lblNhapMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblNhapMoi.setForeground(new java.awt.Color(255, 255, 255));
+        lblNhapMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNhapMoi.setText("NHẬP MỚI");
+        lblNhapMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNhapMoi.setOpaque(true);
+        lblNhapMoi.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblNhapMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblNhapMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblNhapMoiMouseExited(evt);
             }
         });
-        pnlThongtinDV.add(btnBrowse, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 250, 70, -1));
+        pnlButtons.add(lblNhapMoi);
 
-        lblTenDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblTenDV.setText("Tên Dịch vụ");
-        pnlThongtinDV.add(lblTenDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, 30));
-
-        txtTenDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        txtTenDV.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtinDV.add(txtTenDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 290, 30));
-
-        tabDichVu.add(pnlThongtinDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 50, 410, 330));
-
-        btnThemDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnThemDV.setText("Thêm");
-        btnThemDV.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnThemDV.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnThemDV.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnThemDV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemDVActionPerformed(evt);
+        lblThem.setBackground(new java.awt.Color(0, 102, 0));
+        lblThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblThem.setForeground(new java.awt.Color(255, 255, 255));
+        lblThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblThem.setText("THÊM");
+        lblThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblThem.setOpaque(true);
+        lblThem.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblThemMouseExited(evt);
             }
         });
-        tabDichVu.add(btnThemDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 400, 130, 40));
+        pnlButtons.add(lblThem);
 
-        btnXoaDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnXoaDV.setText("Xóa");
-        btnXoaDV.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnXoaDV.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnXoaDV.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnXoaDV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaDVActionPerformed(evt);
-            }
-        });
-        tabDichVu.add(btnXoaDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 400, 130, 40));
+        tabDichVu.add(pnlButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 580, -1, -1));
 
-        btnNewDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnNewDV.setText("Nhập mới");
-        btnNewDV.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnNewDV.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnNewDV.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnNewDV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewDVActionPerformed(evt);
-            }
-        });
-        tabDichVu.add(btnNewDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 400, 130, 40));
-
-        tabbed.addTab("Dịch vụ", tabDichVu);
+        pnlMain.add(tabDichVu, "dichvu");
 
         tabLoaiDV.setBackground(new java.awt.Color(204, 204, 255));
         tabLoaiDV.setMaximumSize(new java.awt.Dimension(1200, 590));
         tabLoaiDV.setMinimumSize(new java.awt.Dimension(1200, 590));
+        tabLoaiDV.setOpaque(false);
         tabLoaiDV.setPreferredSize(new java.awt.Dimension(1200, 590));
         tabLoaiDV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -292,6 +304,7 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         pnlThongtinLoaiDV.setBackground(new java.awt.Color(204, 204, 255));
         pnlThongtinLoaiDV.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Loại Dịch vụ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14))); // NOI18N
         pnlThongtinLoaiDV.setForeground(new java.awt.Color(204, 255, 255));
+        pnlThongtinLoaiDV.setOpaque(false);
         pnlThongtinLoaiDV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtTenLoaiDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
@@ -381,11 +394,12 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
 
         tabLoaiDV.add(scrTable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 640, 210));
 
-        tabbed.addTab("Loại Dịch vụ", tabLoaiDV);
+        pnlMain.add(tabLoaiDV, "loaidv");
 
         tabPNH.setBackground(new java.awt.Color(204, 204, 255));
         tabPNH.setMaximumSize(new java.awt.Dimension(1200, 590));
         tabPNH.setMinimumSize(new java.awt.Dimension(1200, 590));
+        tabPNH.setOpaque(false);
         tabPNH.setPreferredSize(new java.awt.Dimension(1200, 590));
         tabPNH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -420,74 +434,39 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         });
         scrTable3.setViewportView(tblChiTietPN);
 
-        tabPNH.add(scrTable3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 640, 210));
+        tabPNH.add(scrTable3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 590, 270));
 
         pnlThongtinPhieuNhap.setBackground(new java.awt.Color(204, 204, 255));
         pnlThongtinPhieuNhap.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Phiếu nhập hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14))); // NOI18N
         pnlThongtinPhieuNhap.setForeground(new java.awt.Color(204, 255, 255));
+        pnlThongtinPhieuNhap.setOpaque(false);
         pnlThongtinPhieuNhap.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNhaCungCap.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNhaCungCap.setText("Nhà Cung cấp");
-        pnlThongtinPhieuNhap.add(lblNhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 110, 30));
+        pnlThongtinPhieuNhap.add(lblNhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, 30));
 
         lblMaPhieuNhap.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblMaPhieuNhap.setText("Mã Phiếu nhập");
-        pnlThongtinPhieuNhap.add(lblMaPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 110, 30));
+        pnlThongtinPhieuNhap.add(lblMaPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 110, 30));
 
         txtMaPhieuNhap.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         txtMaPhieuNhap.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtinPhieuNhap.add(txtMaPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 100, 30));
+        pnlThongtinPhieuNhap.add(txtMaPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 140, 30));
 
         lblNhaCungCap2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNhaCungCap2.setText("Ngày nhập");
-        pnlThongtinPhieuNhap.add(lblNhaCungCap2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 30));
+        pnlThongtinPhieuNhap.add(lblNhaCungCap2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 30));
 
         cboNhaCungCap.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        pnlThongtinPhieuNhap.add(cboNhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 310, 30));
+        pnlThongtinPhieuNhap.add(cboNhaCungCap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 200, 30));
 
         txtNgayNhap.setForeground(new java.awt.Color(102, 0, 0));
         txtNgayNhap.setDateFormatString("dd/MM/yyyy");
         txtNgayNhap.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
-        pnlThongtinPhieuNhap.add(txtNgayNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 310, 30));
+        pnlThongtinPhieuNhap.add(txtNgayNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 200, 30));
 
-        tabPNH.add(pnlThongtinPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 40, 500, 160));
-
-        btnThemPhieuNhap.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnThemPhieuNhap.setText("Thêm");
-        btnThemPhieuNhap.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnThemPhieuNhap.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnThemPhieuNhap.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnThemPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemPhieuNhapActionPerformed(evt);
-            }
-        });
-        tabPNH.add(btnThemPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 200, 140, 40));
-
-        btnXoaPhieuNhap.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnXoaPhieuNhap.setText("Xóa");
-        btnXoaPhieuNhap.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnXoaPhieuNhap.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnXoaPhieuNhap.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnXoaPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaPhieuNhapActionPerformed(evt);
-            }
-        });
-        tabPNH.add(btnXoaPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 200, 140, 40));
-
-        btnNEWPhieuNhap.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnNEWPhieuNhap.setText("Nhập mới");
-        btnNEWPhieuNhap.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnNEWPhieuNhap.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnNEWPhieuNhap.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnNEWPhieuNhap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNEWPhieuNhapActionPerformed(evt);
-            }
-        });
-        tabPNH.add(btnNEWPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 200, 140, 40));
+        tabPNH.add(pnlThongtinPhieuNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 40, 410, 210));
 
         tblPhieuNhap.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
         tblPhieuNhap.setModel(new javax.swing.table.DefaultTableModel(
@@ -520,16 +499,17 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
         });
         scrTable4.setViewportView(tblPhieuNhap);
 
-        tabPNH.add(scrTable4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 640, 210));
+        tabPNH.add(scrTable4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 41, 590, 270));
 
         pnlThongtinChiTietPNH.setBackground(new java.awt.Color(204, 204, 255));
         pnlThongtinChiTietPNH.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin Phiếu nhập hàng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14))); // NOI18N
         pnlThongtinChiTietPNH.setForeground(new java.awt.Color(204, 255, 255));
+        pnlThongtinChiTietPNH.setOpaque(false);
         pnlThongtinChiTietPNH.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNhaCungCap3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNhaCungCap3.setText("Dịch vụ / Hàng");
-        pnlThongtinChiTietPNH.add(lblNhaCungCap3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 110, 30));
+        pnlThongtinChiTietPNH.add(lblNhaCungCap3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 110, 30));
 
         lblMaChiTietPN.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblMaChiTietPN.setText("Mã Chi tiết PN");
@@ -541,10 +521,15 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
 
         lblSoLuong.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblSoLuong.setText("Số lượng");
-        pnlThongtinChiTietPNH.add(lblSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 30));
+        pnlThongtinChiTietPNH.add(lblSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
 
         cboDichVu.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        pnlThongtinChiTietPNH.add(cboDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 210, 30));
+        cboDichVu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDichVuActionPerformed(evt);
+            }
+        });
+        pnlThongtinChiTietPNH.add(cboDichVu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 140, 30));
 
         txtDonGia.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         txtDonGia.setForeground(new java.awt.Color(102, 0, 0));
@@ -553,11 +538,11 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
                 txtDonGiaKeyReleased(evt);
             }
         });
-        pnlThongtinChiTietPNH.add(txtDonGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 310, 30));
+        pnlThongtinChiTietPNH.add(txtDonGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 210, 30));
 
         lblDonGia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblDonGia.setText("Đơn giá");
-        pnlThongtinChiTietPNH.add(lblDonGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 30));
+        pnlThongtinChiTietPNH.add(lblDonGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 30));
 
         spnSoLuong.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         spnSoLuong.setModel(new javax.swing.SpinnerNumberModel(0, 0, 999999, 1));
@@ -566,15 +551,15 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
                 spnSoLuongStateChanged(evt);
             }
         });
-        pnlThongtinChiTietPNH.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 80, 30));
+        pnlThongtinChiTietPNH.add(spnSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 80, 30));
 
         lblThanhTien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblThanhTien.setText("Thành tiền");
-        pnlThongtinChiTietPNH.add(lblThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
+        pnlThongtinChiTietPNH.add(lblThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 30));
 
         txtThanhTien.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         txtThanhTien.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtinChiTietPNH.add(txtThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 310, 30));
+        pnlThongtinChiTietPNH.add(txtThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 210, 30));
 
         cboLoaiDV.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         cboLoaiDV.addActionListener(new java.awt.event.ActionListener() {
@@ -582,82 +567,84 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
                 cboLoaiDVActionPerformed(evt);
             }
         });
-        pnlThongtinChiTietPNH.add(cboLoaiDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 100, 30));
+        pnlThongtinChiTietPNH.add(cboLoaiDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, 100, 30));
 
-        tabPNH.add(pnlThongtinChiTietPNH, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 270, 500, 180));
+        tabPNH.add(pnlThongtinChiTietPNH, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, 410, 220));
 
-        btnNEWCTPN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnNEWCTPN.setText("Nhập mới");
-        btnNEWCTPN.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnNEWCTPN.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnNEWCTPN.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnNEWCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNEWCTPNActionPerformed(evt);
+        pnlMain.add(tabPNH, "phieunhaphang");
+
+        add(pnlMain, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 660));
+
+        pnlSubmenu.setOpaque(false);
+        pnlSubmenu.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
+
+        lblQLDV.setBackground(new java.awt.Color(255, 255, 255));
+        lblQLDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblQLDV.setForeground(new java.awt.Color(0, 0, 204));
+        lblQLDV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQLDV.setText("QUẢN LÝ DỊCH VỤ");
+        lblQLDV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQLDV.setMaximumSize(new java.awt.Dimension(190, 20));
+        lblQLDV.setMinimumSize(new java.awt.Dimension(190, 20));
+        lblQLDV.setOpaque(true);
+        lblQLDV.setPreferredSize(new java.awt.Dimension(190, 20));
+        lblQLDV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQLDVMouseClicked(evt);
             }
         });
-        tabPNH.add(btnNEWCTPN, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 450, 140, 40));
+        pnlSubmenu.add(lblQLDV);
 
-        btnThemCTPN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnThemCTPN.setText("Thêm");
-        btnThemCTPN.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnThemCTPN.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnThemCTPN.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnThemCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemCTPNActionPerformed(evt);
+        lblQLLDV.setBackground(new java.awt.Color(0, 0, 204));
+        lblQLLDV.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblQLLDV.setForeground(new java.awt.Color(255, 255, 255));
+        lblQLLDV.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQLLDV.setText("QUẢN LÝ LOẠI DỊCH VỤ");
+        lblQLLDV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQLLDV.setMaximumSize(new java.awt.Dimension(190, 20));
+        lblQLLDV.setMinimumSize(new java.awt.Dimension(190, 20));
+        lblQLLDV.setOpaque(true);
+        lblQLLDV.setPreferredSize(new java.awt.Dimension(190, 20));
+        lblQLLDV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQLLDVMouseClicked(evt);
             }
         });
-        tabPNH.add(btnThemCTPN, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 450, 140, 40));
+        pnlSubmenu.add(lblQLLDV);
 
-        btnXoaCTPN.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        btnXoaCTPN.setText("Xóa");
-        btnXoaCTPN.setMaximumSize(new java.awt.Dimension(130, 50));
-        btnXoaCTPN.setMinimumSize(new java.awt.Dimension(130, 50));
-        btnXoaCTPN.setPreferredSize(new java.awt.Dimension(130, 50));
-        btnXoaCTPN.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaCTPNActionPerformed(evt);
+        lblQLPNH.setBackground(new java.awt.Color(0, 0, 204));
+        lblQLPNH.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblQLPNH.setForeground(new java.awt.Color(255, 255, 255));
+        lblQLPNH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQLPNH.setText("QUẢN LÝ PHIẾU NHẬP HÀNG");
+        lblQLPNH.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQLPNH.setMaximumSize(new java.awt.Dimension(190, 20));
+        lblQLPNH.setMinimumSize(new java.awt.Dimension(190, 20));
+        lblQLPNH.setOpaque(true);
+        lblQLPNH.setPreferredSize(new java.awt.Dimension(190, 20));
+        lblQLPNH.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQLPNHMouseClicked(evt);
             }
         });
-        tabPNH.add(btnXoaCTPN, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 450, 140, 40));
+        pnlSubmenu.add(lblQLPNH);
 
-        tabbed.addTab("Phiếu nhập hàng", tabPNH);
-
-        pnlRoot.add(tabbed, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 600));
-
-        add(pnlRoot, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 690));
+        add(pnlSubmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 30));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBrowseActionPerformed
-
-    private void btnThemDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemDVActionPerformed
-        
-    }//GEN-LAST:event_btnThemDVActionPerformed
-
-    private void btnXoaDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaDVActionPerformed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_btnXoaDVActionPerformed
-
-    private void btnNewDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewDVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNewDVActionPerformed
 
     private void tblDSDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDSDVMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblDSDVMouseClicked
 
     private void btnThemLOAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemLOAIActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_btnThemLOAIActionPerformed
 
     private void btnXoaLOAIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaLOAIActionPerformed
- 
+        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnXoaLOAIActionPerformed
 
     private void btnNEWLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEWLoaiActionPerformed
@@ -665,87 +652,114 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNEWLoaiActionPerformed
 
     private void tblLoaiDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLoaiDVMouseClicked
-       
+        // TODO add your handling code here:
+
     }//GEN-LAST:event_tblLoaiDVMouseClicked
 
     private void tblChiTietPNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblChiTietPNMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblChiTietPNMouseClicked
-
-    private void btnThemPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemPhieuNhapActionPerformed
-        // TODO add your handling code here:
-       
-    }//GEN-LAST:event_btnThemPhieuNhapActionPerformed
-
-    private void btnXoaPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaPhieuNhapActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnXoaPhieuNhapActionPerformed
-
-    private void btnNEWPhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEWPhieuNhapActionPerformed
-        
-    }//GEN-LAST:event_btnNEWPhieuNhapActionPerformed
 
     private void tblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhieuNhapMouseClicked
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_tblPhieuNhapMouseClicked
 
     private void txtDonGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDonGiaKeyReleased
         // TODO add your handling code here:
-        try {
-            txtThanhTien.setText(Integer.parseInt(txtDonGia.getText()) * (int) spnSoLuong.getValue() + "");
 
-        } catch (Exception e) {
-        }
     }//GEN-LAST:event_txtDonGiaKeyReleased
 
     private void spnSoLuongStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnSoLuongStateChanged
         // TODO add your handling code here:
-        try {
-            txtThanhTien.setText(Integer.parseInt(txtDonGia.getText()) * (int) spnSoLuong.getValue() + "");
 
-        } catch (Exception e) {
-        }
 
     }//GEN-LAST:event_spnSoLuongStateChanged
 
     private void cboLoaiDVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLoaiDVActionPerformed
         // TODO add your handling code here:
-       
+
 
     }//GEN-LAST:event_cboLoaiDVActionPerformed
 
-    private void btnNEWCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNEWCTPNActionPerformed
+    private void cboDichVuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDichVuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnNEWCTPNActionPerformed
+    }//GEN-LAST:event_cboDichVuActionPerformed
 
-    private void btnThemCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemCTPNActionPerformed
+    private void lblThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseExited
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_btnThemCTPNActionPerformed
+        lblThem.setBackground(new Color(0, 102, 0));
+        lblThem.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblThemMouseExited
 
-    private void btnXoaCTPNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaCTPNActionPerformed
+    private void lblThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseEntered
         // TODO add your handling code here:
-       
-    }//GEN-LAST:event_btnXoaCTPNActionPerformed
+        lblThem.setBackground(Color.WHITE);
+        lblThem.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblThemMouseEntered
 
+    private void lblNhapMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseExited
+        // TODO add your handling code here:
+        lblNhapMoi.setBackground(new Color(0, 102, 0));
+        lblNhapMoi.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblNhapMoiMouseExited
+
+    private void lblNhapMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseEntered
+        // TODO add your handling code here:
+        lblNhapMoi.setBackground(Color.WHITE);
+        lblNhapMoi.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblNhapMoiMouseEntered
+
+    private void tblDichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDichvuMouseClicked
+
+    }//GEN-LAST:event_tblDichvuMouseClicked
+
+    private void lblQLDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLDVMouseClicked
+        // TODO add your handling code here:
+        lblQLDV.setForeground(new Color(0, 0, 204));
+        lblQLDV.setBackground(new Color(255, 255, 255));
+        lblQLLDV.setBackground(new Color(0, 0, 204));
+        lblQLLDV.setForeground(new Color(255, 255, 255));
+        lblQLPNH.setBackground(new Color(0, 0, 204));
+        lblQLPNH.setForeground(new Color(255, 255, 255));
+        ((CardLayout) pnlMain.getLayout()).show(pnlMain, "dichvu");
+    }//GEN-LAST:event_lblQLDVMouseClicked
+
+    private void lblQLLDVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLLDVMouseClicked
+        // TODO add your handling code here:
+        lblQLLDV.setForeground(new Color(0, 0, 204));
+        lblQLLDV.setBackground(new Color(255, 255, 255));
+        lblQLDV.setBackground(new Color(0, 0, 204));
+        lblQLDV.setForeground(new Color(255, 255, 255));
+        lblQLPNH.setBackground(new Color(0, 0, 204));
+        lblQLPNH.setForeground(new Color(255, 255, 255));
+        ((CardLayout) pnlMain.getLayout()).show(pnlMain, "loaidv");
+    }//GEN-LAST:event_lblQLLDVMouseClicked
+
+    private void lblQLPNHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLPNHMouseClicked
+        // TODO add your handling code here:
+        lblQLPNH.setForeground(new Color(0, 0, 204));
+        lblQLPNH.setBackground(new Color(255, 255, 255));
+        lblQLDV.setBackground(new Color(0, 0, 204));
+        lblQLDV.setForeground(new Color(255, 255, 255));
+        lblQLLDV.setBackground(new Color(0, 0, 204));
+        lblQLLDV.setForeground(new Color(255, 255, 255));
+        ((CardLayout) pnlMain.getLayout()).show(pnlMain, "phieunhaphang");
+    }//GEN-LAST:event_lblQLPNHMouseClicked
+    private void customJTable(JTable tbl) {
+        tbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
+        tbl.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        tbl.getTableHeader().setOpaque(false);
+        tbl.getTableHeader().setBackground(new Color(0, 0, 0));
+        tbl.getTableHeader().setForeground(new Color(255, 255, 255));
+        tbl.setRowHeight(30);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowse;
-    private javax.swing.JButton btnNEWCTPN;
     private javax.swing.JButton btnNEWLoai;
-    private javax.swing.JButton btnNEWPhieuNhap;
-    private javax.swing.JButton btnNewDV;
-    private javax.swing.JButton btnThemCTPN;
-    private javax.swing.JButton btnThemDV;
     private javax.swing.JButton btnThemLOAI;
-    private javax.swing.JButton btnThemPhieuNhap;
-    private javax.swing.JButton btnXoaCTPN;
-    private javax.swing.JButton btnXoaDV;
     private javax.swing.JButton btnXoaLOAI;
-    private javax.swing.JButton btnXoaPhieuNhap;
     private javax.swing.JComboBox<String> cboDichVu;
     private javax.swing.JComboBox<String> cboLoai;
     private javax.swing.JComboBox<String> cboLoaiDV;
@@ -763,11 +777,18 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblNhaCungCap;
     private javax.swing.JLabel lblNhaCungCap2;
     private javax.swing.JLabel lblNhaCungCap3;
+    private javax.swing.JLabel lblNhapMoi;
+    private javax.swing.JLabel lblQLDV;
+    private javax.swing.JLabel lblQLLDV;
+    private javax.swing.JLabel lblQLPNH;
     private javax.swing.JLabel lblSoLuong;
     private javax.swing.JLabel lblTenDV;
     private javax.swing.JLabel lblTenLoaiDV;
     private javax.swing.JLabel lblThanhTien;
-    private javax.swing.JPanel pnlRoot;
+    private javax.swing.JLabel lblThem;
+    private javax.swing.JPanel pnlButtons;
+    private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlSubmenu;
     private javax.swing.JPanel pnlThongtinChiTietPNH;
     private javax.swing.JPanel pnlThongtinDV;
     private javax.swing.JPanel pnlThongtinLoaiDV;
@@ -781,7 +802,6 @@ public class QLDichVuJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel tabDichVu;
     private javax.swing.JPanel tabLoaiDV;
     private javax.swing.JPanel tabPNH;
-    private javax.swing.JTabbedPane tabbed;
     private javax.swing.JTable tblChiTietPN;
     private javax.swing.JTable tblDSDV;
     private javax.swing.JTable tblDichvu;

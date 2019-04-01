@@ -3,8 +3,6 @@ package com.karaoke.ui;
 import static com.karaoke.helper.OpenJPanel.openJPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,11 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -26,6 +21,7 @@ import javax.swing.Timer;
  */
 public class MainJFrame extends javax.swing.JFrame {
 
+    int count = 0;
     int index = 0;
     List<JLabel> listJLabelsMenu = new ArrayList<JLabel>();
     CardLayout cardLayout = null;
@@ -37,8 +33,8 @@ public class MainJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
         setEventJLabelsWindows();
-        addJLabelsToMenu(lblTrangChinh, lblQuanLy, lblThietLap, lblThongKe, lblTroGiup, lblDangXuat,lblQLDichvu,
-                lblQLNCC,lblQLSMS,lblQLNguoidung,lblQLPhong,lblTKHoadon,lblTKKhunggio,lnlTLThongtinquan,lblHDSD,lblTLThoigianmophong,lblTLGiamgia,lblTTTG);
+        addJLabelsToMenu(lblTrangChinh, lblQuanLy, lblThietLap, lblThongKe, lblTroGiup, lblDangXuat, lblQLDichvu,
+                lblQLNCC, lblQLSMS, lblQLNguoidung, lblQLPhong, lblTKHoadon, lblTKKhunggio, lnlTLThongtinquan, lblHDSD, lblTLThoigianmophong, lblTLGiamgia, lblTTTG);
         cardLayout = (CardLayout) pnlLeft.getLayout();
         lblQuayLai.setVisible(false);
 
@@ -132,7 +128,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTrangChinh.setForeground(new java.awt.Color(0, 0, 51));
         lblTrangChinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTrangChinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Home_32px_1.png"))); // NOI18N
-        lblTrangChinh.setText("TRANG CHÍNH");
+        lblTrangChinh.setText("PHÒNG HÁT");
         lblTrangChinh.setMaximumSize(new java.awt.Dimension(250, 50));
         lblTrangChinh.setMinimumSize(new java.awt.Dimension(250, 50));
         lblTrangChinh.setOpaque(true);
@@ -499,7 +495,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 lblQuayLaiMouseClicked(evt);
             }
         });
-        pnlRoot.add(lblQuayLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 550, 140, 30));
+        pnlRoot.add(lblQuayLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 140, 30));
 
         lblBackgroundMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/background.png"))); // NOI18N
         pnlRoot.add(lblBackgroundMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 690));
@@ -581,11 +577,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         lblMinimizeWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/minimize_window.png"))); // NOI18N
         lblMinimizeWindow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlTop.add(lblMinimizeWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 0, 30, -1));
+        pnlTop.add(lblMinimizeWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(1300, 0, 30, 20));
 
         lblCloseWindow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/close_window.png"))); // NOI18N
         lblCloseWindow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlTop.add(lblCloseWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(1335, 0, 30, -1));
+        pnlTop.add(lblCloseWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(1335, 0, 30, 20));
 
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -605,10 +601,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblQLNguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNguoidungMouseClicked
         // TODO add your handling code here:
+        openJPanel(pnlView, new QLNguoiDungJPanel());
+
     }//GEN-LAST:event_lblQLNguoidungMouseClicked
 
     private void lblQLPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLPhongMouseClicked
         // TODO add your handling code here:
+        openJPanel(pnlView, new QLPhongJPanel());
+
     }//GEN-LAST:event_lblQLPhongMouseClicked
 
     private void lblQLDichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLDichvuMouseClicked
@@ -618,10 +618,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblQLNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNCCMouseClicked
         // TODO add your handling code here:
+        openJPanel(pnlView, new QLNhaCungCapJPanel());
+
     }//GEN-LAST:event_lblQLNCCMouseClicked
 
     private void lblQLSMSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLSMSMouseClicked
         // TODO add your handling code here:
+        //openJPanel(pnlView, new QLSMSJPanel());
+
     }//GEN-LAST:event_lblQLSMSMouseClicked
 
     private void lblTKHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKHoadonMouseClicked
@@ -681,7 +685,6 @@ public class MainJFrame extends javax.swing.JFrame {
                     pnlLeft.revalidate();
                 }
 
-               
             });
         }
     }
@@ -693,7 +696,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 lbl.setBackground(new Color(255, 255, 255));
                 String lblName = label.getText();
                 switch (lblName) {
-                    case "TRANG CHÍNH":
+                    case "PHÒNG HÁT":
                         openJPanel(pnlView, new RoomJPanel());
                         break;
                     case "QUẢN LÝ":
@@ -712,7 +715,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         cardLayout.show(pnlLeft, "trogiup");
                         lblQuayLai.setVisible(true);
                         break;
-                
+
                 }
             } else {
                 lbl.setForeground(Color.WHITE);

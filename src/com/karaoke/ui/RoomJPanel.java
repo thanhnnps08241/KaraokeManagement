@@ -7,19 +7,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+
 
 /**
  *
@@ -56,7 +49,7 @@ public class RoomJPanel extends javax.swing.JPanel {
             roomInfo.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    OpenJPanel.openJPanel(pnlRoot, new RoomDetailJPanel());
+                    OpenJPanel.openJPanel(pnlRoot, new ChiTietPhongJPanel());
                 }
 
                
