@@ -56,16 +56,16 @@ public class SendSMS {
                 }
             } catch (IOException ex) {
                 Logger.getLogger(SendSMS.class.getName()).log(Level.SEVERE, null, ex);
-                XuLy.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
+                JDialogHelper.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
             }
 
         } catch (MalformedURLException ex) {
             Logger.getLogger(SendSMS.class.getName()).log(Level.SEVERE, null, ex);
-            XuLy.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
+            JDialogHelper.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
 
         } catch (IOException ex) {
             Logger.getLogger(SendSMS.class.getName()).log(Level.SEVERE, null, ex);
-            XuLy.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
+            JDialogHelper.popup("loi", new JDialog(), "Lỗi " + ex, "LỖI GỬI SMS");
 
         } finally {
 
