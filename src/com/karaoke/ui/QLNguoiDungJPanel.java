@@ -1,6 +1,6 @@
 package com.karaoke.ui;
 
-import com.karaoke.dao.UsersDAO;
+//import com.karaoke.dao.UsersDAO;
 import com.karaoke.helper.JDBCHelper;
 import com.karaoke.helper.JDialogHelper;
 import com.karaoke.helper.XuLy;
@@ -75,7 +75,7 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
         pnlSubmenu = new javax.swing.JPanel();
         lblQLDV = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(0, 0, 0));
+        setBackground(new java.awt.Color(0, 51, 51));
         setMinimumSize(new java.awt.Dimension(1050, 690));
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1050, 690));
@@ -140,22 +140,22 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
         lblUsername.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(255, 255, 255));
         lblUsername.setText("Username");
-        pnlAccount.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, 30));
+        pnlAccount.add(lblUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
 
         txtUsername.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         txtUsername.setForeground(new java.awt.Color(102, 0, 0));
-        pnlAccount.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 220, 30));
+        pnlAccount.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 220, 30));
 
         lblPassword.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password");
-        pnlAccount.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 30, -1, 30));
+        pnlAccount.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 30));
 
         txtPass.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         txtPass.setForeground(new java.awt.Color(102, 0, 0));
-        pnlAccount.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 30, 220, 30));
+        pnlAccount.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 220, 30));
 
-        add(pnlAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 1000, 80));
+        add(pnlAccount, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 720, 80));
 
         pnlThongtin.setBackground(new java.awt.Color(204, 204, 255));
         pnlThongtin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin người dùng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14), new java.awt.Color(255, 255, 255))); // NOI18N
@@ -166,87 +166,87 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
         lblHoten.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblHoten.setForeground(new java.awt.Color(255, 255, 255));
         lblHoten.setText("Họ tên");
-        pnlThongtin.add(lblHoten, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, 30));
+        pnlThongtin.add(lblHoten, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
 
         txtHoTen.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         txtHoTen.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtin.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, 220, 30));
+        pnlThongtin.add(txtHoTen, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 220, 30));
 
         lblDienthoai.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblDienthoai.setForeground(new java.awt.Color(255, 255, 255));
         lblDienthoai.setText("Điện thoại");
-        pnlThongtin.add(lblDienthoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 20, -1, 30));
+        pnlThongtin.add(lblDienthoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, -1, 30));
 
         txtDienThoai.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         txtDienThoai.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtin.add(txtDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 220, 30));
+        pnlThongtin.add(txtDienThoai, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 220, 30));
 
         lblNgaySinh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNgaySinh.setForeground(new java.awt.Color(255, 255, 255));
         lblNgaySinh.setText("Ngày sinh");
-        pnlThongtin.add(lblNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, 30));
+        pnlThongtin.add(lblNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, 30));
 
         txtNgaySinh.setForeground(new java.awt.Color(102, 0, 0));
         txtNgaySinh.setDateFormatString("dd/MM/yyyy");
         txtNgaySinh.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
-        pnlThongtin.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 70, 220, 30));
+        pnlThongtin.add(txtNgaySinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 220, 30));
 
         lblCMND.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblCMND.setForeground(new java.awt.Color(255, 255, 255));
         lblCMND.setText("CMND");
-        pnlThongtin.add(lblCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 60, -1, 30));
+        pnlThongtin.add(lblCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, -1, 30));
 
         txtCMND.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         txtCMND.setForeground(new java.awt.Color(102, 0, 0));
-        pnlThongtin.add(txtCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 220, 30));
+        pnlThongtin.add(txtCMND, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 220, 30));
 
         lblGioitinh.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblGioitinh.setForeground(new java.awt.Color(255, 255, 255));
         lblGioitinh.setText("Giới tính");
-        pnlThongtin.add(lblGioitinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, -1, 30));
+        pnlThongtin.add(lblGioitinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, 30));
 
         rdoNam.setBackground(new java.awt.Color(0, 0, 0));
         groupGioitinh.add(rdoNam);
         rdoNam.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNam.setForeground(new java.awt.Color(255, 255, 255));
         rdoNam.setText("Nam");
-        pnlThongtin.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, -1, 30));
+        pnlThongtin.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, 30));
 
         rdoNu.setBackground(new java.awt.Color(0, 0, 0));
         groupGioitinh.add(rdoNu);
         rdoNu.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNu.setForeground(new java.awt.Color(255, 255, 255));
         rdoNu.setText("Nữ");
-        pnlThongtin.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, 30));
+        pnlThongtin.add(rdoNu, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, -1, 30));
 
         lblVaitro.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblVaitro.setForeground(new java.awt.Color(255, 255, 255));
         lblVaitro.setText("Vai trò");
-        pnlThongtin.add(lblVaitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, -1, 30));
+        pnlThongtin.add(lblVaitro, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, 30));
 
         cboRole.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
-        pnlThongtin.add(cboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 100, 220, 30));
+        pnlThongtin.add(cboRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 220, 30));
 
         lblTrangthai.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTrangthai.setForeground(new java.awt.Color(255, 255, 255));
         lblTrangthai.setText("Trạng thái");
-        pnlThongtin.add(lblTrangthai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 30));
+        pnlThongtin.add(lblTrangthai, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 30));
 
         rdoNghiviec.setBackground(new java.awt.Color(0, 0, 0));
         groupTrangthai.add(rdoNghiviec);
         rdoNghiviec.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNghiviec.setForeground(new java.awt.Color(255, 255, 255));
         rdoNghiviec.setText("Nghỉ việc");
-        pnlThongtin.add(rdoNghiviec, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, -1, 30));
+        pnlThongtin.add(rdoNghiviec, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, 30));
 
         rdoActive.setBackground(new java.awt.Color(0, 0, 0));
         groupTrangthai.add(rdoActive);
         rdoActive.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoActive.setForeground(new java.awt.Color(255, 255, 255));
         rdoActive.setText("Active");
-        pnlThongtin.add(rdoActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, 30));
+        pnlThongtin.add(rdoActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, 30));
 
-        add(pnlThongtin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 1000, 190));
+        add(pnlThongtin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 720, 190));
 
         pnlButtons.setMaximumSize(new java.awt.Dimension(400, 60));
         pnlButtons.setMinimumSize(new java.awt.Dimension(400, 60));
@@ -347,15 +347,15 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
         tbl.getTableHeader().setForeground(new Color(255, 255, 255));
         tbl.setRowHeight(30);
     }
-    private void fillToTable() {
-        DefaultTableModel table = (DefaultTableModel) tblDanhSach.getModel();
-        table.setRowCount(0);
-        List<Users> list = new UsersDAO().select();
-        for (Users tk : list) {
-            Object[] row = new Object[]{tk.getUsername(), tk.getHoTen(), XuLy.convertDate(tk.getNgaySinh()), tk.isGioiTinh() ? "Nam" : "Nữ", tk.getSoDT(), tk.getCmnd(), tk.isRole() ? "Quản lý" : "Thu ngân"};
-            table.addRow(row);
-        }
-    }
+//    private void fillToTable() {
+//        DefaultTableModel table = (DefaultTableModel) tblDanhSach.getModel();
+//        table.setRowCount(0);
+//        //List<Users> list = new UsersDAO().select();
+//        for (Users tk : list) {
+//            Object[] row = new Object[]{tk.getUsername(), tk.getHoTen(), XuLy.convertDate(tk.getNgaySinh()), tk.isGioiTinh() ? "Nam" : "Nữ", tk.getSoDT(), tk.getCmnd(), tk.isRole() ? "Quản lý" : "Thu ngân"};
+//            table.addRow(row);
+//        }
+//    }
 
     private void showDetail() throws ParseException {
         txtUsername.setText(tblDanhSach.getValueAt(index, 0) + "");
@@ -441,9 +441,9 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
             Users u = new Users();
             u.setUsername(txtUsername.getText());
             if (txtPass.getText().equals("")) {
-                u.setMatKhau(XuLy.MD5encryption("123"));
+                u.setPassword(XuLy.MD5encryption("123"));
             } else {
-                u.setMatKhau(XuLy.MD5encryption(txtPass.getText()));
+                u.setPassword(XuLy.MD5encryption(txtPass.getText()));
             }
             u.setHoTen(XuLy.makeupHoTen(txtHoTen.getText()));
             u.setNgaySinh(new SimpleDateFormat("yyyy-MM-dd").format(txtNgaySinh.getDate()));
@@ -459,9 +459,9 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
             } else {
                 u.setRole(false);
             }
-            new UsersDAO().insert(u);
+//            new UsersDAO().insert(u);
             JDialogHelper.popup("ok", this, "Thêm User thành công", "THÊM USER");
-            fillToTable();
+          //  fillToTable();
             clear();
             tblDanhSach.clearSelection();
 
@@ -475,10 +475,10 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
             if (txtPass.getText().trim().equals("")) {
                 rs = JDBCHelper.executeQuery("SELECT * FROM USERS WHERE username = ?", username);
                 if (rs.next()) {
-                    u.setMatKhau(rs.getString("matKhau"));
+                    u.setPassword(rs.getString("matKhau"));
                 }
             } else {
-                u.setMatKhau(XuLy.MD5encryption(txtPass.getText()));
+                u.setPassword(XuLy.MD5encryption(txtPass.getText()));
             }
             u.setHoTen(XuLy.makeupHoTen(txtHoTen.getText()));
             u.setNgaySinh(new SimpleDateFormat("yyyy-MM-dd").format(txtNgaySinh.getDate()));
@@ -490,9 +490,9 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
             } else {
                 u.setRole(false);
             }
-            new UsersDAO().update(u, username);
+//            new UsersDAO().update(u, username);
             JDialogHelper.popup("ok", this, "Cập nhật thông tin User thành công", "CẬP NHẬT USER");
-            fillToTable();
+         //   fillToTable();
             clear();
             tblDanhSach.clearSelection();
 
@@ -501,7 +501,7 @@ public class QLNguoiDungJPanel extends javax.swing.JPanel {
 
     private void deleteU(String username) {
         if (JDialogHelper.ask(this, "Bạn có chắc chắn xóa User " + username + "?", "XÓA USER") == 0) {
-            new UsersDAO().delete(username);
+//            new UsersDAO().delete(username);
             JDialogHelper.popup("ok", this, "Đã xóa User thành công", "XÓA USER");
 
         } else {

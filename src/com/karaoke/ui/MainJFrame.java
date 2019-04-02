@@ -37,6 +37,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 lblQLNCC, lblQLSMS, lblQLNguoidung, lblQLPhong, lblTKHoadon, lblTKKhunggio, lnlTLThongtinquan, lblHDSD, lblTLThoigianmophong, lblTLGiamgia, lblTTTG);
         cardLayout = (CardLayout) pnlLeft.getLayout();
         lblQuayLai.setVisible(false);
+        
 
     }
 
@@ -601,7 +602,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblQLNguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNguoidungMouseClicked
         // TODO add your handling code here:
-        openJPanel(pnlView, new QLNguoiDungJPanel());
+        openJPanel(pnlView, new QLNguoiDung2());
 
     }//GEN-LAST:event_lblQLNguoidungMouseClicked
 
