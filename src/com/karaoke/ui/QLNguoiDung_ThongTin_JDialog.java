@@ -5,6 +5,8 @@
  */
 package com.karaoke.ui;
 
+import java.awt.Color;
+
 /**
  *
  * @author PS08241 - Nguyen Nhat Thanh
@@ -17,7 +19,7 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
     public QLNguoiDung_ThongTin_JDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setLocationRelativeTo(null);
+        setLocation(620, 150);
     }
 
     /**
@@ -29,6 +31,8 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupGT = new javax.swing.ButtonGroup();
+        btnGroupTT = new javax.swing.ButtonGroup();
         pnlThongtin = new javax.swing.JPanel();
         lblHoten = new javax.swing.JLabel();
         txtHoTen = new javax.swing.JTextField();
@@ -48,13 +52,16 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
         rdoActive = new javax.swing.JRadioButton();
         txtHoTen1 = new javax.swing.JTextField();
         lblHoten1 = new javax.swing.JLabel();
+        pnlButtons = new javax.swing.JPanel();
+        lblNhapMoi = new javax.swing.JLabel();
+        lblThem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pnlThongtin.setBackground(new java.awt.Color(255, 255, 255));
-        pnlThongtin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin người dùng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14), new java.awt.Color(255, 255, 255))); // NOI18N
+        pnlThongtin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Thông tin người dùng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 3, 14), new java.awt.Color(0, 51, 204))); // NOI18N
         pnlThongtin.setForeground(new java.awt.Color(204, 255, 255));
         pnlThongtin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -101,12 +108,14 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
         pnlThongtin.add(lblGioitinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, 30));
 
         rdoNam.setBackground(new java.awt.Color(255, 255, 255));
+        btnGroupGT.add(rdoNam);
         rdoNam.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNam.setForeground(new java.awt.Color(0, 0, 204));
         rdoNam.setText("Nam");
         pnlThongtin.add(rdoNam, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, 30));
 
         rdoNu.setBackground(new java.awt.Color(255, 255, 255));
+        btnGroupGT.add(rdoNu);
         rdoNu.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNu.setForeground(new java.awt.Color(0, 0, 204));
         rdoNu.setText("Nữ");
@@ -129,12 +138,18 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
         rdoNghiviec.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoNghiviec.setForeground(new java.awt.Color(0, 0, 204));
         rdoNghiviec.setText("Nghỉ việc");
-        pnlThongtin.add(rdoNghiviec, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, 30));
+        rdoNghiviec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdoNghiviecActionPerformed(evt);
+            }
+        });
+        pnlThongtin.add(rdoNghiviec, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, -1, 30));
 
         rdoActive.setBackground(new java.awt.Color(255, 255, 255));
+        btnGroupTT.add(rdoActive);
         rdoActive.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
         rdoActive.setForeground(new java.awt.Color(0, 0, 204));
-        rdoActive.setText("Active");
+        rdoActive.setText("Đang làm việc");
         pnlThongtin.add(rdoActive, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 320, -1, 30));
 
         txtHoTen1.setFont(new java.awt.Font("Cambria", 1, 15)); // NOI18N
@@ -146,10 +161,82 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
         lblHoten1.setText("Username");
         pnlThongtin.add(lblHoten1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, 30));
 
-        getContentPane().add(pnlThongtin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 600));
+        pnlButtons.setMaximumSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setMinimumSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setOpaque(false);
+        pnlButtons.setPreferredSize(new java.awt.Dimension(400, 60));
+        pnlButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
+
+        lblNhapMoi.setBackground(new java.awt.Color(0, 102, 0));
+        lblNhapMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblNhapMoi.setForeground(new java.awt.Color(255, 255, 255));
+        lblNhapMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNhapMoi.setText("NHẬP MỚI");
+        lblNhapMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNhapMoi.setOpaque(true);
+        lblNhapMoi.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblNhapMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblNhapMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblNhapMoiMouseExited(evt);
+            }
+        });
+        pnlButtons.add(lblNhapMoi);
+
+        lblThem.setBackground(new java.awt.Color(0, 102, 0));
+        lblThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblThem.setForeground(new java.awt.Color(255, 255, 255));
+        lblThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblThem.setText("THÊM");
+        lblThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblThem.setOpaque(true);
+        lblThem.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblThemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblThemMouseExited(evt);
+            }
+        });
+        pnlButtons.add(lblThem);
+
+        pnlThongtin.add(pnlButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 370, 380, 50));
+
+        getContentPane().add(pnlThongtin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void rdoNghiviecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNghiviecActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdoNghiviecActionPerformed
+
+    private void lblNhapMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseEntered
+        // TODO add your handling code here:
+        lblNhapMoi.setBackground(Color.WHITE);
+        lblNhapMoi.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblNhapMoiMouseEntered
+
+    private void lblNhapMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseExited
+        // TODO add your handling code here:
+        lblNhapMoi.setBackground(new Color(0, 102, 0));
+        lblNhapMoi.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblNhapMoiMouseExited
+
+    private void lblThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseEntered
+        // TODO add your handling code here:
+        lblThem.setBackground(Color.WHITE);
+        lblThem.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblThemMouseEntered
+
+    private void lblThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseExited
+        // TODO add your handling code here:
+        lblThem.setBackground(new Color(0, 102, 0));
+        lblThem.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblThemMouseExited
 
     /**
      * @param args the command line arguments
@@ -195,6 +282,8 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnGroupGT;
+    private javax.swing.ButtonGroup btnGroupTT;
     private javax.swing.JComboBox<String> cboRole;
     private javax.swing.JLabel lblCMND;
     private javax.swing.JLabel lblDienthoai;
@@ -202,8 +291,11 @@ public class QLNguoiDung_ThongTin_JDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lblHoten;
     private javax.swing.JLabel lblHoten1;
     private javax.swing.JLabel lblNgaySinh;
+    private javax.swing.JLabel lblNhapMoi;
+    private javax.swing.JLabel lblThem;
     private javax.swing.JLabel lblTrangthai;
     private javax.swing.JLabel lblVaitro;
+    private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlThongtin;
     private javax.swing.JRadioButton rdoActive;
     private javax.swing.JRadioButton rdoNam;

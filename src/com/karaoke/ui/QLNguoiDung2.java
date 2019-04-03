@@ -38,18 +38,26 @@ public class QLNguoiDung2 extends javax.swing.JPanel {
                 + "<h3></h3>"
                 + ""
                 + "";
-        
+
         int soluong = 22;
-        for (int i = 0; i < soluong; i++) {           
+        for (int i = 0; i < soluong; i++) {
             RoundedPanel UserPanel = new RoundedPanel();
             UserPanel.setPreferredSize(new Dimension(400, 295));
-            JLabel UserInfo = new JLabel();            
+            if (i%5==0) {
+                UserPanel.setBackground(Color.YELLOW);
+            }
+            JLabel UserInfo = new JLabel();
             UserInfo.setText(info);
             UserInfo.setPreferredSize(new Dimension(380, 280));
             UserInfo.setIcon(new ImageIcon(getClass().getResource("/com/karaoke/images/icon/useravatar.png")));
-            
 
             UserPanel.add(UserInfo);
+            UserPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    new QLNguoiDung_ThongTin_JDialog(null, true).setVisible(true);
+                }
+            });
             pnlUser.add(UserPanel);
 
         }
@@ -67,9 +75,6 @@ public class QLNguoiDung2 extends javax.swing.JPanel {
         scrUser.setViewportView(pnlUser);
         scrUser.getVerticalScrollBar().setUI(new WindowsScrollBarUI());
         scrUser.getViewport().setOpaque(false);
-        
-        
-       
 
         //model = (DefaultTableModel) tblBang.getModel();
     }
@@ -87,6 +92,7 @@ public class QLNguoiDung2 extends javax.swing.JPanel {
         groupTrangthai = new javax.swing.ButtonGroup();
         scrUser = new javax.swing.JScrollPane();
         pnlUser = new javax.swing.JPanel();
+        jTextField1 = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 51, 51));
         setMaximumSize(new java.awt.Dimension(1050, 690));
@@ -105,13 +111,15 @@ public class QLNguoiDung2 extends javax.swing.JPanel {
         pnlUser.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 30));
         scrUser.setViewportView(pnlUser);
 
-        add(scrUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        add(scrUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, -1, 650));
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 410, 30));
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup groupGioitinh;
     private javax.swing.ButtonGroup groupTrangthai;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel pnlUser;
     private javax.swing.JScrollPane scrUser;
     // End of variables declaration//GEN-END:variables

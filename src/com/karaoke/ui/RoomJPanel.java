@@ -82,7 +82,7 @@ public class RoomJPanel extends javax.swing.JPanel {
         }
         pnlRoom.repaint();
         pnlRoom.revalidate();
-        scrRoom.setPreferredSize(new Dimension(1056, 160 * 4));
+        scrRoom.setPreferredSize(new Dimension(1060, 160 * 4));
         scrRoom.getVerticalScrollBar().setUnitIncrement(80);
         scrRoom.setViewportView(pnlRoom);
         scrRoom.getVerticalScrollBar().setUI(new WindowsScrollBarUI());
@@ -122,10 +122,10 @@ public class RoomJPanel extends javax.swing.JPanel {
 
         scrRoom.setBackground(new java.awt.Color(255, 255, 255));
         scrRoom.setBorder(null);
-        scrRoom.setMaximumSize(new java.awt.Dimension(1056, 650));
-        scrRoom.setMinimumSize(new java.awt.Dimension(1056, 650));
+        scrRoom.setMaximumSize(new java.awt.Dimension(1060, 650));
+        scrRoom.setMinimumSize(new java.awt.Dimension(1060, 650));
         scrRoom.setOpaque(false);
-        scrRoom.setPreferredSize(new java.awt.Dimension(1056, 650));
+        scrRoom.setPreferredSize(new java.awt.Dimension(1060, 650));
 
         pnlRoom.setBackground(new java.awt.Color(255, 255, 255));
         pnlRoom.setMinimumSize(new java.awt.Dimension(1030, 500));
