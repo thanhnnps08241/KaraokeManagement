@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package com.karaoke.dao;
-
-
 import com.karaoke.helper.JDBCHelper;
 import com.karaoke.model.DichVu;
 import java.sql.ResultSet;
@@ -15,17 +13,17 @@ import java.util.List;
 
 /**
  *
- * @author Admin
+ * @author Thanh
  */
 public class DichVuDAO { 
           
      public void insert(DichVu model) {
-        String sql = "INSERT INTO dbo.DichVu (maLoaiDV, tenDV, giaBan, tonKho, hinh) VALUES(?,?,?,?,?)";
-        JDBCHelper.executeUpdate(sql, model.getMaLoai(), model.getTenDV(), model.getGiaBan(), model.getTonKho(), model.getHinh());
+        String sql = "INSERT INTO dbo.DichVu (maLoaiDV, tenDV, giaBan, tonKho, hinh, trangThai) VALUES(?,?,?,?,?,?)";
+        JDBCHelper.executeUpdate(sql, model.getMaLoaiDV(), model.getTenDV(), model.getGiaBan(), model.getTonKho(), model.getHinh(), model.isTrangThai());
     }
     public void update(DichVu model) {
-        String sql = "UPDATE dbo.DichVu SET tenDV = ?, maLoaiDV = ?, giaBan = ?, hinh = ? WHERE maDV = ?";
-        JDBCHelper.executeUpdate(sql, model.getTenDV(),  model.getMaLoai(), model.getGiaBan(), model.getHinh(), model.getMaDV());
+        String sql = "UPDATE dbo.DichVu SET maLoaiDV = ?, tenDV = ?, giaBan = ?, hinh = ?, trangThai = ? WHERE maDV = ?";
+        JDBCHelper.executeUpdate(sql, model.getMaLoaiDV(), model.getTenDV(), model.getGiaBan(), model.getHinh(), model.isTrangThai(), model.getMaDV());
     }
     
     public void delete(DichVu model){
@@ -84,11 +82,12 @@ public class DichVuDAO {
     private DichVu readFromResultSet(ResultSet rs) throws SQLException {
         DichVu model = new DichVu();
         model.setMaDV(rs.getInt("maDV"));
-        model.setMaLoai(rs.getString("maLoaiDV")); 
+        model.setMaLoaiDV(rs.getString("maLoaiDV")); 
         model.setTenDV(rs.getString("tenDV"));
         model.setGiaBan(rs.getLong("giaBan"));
         model.setTonKho(rs.getInt("tonKho"));
         model.setHinh(rs.getString("hinh"));
+        model.setTrangThai(rs.getBoolean("trangThai"));
         return model;
     }
         

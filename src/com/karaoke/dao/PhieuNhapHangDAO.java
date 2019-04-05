@@ -5,13 +5,14 @@
  */
 package com.karaoke.dao;
 
-import karatnq.helper.JDBCHelper;
-import karatnq.model.DichVu;
+
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.model.PhieuNhapHang;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import karatnq.model.PhieuNhapHang;
+
 
 /**
  *
@@ -20,12 +21,12 @@ import karatnq.model.PhieuNhapHang;
 public class PhieuNhapHangDAO { 
           
      public void insert(PhieuNhapHang model) {
-        String sql = "INSERT INTO dbo.PhieuNhapHang (maNhaCC, tongTien, ngayNhap) VALUES(?,?,?)";
-        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(), model.getTongTien(), model.getNgayNhap());
+        String sql = "INSERT INTO dbo.PhieuNhapHang (maNhaCC, tongTien, ngayNhap, username) VALUES(?,?,?,?)";
+        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(), model.getTongTien(), model.getNgayNhap(), model.getUsername());
     }
     public void update(PhieuNhapHang model) {
-        String sql = "UPDATE dbo.PhieuNhapHang SET maNhaCC = ?, tongTien = ?, ngayNhap = ? WHERE maPN = ?";
-        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(),  model.getTongTien(), model.getNgayNhap(), model.getMaPN());
+        String sql = "UPDATE dbo.PhieuNhapHang SET maNhaCC = ?, tongTien = ?, ngayNhap = ?, username = ? WHERE maPN = ?";
+        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(),  model.getTongTien(), model.getNgayNhap(), model.getUsername(), model.getMaPN());
     }
     
     public void delete(PhieuNhapHang model){
@@ -68,7 +69,8 @@ public class PhieuNhapHangDAO {
         model.setMaPN(rs.getInt("maPN"));
         model.setMaNhaCC(rs.getString("maNhaCC")); 
         model.setNgayNhap(rs.getString("ngayNhap"));
-        model.setTongTien(rs.getLong("tongTien"));     
+        model.setTongTien(rs.getLong("tongTien"));   
+        model.setUsername(rs.getString("username"));
         return model;
     }
         

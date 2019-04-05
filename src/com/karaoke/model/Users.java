@@ -18,12 +18,12 @@ public class Users {
     private String soDT;
     private String cmnd;
     private boolean role;
-    private boolean isActive;
+    private boolean active;
 
     public Users() {
     }
 
-    public Users(String username, String password, String hoTen, String ngaySinh, boolean gioiTinh, String soDT, String cmnd, boolean role, boolean isActive) {
+    public Users(String username, String password, String hoTen, String ngaySinh, boolean gioiTinh, String soDT, String cmnd, boolean role, boolean active) {
         this.username = username;
         this.password = password;
         this.hoTen = hoTen;
@@ -32,7 +32,7 @@ public class Users {
         this.soDT = soDT;
         this.cmnd = cmnd;
         this.role = role;
-        this.isActive = isActive;
+        this.active = active;
     }
 
     public String getUsername() {
@@ -99,12 +99,12 @@ public class Users {
         this.role = role;
     }
 
-    public boolean isIsActive() {
-        return isActive;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
     
 

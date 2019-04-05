@@ -11,8 +11,8 @@ package com.karaoke.model;
  */
 public class LoaiPhong {
     private String maLoai;
-    private String tenloai;
-    private long gia;
+    private String tenLoai;
+    private long giaPhong;
     public LoaiPhong(){
         
     }
@@ -25,20 +25,20 @@ public class LoaiPhong {
         this.maLoai = maLoai;
     }
 
-    public String getTenloai() {
-        return tenloai;
+    public String getTenLoai() {
+        return tenLoai;
     }
 
-    public void setTenloai(String tenloai) {
-        this.tenloai = tenloai;
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
     }
 
-    public long getGia() {
-        return gia;
+    public long getGiaPhong() {
+        return giaPhong;
     }
 
-    public void setGia(long gia) {
-        this.gia = gia;
+    public void setGiaPhong(long giaPhong) {
+        this.giaPhong = giaPhong;
     }
     
 }

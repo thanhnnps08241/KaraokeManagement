@@ -4,9 +4,8 @@
  * and open the template in the editor.
  */
 package com.karaoke.dao;
-
-import karatnq.helper.JDBCHelper;
-import karatnq.model.LoaiDichVu;
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.model.LoaiDichVu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * @author Admin
  */
-public class LoaiDVDAO {
+public class LoaiDichVuDAO {
 
     public void insert(LoaiDichVu model) {
         String sql = "INSERT INTO LoaiDichVu VALUES (?, ?)";

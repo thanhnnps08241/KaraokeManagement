@@ -5,14 +5,14 @@
  */
 package com.karaoke.dao;
 
-import karatnq.helper.JDBCHelper;
-import karatnq.model.DichVu;
+
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.model.NhaCungCap;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import karatnq.model.NhaCungCap;
-import karatnq.model.PhieuNhapHang;
+
 
 /**
  *

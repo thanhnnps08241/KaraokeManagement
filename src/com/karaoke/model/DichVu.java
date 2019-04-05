@@ -12,7 +12,7 @@ package com.karaoke.model;
 public class DichVu {   
    
     private int maDV;
-    private String maLoai;
+    private String maLoaiDV;
     private String tenDV;
     private long giaBan;
     private int tonKho;
@@ -22,9 +22,9 @@ public class DichVu {
     public DichVu() {
     }
 
-    public DichVu(int maDV, String maLoai, String tenDV, long giaBan, int tonKho, String hinh, boolean trangThai) {
+    public DichVu(int maDV, String maLoaiDV, String tenDV, long giaBan, int tonKho, String hinh, boolean trangThai) {
         this.maDV = maDV;
-        this.maLoai = maLoai;
+        this.maLoaiDV = maLoaiDV;
         this.tenDV = tenDV;
         this.giaBan = giaBan;
         this.tonKho = tonKho;
@@ -40,12 +40,12 @@ public class DichVu {
         this.maDV = maDV;
     }
 
-    public String getMaLoai() {
-        return maLoai;
+    public String getMaLoaiDV() {
+        return maLoaiDV;
     }
 
-    public void setMaLoai(String maLoai) {
-        this.maLoai = maLoai;
+    public void setMaLoaiDV(String maLoaiDV) {
+        this.maLoaiDV = maLoaiDV;
     }
 
     public String getTenDV() {

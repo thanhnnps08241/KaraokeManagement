@@ -1,9 +1,17 @@
 package com.karaoke.ui;
 
+import com.karaoke.dao.LoaiPhongDAO;
+import com.karaoke.dao.PhongDAO;
+import com.karaoke.model.LoaiPhong;
+import com.karaoke.model.Phong;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.CardLayout;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,12 +19,19 @@ import javax.swing.JTable;
  */
 public class QLPhongJPanel extends javax.swing.JPanel {
 
+    int indexPHONG = -1, indexLOAI = -1;
+    boolean check;
+    ResultSet rs = null;
+    List<Phong> listphong = new PhongDAO().select();
+    List<LoaiPhong> listloai = new LoaiPhongDAO().select();
+
     public QLPhongJPanel() {
         initComponents();
-       
         ((CardLayout) pnlMain.getLayout()).show(pnlMain, "loaiphong");
-        customJTable(tblDanhSach);
-        customJTable(tblDanhSach2);
+        customJTable(tblPHONG);
+        customJTable(tblLOAI);
+        fillToTableLOAI();
+        fillToTablePHONG();
 
     }
 
@@ -37,10 +52,10 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         lblLoai = new javax.swing.JLabel();
         cboLoai = new javax.swing.JComboBox<>();
         scrTable = new javax.swing.JScrollPane();
-        tblDanhSach = new javax.swing.JTable();
+        tblPHONG = new javax.swing.JTable();
         pnlButtons = new javax.swing.JPanel();
-        lblNhapMoi = new javax.swing.JLabel();
-        lblThem = new javax.swing.JLabel();
+        lblNewPHONG = new javax.swing.JLabel();
+        lblTHEMPHONG = new javax.swing.JLabel();
         pnlLoaiPhong = new javax.swing.JPanel();
         pnlThongtin2 = new javax.swing.JPanel();
         lblMaLoaiPhong = new javax.swing.JLabel();
@@ -50,10 +65,10 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         lblGiaPhong = new javax.swing.JLabel();
         txtGiaPhong = new javax.swing.JTextField();
         scrTable2 = new javax.swing.JScrollPane();
-        tblDanhSach2 = new javax.swing.JTable();
+        tblLOAI = new javax.swing.JTable();
         pnlButtons2 = new javax.swing.JPanel();
-        lblNhapMoi2 = new javax.swing.JLabel();
-        lblThem2 = new javax.swing.JLabel();
+        lblNewLOAI = new javax.swing.JLabel();
+        lblTHEMLOAI = new javax.swing.JLabel();
         pnlSubmenu = new javax.swing.JPanel();
         lblLoaiPhong = new javax.swing.JLabel();
         lblPhong = new javax.swing.JLabel();
@@ -98,8 +113,8 @@ public class QLPhongJPanel extends javax.swing.JPanel {
 
         pnlPhong.add(pnlThongtin, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 560, 200));
 
-        tblDanhSach.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
-        tblDanhSach.setModel(new javax.swing.table.DefaultTableModel(
+        tblPHONG.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        tblPHONG.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -115,23 +130,23 @@ public class QLPhongJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSach.setGridColor(new java.awt.Color(255, 255, 255));
-        tblDanhSach.setRowHeight(30);
-        tblDanhSach.setSelectionBackground(new java.awt.Color(204, 204, 255));
-        tblDanhSach.setSelectionForeground(new java.awt.Color(0, 0, 204));
-        tblDanhSach.setShowHorizontalLines(false);
-        tblDanhSach.setShowVerticalLines(false);
-        tblDanhSach.getTableHeader().setReorderingAllowed(false);
-        tblDanhSach.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblPHONG.setGridColor(new java.awt.Color(255, 255, 255));
+        tblPHONG.setRowHeight(30);
+        tblPHONG.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        tblPHONG.setSelectionForeground(new java.awt.Color(0, 0, 204));
+        tblPHONG.setShowHorizontalLines(false);
+        tblPHONG.setShowVerticalLines(false);
+        tblPHONG.getTableHeader().setReorderingAllowed(false);
+        tblPHONG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDanhSachMouseClicked(evt);
+                tblPHONGMouseClicked(evt);
             }
         });
-        scrTable.setViewportView(tblDanhSach);
-        if (tblDanhSach.getColumnModel().getColumnCount() > 0) {
-            tblDanhSach.getColumnModel().getColumn(0).setMinWidth(50);
-            tblDanhSach.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblDanhSach.getColumnModel().getColumn(1).setResizable(false);
+        scrTable.setViewportView(tblPHONG);
+        if (tblPHONG.getColumnModel().getColumnCount() > 0) {
+            tblPHONG.getColumnModel().getColumn(0).setMinWidth(50);
+            tblPHONG.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblPHONG.getColumnModel().getColumn(1).setResizable(false);
         }
 
         pnlPhong.add(scrTable, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 560, 220));
@@ -142,41 +157,41 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         pnlButtons.setPreferredSize(new java.awt.Dimension(400, 60));
         pnlButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
 
-        lblNhapMoi.setBackground(new java.awt.Color(0, 102, 0));
-        lblNhapMoi.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblNhapMoi.setForeground(new java.awt.Color(255, 255, 255));
-        lblNhapMoi.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNhapMoi.setText("NHẬP MỚI");
-        lblNhapMoi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblNhapMoi.setOpaque(true);
-        lblNhapMoi.setPreferredSize(new java.awt.Dimension(120, 40));
-        lblNhapMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNewPHONG.setBackground(new java.awt.Color(0, 102, 0));
+        lblNewPHONG.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblNewPHONG.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewPHONG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNewPHONG.setText("NHẬP MỚI");
+        lblNewPHONG.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNewPHONG.setOpaque(true);
+        lblNewPHONG.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblNewPHONG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblNhapMoiMouseEntered(evt);
+                lblNewPHONGMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblNhapMoiMouseExited(evt);
+                lblNewPHONGMouseExited(evt);
             }
         });
-        pnlButtons.add(lblNhapMoi);
+        pnlButtons.add(lblNewPHONG);
 
-        lblThem.setBackground(new java.awt.Color(0, 102, 0));
-        lblThem.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblThem.setForeground(new java.awt.Color(255, 255, 255));
-        lblThem.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThem.setText("THÊM");
-        lblThem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblThem.setOpaque(true);
-        lblThem.setPreferredSize(new java.awt.Dimension(120, 40));
-        lblThem.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTHEMPHONG.setBackground(new java.awt.Color(0, 102, 0));
+        lblTHEMPHONG.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTHEMPHONG.setForeground(new java.awt.Color(255, 255, 255));
+        lblTHEMPHONG.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTHEMPHONG.setText("THÊM");
+        lblTHEMPHONG.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTHEMPHONG.setOpaque(true);
+        lblTHEMPHONG.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblTHEMPHONG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblThemMouseEntered(evt);
+                lblTHEMPHONGMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblThemMouseExited(evt);
+                lblTHEMPHONGMouseExited(evt);
             }
         });
-        pnlButtons.add(lblThem);
+        pnlButtons.add(lblTHEMPHONG);
 
         pnlPhong.add(pnlButtons, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, -1, -1));
 
@@ -224,8 +239,8 @@ public class QLPhongJPanel extends javax.swing.JPanel {
 
         pnlLoaiPhong.add(pnlThongtin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 560, 200));
 
-        tblDanhSach2.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
-        tblDanhSach2.setModel(new javax.swing.table.DefaultTableModel(
+        tblLOAI.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        tblLOAI.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -241,25 +256,25 @@ public class QLPhongJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblDanhSach2.setGridColor(new java.awt.Color(255, 255, 255));
-        tblDanhSach2.setRowHeight(30);
-        tblDanhSach2.setSelectionBackground(new java.awt.Color(204, 204, 255));
-        tblDanhSach2.setSelectionForeground(new java.awt.Color(0, 0, 204));
-        tblDanhSach2.setShowHorizontalLines(false);
-        tblDanhSach2.setShowVerticalLines(false);
-        tblDanhSach2.getTableHeader().setReorderingAllowed(false);
-        tblDanhSach2.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblLOAI.setGridColor(new java.awt.Color(255, 255, 255));
+        tblLOAI.setRowHeight(30);
+        tblLOAI.setSelectionBackground(new java.awt.Color(204, 204, 255));
+        tblLOAI.setSelectionForeground(new java.awt.Color(0, 0, 204));
+        tblLOAI.setShowHorizontalLines(false);
+        tblLOAI.setShowVerticalLines(false);
+        tblLOAI.getTableHeader().setReorderingAllowed(false);
+        tblLOAI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDanhSach2MouseClicked(evt);
+                tblLOAIMouseClicked(evt);
             }
         });
-        scrTable2.setViewportView(tblDanhSach2);
-        if (tblDanhSach2.getColumnModel().getColumnCount() > 0) {
-            tblDanhSach2.getColumnModel().getColumn(0).setMinWidth(50);
-            tblDanhSach2.getColumnModel().getColumn(0).setMaxWidth(50);
-            tblDanhSach2.getColumnModel().getColumn(1).setResizable(false);
-            tblDanhSach2.getColumnModel().getColumn(2).setResizable(false);
-            tblDanhSach2.getColumnModel().getColumn(3).setResizable(false);
+        scrTable2.setViewportView(tblLOAI);
+        if (tblLOAI.getColumnModel().getColumnCount() > 0) {
+            tblLOAI.getColumnModel().getColumn(0).setMinWidth(50);
+            tblLOAI.getColumnModel().getColumn(0).setMaxWidth(50);
+            tblLOAI.getColumnModel().getColumn(1).setResizable(false);
+            tblLOAI.getColumnModel().getColumn(2).setResizable(false);
+            tblLOAI.getColumnModel().getColumn(3).setResizable(false);
         }
 
         pnlLoaiPhong.add(scrTable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 560, 220));
@@ -270,41 +285,41 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         pnlButtons2.setPreferredSize(new java.awt.Dimension(400, 60));
         pnlButtons2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
 
-        lblNhapMoi2.setBackground(new java.awt.Color(0, 102, 0));
-        lblNhapMoi2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblNhapMoi2.setForeground(new java.awt.Color(255, 255, 255));
-        lblNhapMoi2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblNhapMoi2.setText("NHẬP MỚI");
-        lblNhapMoi2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblNhapMoi2.setOpaque(true);
-        lblNhapMoi2.setPreferredSize(new java.awt.Dimension(120, 40));
-        lblNhapMoi2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblNewLOAI.setBackground(new java.awt.Color(0, 102, 0));
+        lblNewLOAI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblNewLOAI.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewLOAI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNewLOAI.setText("NHẬP MỚI");
+        lblNewLOAI.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblNewLOAI.setOpaque(true);
+        lblNewLOAI.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblNewLOAI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblNhapMoi2MouseEntered(evt);
+                lblNewLOAIMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblNhapMoi2MouseExited(evt);
+                lblNewLOAIMouseExited(evt);
             }
         });
-        pnlButtons2.add(lblNhapMoi2);
+        pnlButtons2.add(lblNewLOAI);
 
-        lblThem2.setBackground(new java.awt.Color(0, 102, 0));
-        lblThem2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblThem2.setForeground(new java.awt.Color(255, 255, 255));
-        lblThem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThem2.setText("THÊM");
-        lblThem2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblThem2.setOpaque(true);
-        lblThem2.setPreferredSize(new java.awt.Dimension(120, 40));
-        lblThem2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTHEMLOAI.setBackground(new java.awt.Color(0, 102, 0));
+        lblTHEMLOAI.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTHEMLOAI.setForeground(new java.awt.Color(255, 255, 255));
+        lblTHEMLOAI.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTHEMLOAI.setText("THÊM");
+        lblTHEMLOAI.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblTHEMLOAI.setOpaque(true);
+        lblTHEMLOAI.setPreferredSize(new java.awt.Dimension(120, 40));
+        lblTHEMLOAI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblThem2MouseEntered(evt);
+                lblTHEMLOAIMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblThem2MouseExited(evt);
+                lblTHEMLOAIMouseExited(evt);
             }
         });
-        pnlButtons2.add(lblThem2);
+        pnlButtons2.add(lblTHEMLOAI);
 
         pnlLoaiPhong.add(pnlButtons2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 570, -1, -1));
 
@@ -352,61 +367,63 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         add(pnlSubmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 30));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblDanhSachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSachMouseClicked
+    private void tblPHONGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPHONGMouseClicked
+        // TODO add your handling code here:
+        showDetailPHONG();
+
+    }//GEN-LAST:event_tblPHONGMouseClicked
+
+    private void lblNewPHONGMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewPHONGMouseEntered
+        // TODO add your handling code here:
+        lblNewPHONG.setBackground(Color.WHITE);
+        lblNewPHONG.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblNewPHONGMouseEntered
+
+    private void lblNewPHONGMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewPHONGMouseExited
+        // TODO add your handling code here:
+        lblNewPHONG.setBackground(new Color(0, 102, 0));
+        lblNewPHONG.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblNewPHONGMouseExited
+
+    private void lblTHEMPHONGMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTHEMPHONGMouseEntered
+        // TODO add your handling code here:
+        lblTHEMPHONG.setBackground(Color.WHITE);
+        lblTHEMPHONG.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblTHEMPHONGMouseEntered
+
+    private void lblTHEMPHONGMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTHEMPHONGMouseExited
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_tblDanhSachMouseClicked
+    }//GEN-LAST:event_lblTHEMPHONGMouseExited
 
-    private void lblNhapMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseEntered
+    private void lblTHEMLOAIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTHEMLOAIMouseExited
         // TODO add your handling code here:
-        lblNhapMoi.setBackground(Color.WHITE);
-        lblNhapMoi.setForeground(new Color(0, 102, 0));
-    }//GEN-LAST:event_lblNhapMoiMouseEntered
+    }//GEN-LAST:event_lblTHEMLOAIMouseExited
 
-    private void lblNhapMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoiMouseExited
+    private void lblTHEMLOAIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTHEMLOAIMouseEntered
         // TODO add your handling code here:
-        lblNhapMoi.setBackground(new Color(0, 102, 0));
-        lblNhapMoi.setForeground(Color.WHITE);
-    }//GEN-LAST:event_lblNhapMoiMouseExited
+        lblTHEMLOAI.setBackground(Color.WHITE);
+        lblTHEMLOAI.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblTHEMLOAIMouseEntered
 
-    private void lblThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseEntered
+    private void lblNewLOAIMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewLOAIMouseExited
         // TODO add your handling code here:
-        lblThem.setBackground(Color.WHITE);
-        lblThem.setForeground(new Color(0, 102, 0));
-    }//GEN-LAST:event_lblThemMouseEntered
+        lblNewLOAI.setBackground(new Color(0, 102, 0));
+        lblNewLOAI.setForeground(Color.WHITE);
+    }//GEN-LAST:event_lblNewLOAIMouseExited
 
-    private void lblThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThemMouseExited
+    private void lblNewLOAIMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNewLOAIMouseEntered
         // TODO add your handling code here:
+        lblNewLOAI.setBackground(Color.WHITE);
+        lblNewLOAI.setForeground(new Color(0, 102, 0));
+    }//GEN-LAST:event_lblNewLOAIMouseEntered
 
-    }//GEN-LAST:event_lblThemMouseExited
-
-    private void lblThem2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThem2MouseExited
+    private void tblLOAIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLOAIMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblThem2MouseExited
-
-    private void lblThem2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThem2MouseEntered
-        // TODO add your handling code here:
-        lblThem2.setBackground(Color.WHITE);
-        lblThem2.setForeground(new Color(0, 102, 0));
-    }//GEN-LAST:event_lblThem2MouseEntered
-
-    private void lblNhapMoi2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoi2MouseExited
-        // TODO add your handling code here:
-        lblNhapMoi2.setBackground(new Color(0, 102, 0));
-        lblNhapMoi2.setForeground(Color.WHITE);
-    }//GEN-LAST:event_lblNhapMoi2MouseExited
-
-    private void lblNhapMoi2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapMoi2MouseEntered
-        // TODO add your handling code here:
-        lblNhapMoi2.setBackground(Color.WHITE);
-        lblNhapMoi2.setForeground(new Color(0, 102, 0));
-    }//GEN-LAST:event_lblNhapMoi2MouseEntered
-
-    private void tblDanhSach2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhSach2MouseClicked
-        // TODO add your handling code here:
-        lblThem.setBackground(new Color(0, 102, 0));
-        lblThem.setForeground(Color.WHITE);
-    }//GEN-LAST:event_tblDanhSach2MouseClicked
+        lblTHEMPHONG.setBackground(new Color(0, 102, 0));
+        lblTHEMPHONG.setForeground(Color.WHITE);
+        showDetailLOAI();
+    }//GEN-LAST:event_tblLOAIMouseClicked
 
     private void lblPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhongMouseClicked
         // TODO add your handling code here:
@@ -426,7 +443,7 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         ((CardLayout) pnlMain.getLayout()).show(pnlMain, "loaiphong");
     }//GEN-LAST:event_lblLoaiPhongMouseClicked
 
-    private void customJTable(JTable tbl){
+    private void customJTable(JTable tbl) {
         tbl.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 13));
         tbl.setFont(new Font("Tahoma", Font.PLAIN, 11));
         tbl.getTableHeader().setOpaque(false);
@@ -434,6 +451,292 @@ public class QLPhongJPanel extends javax.swing.JPanel {
         tbl.getTableHeader().setForeground(new Color(255, 255, 255));
         tbl.setRowHeight(30);
     }
+    private void fillCboLoai() {
+        cboLoai.removeAllItems();
+        listloai = new LoaiPhongDAO().select();
+        for (LoaiPhong loai : listloai) {
+            cboLoai.addItem(loai.getTenLoai());
+        }
+        cboLoai.setSelectedIndex(-1);
+    }
+
+    private void fillToTablePHONG() {
+        DefaultTableModel table = (DefaultTableModel) tblPHONG.getModel();
+        table.setRowCount(0);
+        listphong = new PhongDAO().select();
+        int count = 0;
+        for (Phong phong : listphong) {
+            count++;
+            String loai = "";
+            for (int i = 0; i < listloai.size(); i++) {
+                if (phong.getMaLoai().equals(listloai.get(i).getMaLoai())) {
+                    loai = listloai.get(i).getTenLoai();
+                }
+
+            }
+            Object[] row = new Object[]{count, phong.getMaPhong(), loai};
+            table.addRow(row);
+        }
+    }
+
+    private void fillToTableLOAI() {
+        DefaultTableModel table = (DefaultTableModel) tblLOAI.getModel();
+        table.setRowCount(0);
+        listloai = new LoaiPhongDAO().select();
+        int count = 0;
+        for (LoaiPhong loai : listloai) {
+            count++;
+            Object[] row = new Object[]{count, loai.getMaLoai(), loai.getTenLoai(), loai.getGiaPhong()};
+            table.addRow(row);
+        }
+    }
+
+    private void showDetailPHONG() {
+        txtMaPhong.setText(tblPHONG.getValueAt(indexPHONG, 1) + "");
+        cboLoai.setSelectedItem(tblPHONG.getValueAt(indexPHONG, 2));
+
+    }
+
+    private void showDetailLOAI() {
+        txtMaLoaiPhong.setText(tblLOAI.getValueAt(indexLOAI, 1) + "");
+        txtTenLoaiPhong.setText(tblLOAI.getValueAt(indexLOAI, 2) + "");
+        txtGiaPhong.setText(tblLOAI.getValueAt(indexLOAI, 3) + "");
+//        if (txtMaLoai.getText().equals("VIP") || txtMaLoai.getText().equals("NORMAL")) {
+//            btnXoaLOAI.setEnabled(false);
+//        } else {
+//            btnXoaLOAI.setEnabled(true);
+//        }
+
+    }
+
+    private void clearPHONG() {
+        indexPHONG = -1;
+        tblPHONG.clearSelection();
+        txtMaPhong.setText("");
+        cboLoai.setSelectedIndex(-1);
+        lblTHEMPHONG.setText("Thêm");
+    }
+
+    private void clearLOAI() {
+        indexLOAI = -1;
+        tblLOAI.clearSelection();
+        txtMaLoaiPhong.setText("");
+        txtTenLoaiPhong.setText("");
+        txtGiaPhong.setText("");
+        lblTHEMLOAI.setText("Thêm");
+    }
+
+//    private boolean checkInputPhong() throws SQLException {
+//        if (txtMaPhong.getText().trim().equals("")) {
+//            XuLy.popup("loi", this, "Chưa nhập mã phòng", "LỖI");
+//            txtMaPhong.requestFocus();
+//            return false;
+//        }
+//        if (txtMaPhong.getText().length() > 10) {
+//            XuLy.popup("loi", this, "Mã phòng tối đa 10 kí tự", "LỖI");
+//            txtMaPhong.requestFocus();
+//            return false;
+//        }
+//        if (btnThemPHONG.getText().equals("Thêm")) {
+//            rs = JDBCHelper.executeQuery("SELECT * FROM Phong WHERE maPhong = ?", txtMaPhong.getText());
+//            if (rs.next()) {
+//                XuLy.popup("loi", this, "Đã tồn tại mã phòng " + txtMaPhong.getText(), "LỖI");
+//                txtMaPhong.requestFocus();
+//                return false;
+//            }
+//        }
+//        if (btnThemPHONG.getText().equals("Cập nhật")) { //Kiểm tra tồn tại username (Loại trường hợp không thay đổi username
+//            rs = JDBCHelper.executeQuery("SELECT * FROM Phong");
+//            while (rs.next()) {
+//                if (rs.getString("maPhong").equals(txtMaPhong.getText()) && !tblRoom.getValueAt(indexPHONG, 1).toString().equals(txtMaPhong.getText())) {
+//                    XuLy.popup("loi", this, "Đã tồn tại mã phòng " + txtMaPhong.getText(), "LỖI");
+//                    txtMaPhong.requestFocus();
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+
+//    private void addPhong() throws SQLException {
+//        if (checkInputPhong()) {
+//            Phong phong = new Phong();
+//            phong.setMaPhong(txtMaPhong.getText().trim());
+//            for (int i = 0; i < listloai.size(); i++) {
+//                if (cboLoai.getSelectedItem().toString().equals(listloai.get(i).getTenloai())) {
+//                    phong.setMaLoai(listloai.get(i).getMaLoai());
+//                    break;
+//                }
+//            }
+//            phong.setTinhTrang(false);
+//            new PhongDAO().insert(phong);
+//            XuLy.popup("ok", this, "Thêm phòng thành công", "THÊM PHÒNG");
+//            fillToTablePHONG();
+//            clearPHONG();
+//            tblRoom.clearSelection();
+//        }
+//    }
+
+//    private void editPhong(String maphong) throws SQLException {
+//        if (checkInputPhong()) {
+//            Phong phong = new Phong();
+//            phong.setMaPhong(txtMaPhong.getText().trim());
+//            for (int i = 0; i < listloai.size(); i++) {
+//                if (cboLoai.getSelectedItem().toString().equals(listloai.get(i).getTenloai())) {
+//                    phong.setMaLoai(listloai.get(i).getMaLoai());
+//                    break;
+//                }
+//
+//            }
+//            rs = JDBCHelper.executeQuery("SELECT tinhTrang FROM Phong WHERE maPhong = ?", maphong);
+//            if (rs.next()) {
+//                phong.setTinhTrang(rs.getBoolean("tinhTrang"));
+//            }
+//            new PhongDAO().update(phong, maphong);
+//            XuLy.popup("ok", this, "Cập nhật thông tin phòng thành công", "THÊM PHÒNG");
+//            fillToTablePHONG();
+//            clearPHONG();
+//            tblRoom.clearSelection();
+//        }
+//
+//    }
+
+//    private void removePhong() {
+//        int[] forDel = tblRoom.getSelectedRows(); //lấy (các) index cần xóa bỏ vào mảng
+//        if (forDel.length == 0) {
+//            XuLy.popup("loi", this, "Chưa có phòng nào được chọn", "LỖI");
+//        } else {
+//            try {
+//                int ask = XuLy.ask(this, "XÓA CÁC PHÒNG VỪA CHỌN?", "XÓA");
+//
+//                if (ask == 0) {
+//                    for (int i = forDel.length - 1; i >= 0; i--) { //xóa ngược để khắc phục tính di động của chỉ số arraylist
+//                        deletePhong(tblRoom.getValueAt(forDel[i], 1).toString());
+//                    }
+//                    XuLy.popup("ok", this, "Đã xóa thành công", "XÓA PHÒNG");
+//                } else {
+//                }
+//            } catch (Exception e) {
+//            }
+//
+//        }
+//
+//    }
+//
+//    private void deletePhong(String maPhong) {
+//        new PhongDAO().delete(maPhong);
+//        //XuLy.popup("ok", this, "Đã xóa phòng " + maPhong, "XÓA PHÒNG");
+//        fillToTablePHONG();
+//        clearPHONG();
+//
+//    }
+
+//    private boolean checkInputLoai() throws SQLException {
+//        if (txtMaLoai.getText().trim().equals("")) {
+//            XuLy.popup("loi", this, "Chưa nhập mã loại", "LỖI");
+//            txtMaLoai.requestFocus();
+//            return false;
+//        }
+//        if (txtMaLoai.getText().length() > 10) {
+//            XuLy.popup("loi", this, "Mã loại tối đa 10 kí tự", "LỖI");
+//            txtMaLoai.requestFocus();
+//            return false;
+//        }
+//        if (txtTenLoai.getText().trim().equals("")) {
+//            XuLy.popup("loi", this, "Chưa nhập tên loại", "LỖI");
+//            txtTenLoai.requestFocus();
+//            return false;
+//        }
+//        if (!txtGiaPhong.getText().trim().matches("//d+")) {
+//            XuLy.popup("loi", this, "Giá phòng không hợp lệ", "LỖI");
+//            txtGiaPhong.requestFocus();
+//            return false;
+//        }
+//        if (txtGiaPhong.getText().trim().equals("")) {
+//            XuLy.popup("loi", this, "Chưa nhập giá phòng", "LỖI");
+//            txtGiaPhong.requestFocus();
+//            return false;
+//        }
+//        if (btnThemLOAI.getText().equals("Thêm")) {
+//            rs = JDBCHelper.executeQuery("SELECT * FROM LoaiPhong WHERE maLoai = ?", txtMaLoai.getText());
+//            if (rs.next()) {
+//                XuLy.popup("loi", this, "Đã tồn tại mã loại " + txtMaLoai.getText(), "LỖI");
+//                txtMaLoai.requestFocus();
+//                return false;
+//            }
+//        }
+//        if (btnThemLOAI.getText().equals("Cập nhật")) { //Kiểm tra tồn tại username (Loại trường hợp không thay đổi username
+//            rs = JDBCHelper.executeQuery("SELECT * FROM LoaiPhong");
+//            while (rs.next()) {
+//                if (rs.getString("maLoai").equals(txtMaLoai.getText()) && !tblLoai.getValueAt(indexLOAI, 1).toString().equals(txtMaLoai.getText())) {
+//                    XuLy.popup("loi", this, "Đã tồn tại mã loại " + txtMaLoai.getText(), "LỖI");
+//                    txtMaLoai.requestFocus();
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+//
+//    private void addLoai() throws SQLException {
+//        if (checkInputLoai()) {
+//            LoaiPhong loai = new LoaiPhong();
+//            loai.setMaLoai(txtMaLoai.getText());
+//            loai.setTenloai(txtTenLoai.getText());
+//            loai.setGia(Long.parseLong(txtGiaPhong.getText()));
+//            new LoaiPhongDAO().insert(loai);
+//            XuLy.popup("ok", this, "Thêm loại phòng thành công", "XÓA PHÒNG");
+//            fillToTableLOAI();
+//            clearLOAI();
+//            tblLoai.clearSelection();
+//        }
+//
+//    }
+//
+//    private void editLoai(String maLoai) throws SQLException {
+//        if (checkInputLoai()) {
+//            LoaiPhong loai = new LoaiPhong();
+//            loai.setMaLoai(txtMaLoai.getText());
+//            loai.setTenloai(txtTenLoai.getText());
+//            loai.setGia(Long.parseLong(txtGiaPhong.getText()));
+//            new LoaiPhongDAO().update(loai, maLoai);
+//            XuLy.popup("ok", this, "Cập nhật thông tin loại phòng thành công", "XÓA PHÒNG");
+//            fillToTableLOAI();
+//            clearLOAI();
+//            tblLoai.clearSelection();
+//        }
+//
+//    }
+//
+//    private void removeLoai() {
+//        int[] forDel = tblLoai.getSelectedRows(); //lấy (các) index cần xóa bỏ vào mảng
+//        if (forDel.length == 0) {
+//            XuLy.popup("loi", this, "Chưa có loại phòng nào được chọn", "LỖI");
+//        } else {
+//            try {
+//                int ask = XuLy.ask(this, "XÓA CÁC LOẠI PHÒNG VỪA CHỌN?", "XÓA");
+//
+//                if (ask == 0) {
+//                    for (int i = forDel.length - 1; i >= 0; i--) { //xóa ngược để khắc phục tính di động của chỉ số arraylist
+//                        deleteLoai(tblLoai.getValueAt(forDel[i], 1).toString());
+//                    }
+//                    XuLy.popup("ok", this, "Đã xóa thành công", "XÓA LOẠI");
+//                } else {
+//                }
+//            } catch (Exception e) {
+//            }
+//
+//        }
+//
+//    }
+//
+//    private void deleteLoai(String maLoai) {
+//        new LoaiPhongDAO().delete(maLoai);
+//        fillToTablePHONG(); //đổ lại table phòng (vì trường hợp xóa loại sẽ xóa các loại phòng tương ứng)
+//        fillToTableLOAI();
+//        clearLOAI();
+//
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cboLoai;
@@ -442,12 +745,12 @@ public class QLPhongJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblLoaiPhong;
     private javax.swing.JLabel lblMaLoaiPhong;
     private javax.swing.JLabel lblMaPhong;
-    private javax.swing.JLabel lblNhapMoi;
-    private javax.swing.JLabel lblNhapMoi2;
+    private javax.swing.JLabel lblNewLOAI;
+    private javax.swing.JLabel lblNewPHONG;
     private javax.swing.JLabel lblPhong;
+    private javax.swing.JLabel lblTHEMLOAI;
+    private javax.swing.JLabel lblTHEMPHONG;
     private javax.swing.JLabel lblTenLoaiPhong;
-    private javax.swing.JLabel lblThem;
-    private javax.swing.JLabel lblThem2;
     private javax.swing.JPanel pnlButtons;
     private javax.swing.JPanel pnlButtons2;
     private javax.swing.JPanel pnlLoaiPhong;
@@ -458,8 +761,8 @@ public class QLPhongJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlThongtin2;
     private javax.swing.JScrollPane scrTable;
     private javax.swing.JScrollPane scrTable2;
-    private javax.swing.JTable tblDanhSach;
-    private javax.swing.JTable tblDanhSach2;
+    private javax.swing.JTable tblLOAI;
+    private javax.swing.JTable tblPHONG;
     private javax.swing.JTextField txtGiaPhong;
     private javax.swing.JTextField txtMaLoaiPhong;
     private javax.swing.JTextField txtMaPhong;

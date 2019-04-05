@@ -5,8 +5,8 @@
  */
 package com.karaoke.dao;
 
-import karatnq.helper.JDBCHelper;
-import karatnq.model.Users;
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.model.Users;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,17 +19,17 @@ import java.util.List;
 public class UsersDAO {
 
     public void insert(Users model) {
-        String sql = "INSERT INTO dbo.USERS (username, hoTen, ngaySinh, gioiTinh, soDT, cmnd, role, matKhau) VALUES (?,?,?,?,?,?,?,?)";
-        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.getMatKhau());
+        String sql = "INSERT INTO dbo.USERS (username, password, hoTen, ngaySinh, gioiTinh, soDT, cmnd, role, active) VALUES (?,?,?,?,?,?,?,?,?)";
+        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.isActive());
     }
 
     public void update(Users model, String username) {
-        String sql = "UPDATE dbo.USERS SET username = ?, hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, matKhau = ? WHERE username = ?";
-        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.getMatKhau(), username);
+        String sql = "UPDATE dbo.USERS SET username = ?, password = ?, hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, active = ? WHERE username = ?";
+        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.isActive(), username);
     }
     public void update(Users model) {
-        String sql = "UPDATE dbo.USERS SET hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, matKhau = ? WHERE username = ?";
-        JDBCHelper.executeUpdate(sql, model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.getMatKhau(), model.getUsername());
+       // String sql = "UPDATE dbo.USERS SET hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, matKhau = ? WHERE username = ?";
+       // JDBCHelper.executeUpdate(sql, model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.getMatKhau(), model.getUsername());
     }
 
     public void delete(Users model) {
@@ -70,13 +70,14 @@ public class UsersDAO {
     private Users readFromResultSet(ResultSet rs) throws SQLException {
         Users model = new Users();
         model.setUsername(rs.getString("username")); 
-        model.setHoTen(rs.getString("hoTen")); 
+        model.setPassword(rs.getString("password"));
+        model.setHoTen(rs.getString("hoTen"));
         model.setNgaySinh(rs.getString("ngaySinh"));
-        model.setGioiTinh(rs.getBoolean("gioiTinh")); 
-        model.setSoDT(rs.getString("soDT")); 
-        model.setCmnd(rs.getString("cmnd")); 
-        model.setRole(rs.getBoolean("role")); 
-        model.setMatKhau(rs.getString("matKhau")); 
+        model.setGioiTinh(rs.getBoolean("gioiTinh"));
+        model.setSoDT(rs.getString("soDT"));
+        model.setCmnd(rs.getString("cmnd"));
+        model.setRole(rs.getBoolean("role"));
+        model.setActive(rs.getBoolean("active"));
 
         return model;
     }

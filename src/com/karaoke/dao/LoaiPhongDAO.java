@@ -5,12 +5,13 @@
  */
 package com.karaoke.dao;
 
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.model.LoaiPhong;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import karatnq.helper.JDBCHelper;
-import karatnq.model.LoaiPhong;
+
 
 /**
  *
@@ -20,17 +21,17 @@ public class LoaiPhongDAO {
 
     public void insert(LoaiPhong model) {
         String sql = "INSERT INTO LoaiPhong VALUES (?, ?, ?)";
-        JDBCHelper.executeUpdate(sql, model.getMaLoai(), model.getTenloai(), model.getGia());
+        JDBCHelper.executeUpdate(sql, model.getMaLoai(), model.getTenLoai(), model.getGiaPhong());
     }
 
     public void update(LoaiPhong model) {
         String sql = "UPDATE dbo.LoaiPhong SET tenLoai = ?, giaPhong = ? WHERE maLoai = ?";
-        JDBCHelper.executeUpdate(sql, model.getTenloai(), model.getGia(), model.getMaLoai());
+        JDBCHelper.executeUpdate(sql, model.getTenLoai(), model.getGiaPhong(), model.getMaLoai());
     }
 
     public void update(LoaiPhong model, String maLoai) {
         String sql = "UPDATE dbo.LoaiPhong SET maLoai = ?, tenLoai = ?, giaPhong = ? WHERE maLoai = ?";
-        JDBCHelper.executeUpdate(sql, model.getMaLoai(), model.getTenloai(), model.getGia(), maLoai);
+        JDBCHelper.executeUpdate(sql, model.getMaLoai(), model.getTenLoai(), model.getGiaPhong(), maLoai);
     }
     public void delete(LoaiPhong model){
         String sql = "DELETE FROM dbo.LoaiPhong WHERE maLoai = ?";
@@ -69,8 +70,8 @@ public class LoaiPhongDAO {
     private LoaiPhong readFromResultSet(ResultSet rs) throws SQLException {
         LoaiPhong model = new LoaiPhong();
         model.setMaLoai(rs.getString("maLoai")); 
-        model.setTenloai(rs.getString("tenLoai"));
-        model.setGia(rs.getLong("giaPhong")); 
+        model.setTenLoai(rs.getString("tenLoai"));
+        model.setGiaPhong(rs.getLong("giaPhong")); 
         return model;
     }
 }

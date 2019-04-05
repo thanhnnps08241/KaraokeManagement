@@ -14,15 +14,17 @@ public class PhieuNhapHang {
     private String maNhaCC;
     private long tongTien;
     private String ngayNhap;
-    public PhieuNhapHang(){
-        
-    }    
+    private String username;
 
-    public PhieuNhapHang(int maPN, String maNhaCC, long tongTien, String ngayNhap) {
+    public PhieuNhapHang() {
+    }
+
+    public PhieuNhapHang(int maPN, String maNhaCC, long tongTien, String ngayNhap, String username) {
         this.maPN = maPN;
         this.maNhaCC = maNhaCC;
         this.tongTien = tongTien;
         this.ngayNhap = ngayNhap;
+        this.username = username;
     }
 
     public int getMaPN() {
@@ -56,6 +58,15 @@ public class PhieuNhapHang {
     public void setNgayNhap(String ngayNhap) {
         this.ngayNhap = ngayNhap;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
     
     
 }

@@ -13,15 +13,13 @@ public class Phong {
     private String maPhong;
     private String maLoai;
     private boolean tinhTrang;
-    private int succhua;
     public Phong(){
     }
 
-    public Phong(String maPhong, String maLoai, boolean tinhTrang, int succhua) {
+    public Phong(String maPhong, String maLoai, boolean tinhTrang) {
         this.maPhong = maPhong;
         this.maLoai = maLoai;
         this.tinhTrang = tinhTrang;
-        this.succhua = succhua;
     }
 
     public String getMaPhong() {
@@ -48,12 +46,5 @@ public class Phong {
         this.tinhTrang = tinhTrang;
     }
 
-    public int getSucchua() {
-        return succhua;
-    }
-
-    public void setSucchua(int succhua) {
-        this.succhua = succhua;
-    }
     
 }

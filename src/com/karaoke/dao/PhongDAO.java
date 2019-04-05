@@ -5,7 +5,6 @@
  */
 package com.karaoke.dao;
 
-
 import com.karaoke.helper.JDBCHelper;
 import com.karaoke.model.Phong;
 import java.sql.ResultSet;

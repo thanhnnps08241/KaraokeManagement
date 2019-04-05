@@ -5,7 +5,6 @@
  */
 package com.karaoke.dao;
 
-
 import com.karaoke.helper.JDBCHelper;
 import com.karaoke.model.HoaDon;
 import java.sql.ResultSet;
@@ -20,8 +19,8 @@ import java.util.List;
 public class HoaDonDAO {
 
     public void insert(HoaDon model) {
-        String sql = "INSERT INTO dbo.HoaDon (maPhong, codevoucher, soDT, tenKH, tienDV, tienGio, tienGiamGia, thanhTien, tienKhachDua, gioDatPhong, gioThanhToan, ghiChu, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        JDBCHelper.executeUpdate(sql, model.getMaPhong(), model.getCodevoucher(), model.getSoDT(), model.getTenKH(), model.getTienDV(), model.getTienGio(), model.getTiengGiamGia(), model.getThanhTien(), model.getTienKhachDua(), model.getGioDatPhong(), model.getGioThanhToan(), model.getGhiChu(), model.getUsername());
+        String sql = "INSERT INTO dbo.HoaDonPhong (maPhong, codevoucher, soDT, tenKH, tienDV, tienGio, tienGio, tienGiamGia, thanhTien, tienKhachDua, gioDatPhong, gioThanhToan, ghiChu, username) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        JDBCHelper.executeUpdate(sql, model.getMaPhong(), model.getCodevoucher(), model.getSoDT(), model.getTenKH(), model.getTienDV(), model.getTienGio(), model.getTiengGiamGia(), model.getThanhTien(), model.getGioDatPhong(), model.getGioThanhToan(), model.getGhiChu(), model.getUsername());
     }
 
     public void update(HoaDon model) {
@@ -63,8 +62,10 @@ public class HoaDonDAO {
         HoaDon model = new HoaDon();
         model.setMaHD(rs.getInt("maHD"));
         model.setMaPhong(rs.getString("maPhong"));
-        model.setTenKH(rs.getString("tenKH"));
+        model.setCodevoucher(rs.getString("codevoucher"));
         model.setSoDT(rs.getString("soDT"));
+        model.setTenKH(rs.getString("tenKH"));
+        model.setTienDV(rs.getLong("tienDV"));
         model.setTienGio(rs.getLong("tienGio"));
         model.setTiengGiamGia(rs.getLong("tienGiamGia"));
         model.setThanhTien(rs.getLong("thanhTien"));
@@ -72,8 +73,7 @@ public class HoaDonDAO {
         model.setGioDatPhong(rs.getString("gioDatPhong"));
         model.setGioThanhToan(rs.getString("gioThanhToan"));
         model.setGhiChu(rs.getString("ghiChu"));
-        model.setUsername(rs.getString("username"));
-
+        model.setUsername(rs.getString("username"));        
         return model;
     }
 
