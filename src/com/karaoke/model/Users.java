@@ -10,6 +10,7 @@ package com.karaoke.model;
  * @author Admin
  */
 public class Users {
+    private String maUser;
     private String username;
     private String password;
     private String hoTen;
@@ -17,13 +18,15 @@ public class Users {
     private boolean gioiTinh;
     private String soDT;
     private String cmnd;
+    private String email;
     private boolean role;
     private boolean active;
 
     public Users() {
     }
 
-    public Users(String username, String password, String hoTen, String ngaySinh, boolean gioiTinh, String soDT, String cmnd, boolean role, boolean active) {
+    public Users(String maUser, String username, String password, String hoTen, String ngaySinh, boolean gioiTinh, String soDT, String cmnd, String email, boolean role, boolean active) {
+        this.maUser = maUser;
         this.username = username;
         this.password = password;
         this.hoTen = hoTen;
@@ -31,8 +34,17 @@ public class Users {
         this.gioiTinh = gioiTinh;
         this.soDT = soDT;
         this.cmnd = cmnd;
+        this.email = email;
         this.role = role;
         this.active = active;
+    }
+
+    public String getMaUser() {
+        return maUser;
+    }
+
+    public void setMaUser(String maUser) {
+        this.maUser = maUser;
     }
 
     public String getUsername() {
@@ -91,6 +103,14 @@ public class Users {
         this.cmnd = cmnd;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public boolean isRole() {
         return role;
     }
@@ -106,6 +126,6 @@ public class Users {
     public void setActive(boolean active) {
         this.active = active;
     }
-    
 
+    
 }

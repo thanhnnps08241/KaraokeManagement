@@ -19,18 +19,15 @@ import java.util.List;
 public class UsersDAO {
 
     public void insert(Users model) {
-        String sql = "INSERT INTO dbo.USERS (username, password, hoTen, ngaySinh, gioiTinh, soDT, cmnd, role, active) VALUES (?,?,?,?,?,?,?,?,?)";
-        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.isActive());
+        String sql = "INSERT INTO dbo.USERS (maUser, username, password, hoTen, ngaySinh, gioiTinh, soDT, cmnd, email, role, active) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        JDBCHelper.executeUpdate(sql, model.getMaUser(), model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.getEmail(), model.isRole(), model.isActive());
     }
 
-    public void update(Users model, String username) {
-        String sql = "UPDATE dbo.USERS SET username = ?, password = ?, hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, active = ? WHERE username = ?";
-        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.isActive(), username);
-    }
     public void update(Users model) {
-       // String sql = "UPDATE dbo.USERS SET hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, role = ?, matKhau = ? WHERE username = ?";
-       // JDBCHelper.executeUpdate(sql, model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.isRole(), model.getMatKhau(), model.getUsername());
+        String sql = "UPDATE dbo.USERS SET username = ?, password = ?, hoTen = ?, ngaySinh = ?, gioiTinh = ?, soDT = ?, cmnd = ?, email = ?, role = ?, active = ? WHERE maUser = ?";
+        JDBCHelper.executeUpdate(sql, model.getUsername(), model.getPassword(), model.getHoTen(), model.getNgaySinh(), model.isGioiTinh(), model.getSoDT(), model.getCmnd(), model.getEmail(), model.isRole(), model.isActive(), model.getMaUser());
     }
+   
 
     public void delete(Users model) {
         String sql = "DELETE FROM dbo.USERS WHERE username = ?";
@@ -43,7 +40,7 @@ public class UsersDAO {
     }
 
     public List<Users> select() {
-        String sql = "SELECT username, hoTen, ngaySinh, gioiTinh, soDT, cmnd, role, matKhau FROM dbo.USERS";
+        String sql = "SELECT * FROM dbo.USERS ORDER BY role DESC";
         return select(sql);
     }
 
@@ -69,6 +66,7 @@ public class UsersDAO {
 
     private Users readFromResultSet(ResultSet rs) throws SQLException {
         Users model = new Users();
+        model.setMaUser(rs.getString("maUser"));
         model.setUsername(rs.getString("username")); 
         model.setPassword(rs.getString("password"));
         model.setHoTen(rs.getString("hoTen"));
@@ -76,6 +74,7 @@ public class UsersDAO {
         model.setGioiTinh(rs.getBoolean("gioiTinh"));
         model.setSoDT(rs.getString("soDT"));
         model.setCmnd(rs.getString("cmnd"));
+        model.setEmail(rs.getString("email"));
         model.setRole(rs.getBoolean("role"));
         model.setActive(rs.getBoolean("active"));
 

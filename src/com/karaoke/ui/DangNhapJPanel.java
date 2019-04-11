@@ -5,26 +5,40 @@
  */
 package com.karaoke.ui;
 
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.helper.JOptionPaneHelper;
+import com.karaoke.helper.SendEmail;
+import com.karaoke.helper.SendSMS;
+import com.karaoke.helper.XuLy;
+import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.net.ProtocolException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Admin
  */
 public class DangNhapJPanel extends javax.swing.JFrame {
+
     int i = 0; //biến đếm số lần đăng nhập sai
+
     public DangNhapJPanel() {
         setUndecorated(true);
         initComponents();
         setLocationRelativeTo(null);
-        txtUsername.requestFocus();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/karaoke/images/icon/iconFrame.png")));
         getRootPane().setDefaultButton(btnLogin);
+        txtUsername.requestFocus();
+        btnQuenMK.setVisible(false);
 
     }
 
@@ -41,13 +55,15 @@ public class DangNhapJPanel extends javax.swing.JFrame {
         lblLOGO = new javax.swing.JLabel();
         pnlRight = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
         btnCancel = new javax.swing.JButton();
         btnLogin = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         lblCopyright = new javax.swing.JLabel();
+        lblMsg = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        btnQuenMK = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 550));
@@ -75,16 +91,11 @@ public class DangNhapJPanel extends javax.swing.JFrame {
         pnlRight.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblTitle.setBackground(new java.awt.Color(51, 51, 51));
-        lblTitle.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("ĐĂNG NHẬP HỆ THỐNG");
-        pnlRight.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 450, -1));
-
-        txtUsername.setBackground(new java.awt.Color(51, 51, 51));
-        txtUsername.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        txtUsername.setForeground(new java.awt.Color(255, 255, 0));
-        pnlRight.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 300, 40));
+        pnlRight.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 450, -1));
 
         lblPassword.setBackground(new java.awt.Color(51, 51, 51));
         lblPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -93,18 +104,16 @@ public class DangNhapJPanel extends javax.swing.JFrame {
         lblPassword.setText("PASSWORD");
         pnlRight.add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 450, -1));
 
-        txtPassword.setBackground(new java.awt.Color(51, 51, 51));
-        txtPassword.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        txtPassword.setForeground(new java.awt.Color(255, 255, 0));
-        pnlRight.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 300, 40));
-
         btnCancel.setBackground(new java.awt.Color(51, 51, 51));
         btnCancel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Cancel_32px_1.png"))); // NOI18N
+        btnCancel.setFocusPainted(false);
+        btnCancel.setFocusable(false);
         btnCancel.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnCancel.setMaximumSize(new java.awt.Dimension(32, 32));
         btnCancel.setMinimumSize(new java.awt.Dimension(32, 32));
+        btnCancel.setOpaque(false);
         btnCancel.setPreferredSize(new java.awt.Dimension(32, 32));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +127,13 @@ public class DangNhapJPanel extends javax.swing.JFrame {
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("LOGIN");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.setFocusPainted(false);
+        btnLogin.setFocusable(false);
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
         pnlRight.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 370, 120, 40));
 
         lblUsername.setBackground(new java.awt.Color(51, 51, 51));
@@ -131,8 +147,37 @@ public class DangNhapJPanel extends javax.swing.JFrame {
         lblCopyright.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         lblCopyright.setForeground(new java.awt.Color(102, 102, 102));
         lblCopyright.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblCopyright.setText("Ver 1.0 - Copyright © 2018. All rights reserved");
+        lblCopyright.setText("Ver 2.0 - Copyright © 2019. All rights reserved");
         pnlRight.add(lblCopyright, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 530, 270, -1));
+
+        lblMsg.setForeground(new java.awt.Color(255, 0, 0));
+        lblMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pnlRight.add(lblMsg, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 430, 290, 20));
+
+        txtUsername.setBackground(new java.awt.Color(51, 51, 51));
+        txtUsername.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        txtUsername.setForeground(new java.awt.Color(255, 255, 0));
+        txtUsername.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlRight.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 300, 40));
+
+        txtPassword.setBackground(new java.awt.Color(51, 51, 51));
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 1, 15)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(255, 255, 0));
+        txtPassword.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlRight.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 310, 300, 40));
+
+        btnQuenMK.setBackground(new java.awt.Color(51, 51, 51));
+        btnQuenMK.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        btnQuenMK.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuenMK.setText("Quên mật khẩu?");
+        btnQuenMK.setFocusPainted(false);
+        btnQuenMK.setFocusable(false);
+        btnQuenMK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuenMKActionPerformed(evt);
+            }
+        });
+        pnlRight.add(btnQuenMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 460, 120, -1));
 
         getContentPane().add(pnlRight, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, -1, -1));
 
@@ -141,7 +186,32 @@ public class DangNhapJPanel extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
+        ImageIcon icon = new ImageIcon(getClass().getResource("/com/karaoke/images/icon/JoptionPaneQUESTION.png"));
+        String[] options = new String[2];
+        options[0] = "Thoát";
+        options[1] = "Hủy";
+        int ask = JOptionPane.showOptionDialog(this, "<html><b><font color = #006699 size = 4>Bạn có chắn chắn kết thúc?</b></font></html>", "Thoát", 0, JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+        if (ask == 0) {
+            System.exit(0);
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        if (!checkAdmin()) {
+            login();
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnQuenMKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuenMKActionPerformed
+        try {
+            // TODO add your handling code here:
+            forgotPassword();
+        } catch (SQLException ex) {
+            Logger.getLogger(DangNhapJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnQuenMKActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,16 +252,162 @@ public class DangNhapJPanel extends javax.swing.JFrame {
     }
 
     private void login() {
-        
+        if (txtUsername.getText().trim().equals("")) {
+            lblMsg.setText("Chưa nhập Username");
+            txtUsername.requestFocus();
+        } else if (txtPassword.getText().trim().equals("")) {
+            lblMsg.setText("Chưa nhập Password");
+            txtPassword.requestFocus();
+
+        } else {
+            try {
+                ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.USERS WHERE username = ? AND password = ?", txtUsername.getText(), XuLy.MD5encryption(txtPassword.getText()));
+                if (rs.next()) {
+                    if (rs.getBoolean("active")) {
+                        JOptionPaneHelper.popup("msg", this, "Đăng nhập thành công", "ĐĂNG NHẬP");
+                        new MainJFrame(rs.getString("maUser"), rs.getString("hoTen"), rs.getBoolean("role")).setVisible(true);
+                        dispose();
+                    } else {
+                        lblMsg.setText("User đã nghỉ việc.");
+                    }
+                } else {
+                    i++;
+                    if (i < 4) {
+                        JOptionPaneHelper.popup("loi", this, "Sai thông tin đăng nhập", "LỖI");
+                        lblMsg.setText("Sai thông tin đăng nhập, hãy thử lại.");
+                        btnQuenMK.setVisible(true);
+
+                    }
+                    if (i == 4) {
+                        Random rd = new Random();
+                        int a = rd.nextInt(99);
+                        int b = rd.nextInt(99);
+                        ImageIcon icon = new ImageIcon(this.getClass().getResource("/com/karaoke/images/icon/JoptionPaneSLOWDOWN.png"));
+                        try {
+                            String input = (String) JOptionPane.showInputDialog(this, XuLy.loi("Bạn đã nhập sai " + i + " lần<br>Thực hiện phép toán sau để tiếp tục<br><font color = blue>" + a + " + " + b + " = ?"), "CHẬM LẠI", JOptionPane.QUESTION_MESSAGE, icon, null, "");
+                            if (!input.equalsIgnoreCase((a + b) + "")) {
+                                JOptionPaneHelper.popup("deny", this, "Xác thực không thành công", "TỪ CHỐI TRUY CẬP");
+                                System.exit(0);
+                            } else {
+                                txtUsername.requestFocus();
+                            }
+                        } catch (NullPointerException e) {
+                            JOptionPaneHelper.popup("deny", this, "Xác thực không thành công", "TỪ CHỐI TRUY CẬP");
+                            System.exit(0);
+                        }
+                    }
+                    if (i == 5) {
+                        JOptionPaneHelper.popup("deny", this, "Xác thực không thành công <br>Đã quá nhiều lần thử", "TỪ CHỐI TRUY CẬP");
+                        System.exit(0);
+
+                    }
+
+                }
+
+            } catch (SQLException ex) {
+
+                JOptionPaneHelper.popup("deny", this, "Lỗi truy vấn database", "TỪ CHỐI TRUY CẬP");
+            }
+
+        }
     }
 
+    private boolean checkAdmin() { //Đây là mật khẩu CỨNG quản trị phần mềm
+        if (txtUsername.getText().equals("") && txtPassword.getText().equals("kara2019")) {
+            JOptionPaneHelper.popup("ok", this, "QUẢN TRỊ VIÊN ĐĂNG NHẬP", "ĐĂNG NHẬP");
+            new MainJFrame("", "QUẢN TRỊ VIÊN", true).setVisible(true);
+            dispose();
+            return true;
+        }
+        return false;
+    }
 
+    private void forgotPassword() throws SQLException {
+        boolean check = true;
+        JTextField input = new JTextField();
+        input.setPreferredSize(new Dimension(300, 30));
+        input.setFont(new java.awt.Font("Segoe UI", 1, 14));
 
+        Object[] message = {
+            XuLy.msg("Email hoặc Số điện thoại:"), input,};
+
+        do {
+            int option = JOptionPane.showConfirmDialog(rootPane, message, "KHÔI PHỤC THÔNG TIN ĐĂNG NHẬP", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                if (input.getText().equals("")) {
+                    JOptionPaneHelper.popup("loi", this, "Chưa nhập Email hoặc Số điện thoại", "Lỗi");
+                    check = false;
+                } else {
+                    ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.Users WHERE email = ? OR soDT = ?", input.getText(), input.getText());
+                    if (rs.next()) {
+                        if (rs.getString("soDT").equals(input.getText())) {
+                            sendPasswordSMS(rs.getString("maUser"), rs.getString("username"), rs.getString("hoTen"), rs.getString("soDT"));
+                            lblMsg.setText("Đã gửi thông tin đăng nhập, hãy kiểm tra SMS.");
+                            JOptionPaneHelper.popup("msg", this, "Đã gửi thông tin đăng nhập, hãy kiểm tra SMS.", "KHÔI PHỤC THÔNG TIN ĐĂNG NHẬP");
+
+                        } else {
+                            lblMsg.setText("Đã gửi thông tin đăng nhập, hãy kiểm tra Email.");
+                            sendPasswordEmail(rs.getString("maUser"), rs.getString("username"), rs.getString("hoTen"), rs.getString("email"));
+                            lblMsg.setText("Đã gửi thông tin đăng nhập, hãy kiểm tra Email.");
+                            JOptionPaneHelper.popup("msg", this, "Đã gửi thông tin đăng nhập, hãy kiểm tra Email.", "KHÔI PHỤC THÔNG TIN ĐĂNG NHẬP");
+
+                        }
+
+                    } else {
+                        JOptionPaneHelper.popup("loi", this, "Không tìm thấy User nào", "Lỗi");
+
+                    }
+                }
+            } else {
+                check = false;
+                break;
+            }
+        } while (!check);
+
+    }
+
+    private void sendPasswordSMS(String maUser, String username, String hoTen, String sdt) {
+        String newPassword = XuLy.randomString(8);
+        JDBCHelper.executeUpdate("UPDATE dbo.Users SET password = ? WHERE maUser = ?", XuLy.MD5encryption(newPassword), maUser);
+        ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.Information");
+        try {
+            if (rs.next()) {
+                String body = "[" + rs.getString("tenKara") + "]\nXin chào " + hoTen + ", bạn vừa yêu cầu khôi phục thông tin đăng nhập, dưới đây là thông tin đăng nhập mới:\n"
+                        + "Username: " + username + "\n"
+                        + "Password: " + newPassword;
+                SendSMS.send(rs.getString("urlSMS"), sdt, XuLy.khongDau(body));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DangNhapJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ProtocolException ex) {
+            Logger.getLogger(DangNhapJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DangNhapJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void sendPasswordEmail(String maUser, String username, String hoTen, String email) {
+        String newPassword = XuLy.randomString(8);
+        JDBCHelper.executeUpdate("UPDATE dbo.Users SET password = ? WHERE maUser = ?", XuLy.MD5encryption(newPassword), maUser);
+        try {
+            String body = "Xin chào " + hoTen + ", bạn vừa yêu cầu khôi phục thông tin đăng nhập, dưới đây là thông tin đăng nhập mới: <br>"
+                    + "<h3>Username: <b><font color = blue>" + username + "</font></b>"
+                    + "<br>Password: <b><font color = red>" + newPassword + "</font></b></h3>";
+
+            SendEmail.send(email, "HỖ TRỢ KHÔI PHỤC THÔNG TIN ĐĂNG NHẬP", body);
+        } catch (Exception ex) {
+            Logger.getLogger(DangNhapJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnQuenMK;
     private javax.swing.JLabel lblCopyright;
     private javax.swing.JLabel lblLOGO;
+    private javax.swing.JLabel lblMsg;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUsername;

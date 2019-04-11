@@ -21,12 +21,12 @@ import java.util.List;
 public class PhieuNhapHangDAO { 
           
      public void insert(PhieuNhapHang model) {
-        String sql = "INSERT INTO dbo.PhieuNhapHang (maNhaCC, tongTien, ngayNhap, username) VALUES(?,?,?,?)";
-        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(), model.getTongTien(), model.getNgayNhap(), model.getUsername());
+        String sql = "INSERT INTO dbo.PhieuNhapHang (maNhaCC, tongTien, ngayNhap, maUser) VALUES(?,?,?,?)";
+        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(), model.getTongTien(), model.getNgayNhap(), model.getMaUser());
     }
     public void update(PhieuNhapHang model) {
-        String sql = "UPDATE dbo.PhieuNhapHang SET maNhaCC = ?, tongTien = ?, ngayNhap = ?, username = ? WHERE maPN = ?";
-        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(),  model.getTongTien(), model.getNgayNhap(), model.getUsername(), model.getMaPN());
+        String sql = "UPDATE dbo.PhieuNhapHang SET maNhaCC = ?, tongTien = ?, ngayNhap = ?, maUser = ? WHERE maPN = ?";
+        JDBCHelper.executeUpdate(sql, model.getMaNhaCC(),  model.getTongTien(), model.getNgayNhap(), model.getMaUser(), model.getMaPN());
     }
     
     public void delete(PhieuNhapHang model){
@@ -70,7 +70,7 @@ public class PhieuNhapHangDAO {
         model.setMaNhaCC(rs.getString("maNhaCC")); 
         model.setNgayNhap(rs.getString("ngayNhap"));
         model.setTongTien(rs.getLong("tongTien"));   
-        model.setUsername(rs.getString("username"));
+        model.setMaUser(rs.getString("maUser"));
         return model;
     }
         

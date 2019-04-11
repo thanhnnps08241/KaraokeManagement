@@ -1,6 +1,6 @@
 package com.karaoke.ui;
 
-
+import com.karaoke.helper.JDBCHelper;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -21,40 +21,41 @@ public class WelcomeJDialog extends javax.swing.JDialog {
      */
     public WelcomeJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+        JDBCHelper.executeQuery("SELECT * FROM dbo.Information");
         this.setUndecorated(true);
         this.getRootPane().setOpaque(false);
         this.getContentPane().setBackground(new Color(0, 0, 0, 0));
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
-        URL url = this.getClass().getResource("/karatnq/images/icon/loading.gif");
+        URL url = this.getClass().getResource("/com/karaoke/images/icon/loading.gif");
         ImageIcon imgIcon = new ImageIcon(url);
         lblLoading.setIcon(imgIcon);
         prgBar.setMaximum(100);
         init();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/karatnq/images/icon/iconFrame.png")));
-        
-        
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/karaoke/images/icon/iconFrame.png")));
+
     }
 
     void init() {
-        
+
         setLocationRelativeTo(null);
-        new Timer(25, new ActionListener() {
+        new Timer(30, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int value = prgBar.getValue();
                 if (value < 100) {
                     prgBar.setValue(value + 1);
-                    if (value == 30) {
-                        lblText.setText("Phát triển bởi TNQ team");
+                    if (value == 20) {
+                        lblText.setText("Phát triển bởi TT team");
                     }
-                    if (value == 60) {
-                        lblText.setText("Dự Án Mẫu - SPRING 2019");
+                    if (value == 50) {
+                        lblText.setText("Dự Án 1 - Ứng dụng CNTT - SPRING 2019 ");
                     }
                 } else {
                     ((Timer) e.getSource()).stop();
                     WelcomeJDialog.this.dispose();
+                    DangNhapJPanel dn = new DangNhapJPanel();
+                    dn.setVisible(true);
 
                 }
             }
@@ -83,18 +84,18 @@ public class WelcomeJDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/karatnq/images/icon/Karaoke_Logo.png"))); // NOI18N
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/Karaoke_Logo.png"))); // NOI18N
         lblLogo.setMaximumSize(new java.awt.Dimension(450, 370));
         lblLogo.setMinimumSize(new java.awt.Dimension(450, 370));
         getContentPane().add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 280));
 
-        prgBar.setBackground(new java.awt.Color(255, 0, 0));
+        prgBar.setBackground(new java.awt.Color(255, 255, 255));
         prgBar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         prgBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         prgBar.setStringPainted(true);
         getContentPane().add(prgBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 450, 30));
 
-        lblText.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        lblText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblText.setForeground(new java.awt.Color(0, 51, 204));
         lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblText.setText("Phần Mềm Quản Lý Phòng Karaoke");

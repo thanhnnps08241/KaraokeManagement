@@ -5,7 +5,6 @@
  */
 package com.karaoke.helper;
 
-import java.io.File;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
@@ -15,10 +14,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Pattern;
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class XuLy {
 
-    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     static SecureRandom rnd = new SecureRandom();
 
     public static String randomString(int len) {
@@ -207,7 +202,7 @@ public class XuLy {
         return voucher;
 
     }
-    
+   
     
 
 }

@@ -46,7 +46,7 @@ public class PhongDAO {
         String sql = "SELECT * FROM dbo.Phong";
         return select(sql);
     }
-     public List<Phong> fillter(String clause){ //
+     public List<Phong> filter(String clause){ //
         String sql = "SELECT * FROM dbo.Phong "+clause;
         return select(sql);
     }

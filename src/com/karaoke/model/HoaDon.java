@@ -5,12 +5,7 @@
  */
 package com.karaoke.model;
 
-import java.util.Date;
 
-/**
- *
- * @author Admin
- */
 public class HoaDon {
     private int maHD;
     private String maPhong;
@@ -19,18 +14,20 @@ public class HoaDon {
     private String tenKH;
     private long tienDV;
     private long tienGio;
-    private long tiengGiamGia;
+    private long tienGiamGia;
+    private long tongTien;
     private long thanhTien;
     private long tienKhachDua;
     private String gioDatPhong;
     private String gioThanhToan;
     private String ghiChu;
-    private String username;
+    private String maUser;
+    
     public HoaDon(){
         
     }
 
-    public HoaDon(int maHD, String maPhong, String codevoucher, String soDT, String tenKH, long tienDV, long tienGio, long tiengGiamGia, long thanhTien, long tienKhachDua, String gioDatPhong, String gioThanhToan, String ghiChu, String username) {
+    public HoaDon(int maHD, String maPhong, String codevoucher, String soDT, String tenKH, long tienDV, long tienGio, long tienGiamGia, long tongTien, long thanhTien, long tienKhachDua, String gioDatPhong, String gioThanhToan, String ghiChu, String maUser) {
         this.maHD = maHD;
         this.maPhong = maPhong;
         this.codevoucher = codevoucher;
@@ -38,13 +35,14 @@ public class HoaDon {
         this.tenKH = tenKH;
         this.tienDV = tienDV;
         this.tienGio = tienGio;
-        this.tiengGiamGia = tiengGiamGia;
+        this.tienGiamGia = tienGiamGia;
+        this.tongTien = tongTien;
         this.thanhTien = thanhTien;
         this.tienKhachDua = tienKhachDua;
         this.gioDatPhong = gioDatPhong;
         this.gioThanhToan = gioThanhToan;
         this.ghiChu = ghiChu;
-        this.username = username;
+        this.maUser = maUser;
     }
 
     public int getMaHD() {
@@ -103,12 +101,20 @@ public class HoaDon {
         this.tienGio = tienGio;
     }
 
-    public long getTiengGiamGia() {
-        return tiengGiamGia;
+    public long getTienGiamGia() {
+        return tienGiamGia;
     }
 
-    public void setTiengGiamGia(long tiengGiamGia) {
-        this.tiengGiamGia = tiengGiamGia;
+    public void setTienGiamGia(long tienGiamGia) {
+        this.tienGiamGia = tienGiamGia;
+    }
+
+    public long getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(long tongTien) {
+        this.tongTien = tongTien;
     }
 
     public long getThanhTien() {
@@ -151,13 +157,16 @@ public class HoaDon {
         this.ghiChu = ghiChu;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMaUser() {
+        return maUser;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMaUser(String maUser) {
+        this.maUser = maUser;
     }
     
+    
+
+   
 
 }

@@ -22,8 +22,8 @@ public class DichVuDAO {
         JDBCHelper.executeUpdate(sql, model.getMaLoaiDV(), model.getTenDV(), model.getGiaBan(), model.getTonKho(), model.getHinh(), model.isTrangThai());
     }
     public void update(DichVu model) {
-        String sql = "UPDATE dbo.DichVu SET maLoaiDV = ?, tenDV = ?, giaBan = ?, hinh = ?, trangThai = ? WHERE maDV = ?";
-        JDBCHelper.executeUpdate(sql, model.getMaLoaiDV(), model.getTenDV(), model.getGiaBan(), model.getHinh(), model.isTrangThai(), model.getMaDV());
+        String sql = "UPDATE dbo.DichVu SET maLoaiDV = ?, tenDV = ?, giaBan = ?, tonKho = ?, hinh = ?, trangThai = ? WHERE maDV = ?";
+        JDBCHelper.executeUpdate(sql, model.getMaLoaiDV(), model.getTenDV(), model.getGiaBan(), model.getTonKho(), model.getHinh(), model.isTrangThai(), model.getMaDV());
     }
     
     public void delete(DichVu model){

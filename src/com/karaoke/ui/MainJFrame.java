@@ -1,18 +1,38 @@
 package com.karaoke.ui;
 
+import com.karaoke.ui.quanly.QLNguoiDung;
+import com.karaoke.ui.quanly.QLDichVuJPanel;
+import com.karaoke.ui.quanly.QLNhaCungCapJPanel;
+import com.karaoke.ui.quanly.QLPhongJPanel;
+import com.karaoke.helper.JDBCHelper;
+import com.karaoke.helper.JOptionPaneHelper;
+import com.karaoke.helper.MarqueeLabel;
 import static com.karaoke.helper.OpenJPanel.openJPanel;
+import com.karaoke.helper.XuLy;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.Timer;
 
 /**
@@ -23,21 +43,34 @@ public class MainJFrame extends javax.swing.JFrame {
 
     int count = 0;
     int index = 0;
+    String maUser;
     List<JLabel> listJLabelsMenu = new ArrayList<JLabel>();
     CardLayout cardLayout = null;
 
-    public MainJFrame() {
+    public MainJFrame(String maUser, String hoten, boolean isAdmin) {
         setUndecorated(true);
         initComponents();
         init();
         setLocationRelativeTo(null);
-        setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
+        if (!isAdmin) {
+            lblThietLap.setVisible(false);
+            lblQuanLy.setVisible(false);
+            lblThongKe.setVisible(false);
+        }
+        this.maUser = maUser;
         setEventJLabelsWindows();
         addJLabelsToMenu(lblTrangChinh, lblQuanLy, lblThietLap, lblThongKe, lblTroGiup, lblDangXuat, lblQLDichvu,
-                lblQLNCC, lblQLSMS, lblQLNguoidung, lblQLPhong, lblTKHoadon, lblTKKhunggio, lnlTLThongtinquan, lblHDSD, lblTLThoigianmophong, lblTLGiamgia, lblTTTG);
+                lblQLNCC, lblQLSMS, lblQLNguoidung, lblQLPhong, lblQLVoucher, lblTKHoadon, lblTKKhunggio, lblTLThongtinquan, lblHDSD, lblTLThoigianmophong, lblTTTG, lblDoiMatKhau);
         cardLayout = (CardLayout) pnlLeft.getLayout();
         lblQuayLai.setVisible(false);
-        
+        loadInformation();
+        String info = "<html>User: <font color = WHITE><b>" + maUser + " - " + hoten + "</b></font><br>";
+        if (isAdmin) {
+            info += "Vai trò: <font color = WHITE><b>Quản lý - Admin</font></b></html>";
+        } else {
+            info += "Vai trò: <font color = WHITE><b>Nhân viên</font></b></html>";
+        }
+        lblInformationNhanVien.setText(info);
 
     }
 
@@ -51,6 +84,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlRoot = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         pnlLeft = new javax.swing.JPanel();
         pnlMenuMain = new javax.swing.JPanel();
         lblTrangChinh = new javax.swing.JLabel();
@@ -60,23 +94,24 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTroGiup = new javax.swing.JLabel();
         lblDangXuat = new javax.swing.JLabel();
         pnlMenuQuanLy = new javax.swing.JPanel();
-        lblQuanLyTitle = new javax.swing.JLabel();
+        lblQuanLyTitile = new javax.swing.JLabel();
         lblQLNguoidung = new javax.swing.JLabel();
         lblQLPhong = new javax.swing.JLabel();
         lblQLDichvu = new javax.swing.JLabel();
         lblQLNCC = new javax.swing.JLabel();
         lblQLSMS = new javax.swing.JLabel();
+        lblQLVoucher = new javax.swing.JLabel();
         pnlMenuThongKe = new javax.swing.JPanel();
-        lblThongKetTitle = new javax.swing.JLabel();
+        lblThongKeTitle = new javax.swing.JLabel();
         lblTKHoadon = new javax.swing.JLabel();
         lblTKKhunggio = new javax.swing.JLabel();
         pnlMenuThietLap = new javax.swing.JPanel();
         lblThietLapTitle = new javax.swing.JLabel();
-        lnlTLThongtinquan = new javax.swing.JLabel();
+        lblTLThongtinquan = new javax.swing.JLabel();
         lblTLThoigianmophong = new javax.swing.JLabel();
-        lblTLGiamgia = new javax.swing.JLabel();
         pnlMenuTroGiup = new javax.swing.JPanel();
         lblTroGiupTitle = new javax.swing.JLabel();
+        lblDoiMatKhau = new javax.swing.JLabel();
         lblHDSD = new javax.swing.JLabel();
         lblTTTG = new javax.swing.JLabel();
         lblQuayLai = new javax.swing.JLabel();
@@ -84,7 +119,7 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlView = new javax.swing.JPanel();
         lblLogoLARGE = new javax.swing.JLabel();
         lblSlogan = new javax.swing.JLabel();
-        lblBackgroundView = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         pnlFoot = new javax.swing.JPanel();
         lblTime = new javax.swing.JLabel();
         lblTenKara = new javax.swing.JLabel();
@@ -93,7 +128,7 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlTop = new javax.swing.JPanel();
         lblMinimizeWindow = new javax.swing.JLabel();
         lblCloseWindow = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblTitile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("KaraokeManagement - Phần mềm quản lý Phòng Hát Karaoke v1.1");
@@ -106,6 +141,10 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlRoot.setOpaque(false);
         pnlRoot.setPreferredSize(new java.awt.Dimension(1366, 768));
         pnlRoot.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblLogo.setBackground(new java.awt.Color(0, 0, 0));
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/logoSmall.png"))); // NOI18N
+        pnlRoot.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 250, 80));
 
         pnlLeft.setBackground(new java.awt.Color(255, 255, 255));
         pnlLeft.setToolTipText("");
@@ -122,74 +161,75 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlMenuMain.setMinimumSize(new java.awt.Dimension(310, 690));
         pnlMenuMain.setOpaque(false);
         pnlMenuMain.setPreferredSize(new java.awt.Dimension(310, 690));
-        pnlMenuMain.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
+        pnlMenuMain.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 30, 20));
 
-        lblTrangChinh.setBackground(new java.awt.Color(255, 255, 255));
-        lblTrangChinh.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblTrangChinh.setForeground(new java.awt.Color(0, 0, 51));
-        lblTrangChinh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTrangChinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Home_32px_1.png"))); // NOI18N
+        lblTrangChinh.setBackground(new java.awt.Color(0, 0, 102));
+        lblTrangChinh.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblTrangChinh.setForeground(new java.awt.Color(255, 255, 255));
+        lblTrangChinh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/microphone-9-32.png"))); // NOI18N
         lblTrangChinh.setText("PHÒNG HÁT");
+        lblTrangChinh.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lblTrangChinh.setIconTextGap(15);
         lblTrangChinh.setMaximumSize(new java.awt.Dimension(250, 50));
         lblTrangChinh.setMinimumSize(new java.awt.Dimension(250, 50));
         lblTrangChinh.setOpaque(true);
         lblTrangChinh.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuMain.add(lblTrangChinh);
 
-        lblQuanLy.setBackground(new java.awt.Color(255, 255, 255));
-        lblQuanLy.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblQuanLy.setForeground(new java.awt.Color(0, 0, 51));
-        lblQuanLy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblQuanLy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Staff_32px.png"))); // NOI18N
-        lblQuanLy.setText("QUẢN LÝ");
+        lblQuanLy.setBackground(new java.awt.Color(0, 0, 102));
+        lblQuanLy.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblQuanLy.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuanLy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/manager-32.png"))); // NOI18N
+        lblQuanLy.setText("DANH MỤC QUẢN LÝ");
+        lblQuanLy.setIconTextGap(15);
         lblQuanLy.setMaximumSize(new java.awt.Dimension(250, 50));
         lblQuanLy.setMinimumSize(new java.awt.Dimension(250, 50));
         lblQuanLy.setOpaque(true);
         lblQuanLy.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuMain.add(lblQuanLy);
 
-        lblThongKe.setBackground(new java.awt.Color(255, 255, 255));
-        lblThongKe.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblThongKe.setForeground(new java.awt.Color(0, 0, 51));
-        lblThongKe.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Futures_32px.png"))); // NOI18N
-        lblThongKe.setText("THỐNG KÊ");
+        lblThongKe.setBackground(new java.awt.Color(0, 0, 102));
+        lblThongKe.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblThongKe.setForeground(new java.awt.Color(255, 255, 255));
+        lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/statistics-32.png"))); // NOI18N
+        lblThongKe.setText("BÁO CÁO THỐNG KÊ");
+        lblThongKe.setIconTextGap(15);
         lblThongKe.setMaximumSize(new java.awt.Dimension(250, 50));
         lblThongKe.setMinimumSize(new java.awt.Dimension(250, 50));
         lblThongKe.setOpaque(true);
         lblThongKe.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuMain.add(lblThongKe);
 
-        lblThietLap.setBackground(new java.awt.Color(255, 255, 255));
-        lblThietLap.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblThietLap.setForeground(new java.awt.Color(0, 0, 51));
-        lblThietLap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThietLap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Automation_32px.png"))); // NOI18N
+        lblThietLap.setBackground(new java.awt.Color(0, 0, 102));
+        lblThietLap.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblThietLap.setForeground(new java.awt.Color(255, 255, 255));
+        lblThietLap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/settings-5-32.png"))); // NOI18N
         lblThietLap.setText("THIẾT LẬP");
+        lblThietLap.setIconTextGap(15);
         lblThietLap.setMaximumSize(new java.awt.Dimension(250, 50));
         lblThietLap.setMinimumSize(new java.awt.Dimension(250, 50));
         lblThietLap.setOpaque(true);
         lblThietLap.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuMain.add(lblThietLap);
 
-        lblTroGiup.setBackground(new java.awt.Color(255, 255, 255));
-        lblTroGiup.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblTroGiup.setForeground(new java.awt.Color(0, 0, 51));
-        lblTroGiup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTroGiup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_User_Manual_32px.png"))); // NOI18N
+        lblTroGiup.setBackground(new java.awt.Color(0, 0, 102));
+        lblTroGiup.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblTroGiup.setForeground(new java.awt.Color(255, 255, 255));
+        lblTroGiup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/help-32.png"))); // NOI18N
         lblTroGiup.setText("TRỢ GIÚP");
+        lblTroGiup.setIconTextGap(15);
         lblTroGiup.setMaximumSize(new java.awt.Dimension(250, 50));
         lblTroGiup.setMinimumSize(new java.awt.Dimension(250, 50));
         lblTroGiup.setOpaque(true);
         lblTroGiup.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuMain.add(lblTroGiup);
 
-        lblDangXuat.setBackground(new java.awt.Color(255, 255, 255));
-        lblDangXuat.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblDangXuat.setForeground(new java.awt.Color(0, 0, 51));
-        lblDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Shutdown_32px.png"))); // NOI18N
+        lblDangXuat.setBackground(new java.awt.Color(0, 0, 102));
+        lblDangXuat.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblDangXuat.setForeground(new java.awt.Color(255, 255, 255));
+        lblDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/logout-32.png"))); // NOI18N
         lblDangXuat.setText("ĐĂNG XUẤT");
+        lblDangXuat.setIconTextGap(15);
         lblDangXuat.setMaximumSize(new java.awt.Dimension(250, 50));
         lblDangXuat.setMinimumSize(new java.awt.Dimension(250, 50));
         lblDangXuat.setOpaque(true);
@@ -207,17 +247,19 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlMenuQuanLy.setPreferredSize(new java.awt.Dimension(310, 690));
         pnlMenuQuanLy.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
 
-        lblQuanLyTitle.setBackground(new java.awt.Color(255, 255, 255));
-        lblQuanLyTitle.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblQuanLyTitle.setForeground(new java.awt.Color(0, 0, 51));
-        lblQuanLyTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblQuanLyTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Staff_32px.png"))); // NOI18N
-        lblQuanLyTitle.setText("QUẢN LÝ");
-        lblQuanLyTitle.setMaximumSize(new java.awt.Dimension(250, 50));
-        lblQuanLyTitle.setMinimumSize(new java.awt.Dimension(250, 50));
-        lblQuanLyTitle.setOpaque(true);
-        lblQuanLyTitle.setPreferredSize(new java.awt.Dimension(250, 50));
-        pnlMenuQuanLy.add(lblQuanLyTitle);
+        lblQuanLyTitile.setBackground(java.awt.Color.red);
+        lblQuanLyTitile.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblQuanLyTitile.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuanLyTitile.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblQuanLyTitile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/manager-32.png"))); // NOI18N
+        lblQuanLyTitile.setText("DANH MỤC QUẢN LÝ");
+        lblQuanLyTitile.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        lblQuanLyTitile.setIconTextGap(15);
+        lblQuanLyTitile.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblQuanLyTitile.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblQuanLyTitile.setOpaque(true);
+        lblQuanLyTitile.setPreferredSize(new java.awt.Dimension(250, 50));
+        pnlMenuQuanLy.add(lblQuanLyTitile);
 
         lblQLNguoidung.setBackground(new java.awt.Color(0, 0, 51));
         lblQLNguoidung.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -299,6 +341,22 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         pnlMenuQuanLy.add(lblQLSMS);
 
+        lblQLVoucher.setBackground(new java.awt.Color(0, 0, 51));
+        lblQLVoucher.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblQLVoucher.setForeground(new java.awt.Color(255, 255, 255));
+        lblQLVoucher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQLVoucher.setText("QUẢN LÝ VOUCHER");
+        lblQLVoucher.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblQLVoucher.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblQLVoucher.setOpaque(true);
+        lblQLVoucher.setPreferredSize(new java.awt.Dimension(250, 50));
+        lblQLVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQLVoucherMouseClicked(evt);
+            }
+        });
+        pnlMenuQuanLy.add(lblQLVoucher);
+
         pnlLeft.add(pnlMenuQuanLy, "quanly");
 
         pnlMenuThongKe.setBackground(new java.awt.Color(0, 0, 51));
@@ -310,17 +368,19 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlMenuThongKe.setPreferredSize(new java.awt.Dimension(310, 690));
         pnlMenuThongKe.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
 
-        lblThongKetTitle.setBackground(new java.awt.Color(255, 255, 255));
-        lblThongKetTitle.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblThongKetTitle.setForeground(new java.awt.Color(0, 0, 51));
-        lblThongKetTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThongKetTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Futures_32px.png"))); // NOI18N
-        lblThongKetTitle.setText("THỐNG KÊ");
-        lblThongKetTitle.setMaximumSize(new java.awt.Dimension(250, 50));
-        lblThongKetTitle.setMinimumSize(new java.awt.Dimension(250, 50));
-        lblThongKetTitle.setOpaque(true);
-        lblThongKetTitle.setPreferredSize(new java.awt.Dimension(250, 50));
-        pnlMenuThongKe.add(lblThongKetTitle);
+        lblThongKeTitle.setBackground(java.awt.Color.red);
+        lblThongKeTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblThongKeTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblThongKeTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblThongKeTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/statistics-32.png"))); // NOI18N
+        lblThongKeTitle.setText("BÁO CÁO THỐNG KÊ");
+        lblThongKeTitle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        lblThongKeTitle.setIconTextGap(15);
+        lblThongKeTitle.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblThongKeTitle.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblThongKeTitle.setOpaque(true);
+        lblThongKeTitle.setPreferredSize(new java.awt.Dimension(250, 50));
+        pnlMenuThongKe.add(lblThongKeTitle);
 
         lblTKHoadon.setBackground(new java.awt.Color(0, 0, 51));
         lblTKHoadon.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -365,33 +425,35 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlMenuThietLap.setPreferredSize(new java.awt.Dimension(310, 690));
         pnlMenuThietLap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
 
-        lblThietLapTitle.setBackground(new java.awt.Color(255, 255, 255));
-        lblThietLapTitle.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblThietLapTitle.setForeground(new java.awt.Color(0, 0, 51));
-        lblThietLapTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblThietLapTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Automation_32px.png"))); // NOI18N
+        lblThietLapTitle.setBackground(java.awt.Color.red);
+        lblThietLapTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblThietLapTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblThietLapTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblThietLapTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/settings-5-32.png"))); // NOI18N
         lblThietLapTitle.setText("THIẾT LẬP");
+        lblThietLapTitle.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 3, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+        lblThietLapTitle.setIconTextGap(15);
         lblThietLapTitle.setMaximumSize(new java.awt.Dimension(250, 50));
         lblThietLapTitle.setMinimumSize(new java.awt.Dimension(250, 50));
         lblThietLapTitle.setOpaque(true);
         lblThietLapTitle.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuThietLap.add(lblThietLapTitle);
 
-        lnlTLThongtinquan.setBackground(new java.awt.Color(0, 0, 51));
-        lnlTLThongtinquan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lnlTLThongtinquan.setForeground(new java.awt.Color(255, 255, 255));
-        lnlTLThongtinquan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lnlTLThongtinquan.setText("THIẾT LẬP THÔNG TIN QUÁN");
-        lnlTLThongtinquan.setMaximumSize(new java.awt.Dimension(250, 50));
-        lnlTLThongtinquan.setMinimumSize(new java.awt.Dimension(250, 50));
-        lnlTLThongtinquan.setOpaque(true);
-        lnlTLThongtinquan.setPreferredSize(new java.awt.Dimension(250, 50));
-        lnlTLThongtinquan.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblTLThongtinquan.setBackground(new java.awt.Color(0, 0, 51));
+        lblTLThongtinquan.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblTLThongtinquan.setForeground(new java.awt.Color(255, 255, 255));
+        lblTLThongtinquan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTLThongtinquan.setText("THIẾT LẬP THÔNG TIN QUÁN");
+        lblTLThongtinquan.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblTLThongtinquan.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblTLThongtinquan.setOpaque(true);
+        lblTLThongtinquan.setPreferredSize(new java.awt.Dimension(250, 50));
+        lblTLThongtinquan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lnlTLThongtinquanMouseClicked(evt);
+                lblTLThongtinquanMouseClicked(evt);
             }
         });
-        pnlMenuThietLap.add(lnlTLThongtinquan);
+        pnlMenuThietLap.add(lblTLThongtinquan);
 
         lblTLThoigianmophong.setBackground(new java.awt.Color(0, 0, 51));
         lblTLThoigianmophong.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -409,22 +471,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         pnlMenuThietLap.add(lblTLThoigianmophong);
 
-        lblTLGiamgia.setBackground(new java.awt.Color(0, 0, 51));
-        lblTLGiamgia.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblTLGiamgia.setForeground(new java.awt.Color(255, 255, 255));
-        lblTLGiamgia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTLGiamgia.setText("THIẾT LẬP GIẢM GIÁ");
-        lblTLGiamgia.setMaximumSize(new java.awt.Dimension(250, 50));
-        lblTLGiamgia.setMinimumSize(new java.awt.Dimension(250, 50));
-        lblTLGiamgia.setOpaque(true);
-        lblTLGiamgia.setPreferredSize(new java.awt.Dimension(250, 50));
-        lblTLGiamgia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblTLGiamgiaMouseClicked(evt);
-            }
-        });
-        pnlMenuThietLap.add(lblTLGiamgia);
-
         pnlLeft.add(pnlMenuThietLap, "thietlap");
 
         pnlMenuTroGiup.setBackground(new java.awt.Color(0, 0, 51));
@@ -436,17 +482,34 @@ public class MainJFrame extends javax.swing.JFrame {
         pnlMenuTroGiup.setPreferredSize(new java.awt.Dimension(310, 690));
         pnlMenuTroGiup.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 20));
 
-        lblTroGiupTitle.setBackground(new java.awt.Color(255, 255, 255));
-        lblTroGiupTitle.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        lblTroGiupTitle.setForeground(new java.awt.Color(0, 0, 51));
-        lblTroGiupTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTroGiupTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_User_Manual_32px.png"))); // NOI18N
+        lblTroGiupTitle.setBackground(java.awt.Color.red);
+        lblTroGiupTitle.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblTroGiupTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTroGiupTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTroGiupTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/help-32.png"))); // NOI18N
         lblTroGiupTitle.setText("TRỢ GIÚP");
+        lblTroGiupTitle.setIconTextGap(15);
         lblTroGiupTitle.setMaximumSize(new java.awt.Dimension(250, 50));
         lblTroGiupTitle.setMinimumSize(new java.awt.Dimension(250, 50));
         lblTroGiupTitle.setOpaque(true);
         lblTroGiupTitle.setPreferredSize(new java.awt.Dimension(250, 50));
         pnlMenuTroGiup.add(lblTroGiupTitle);
+
+        lblDoiMatKhau.setBackground(new java.awt.Color(0, 0, 51));
+        lblDoiMatKhau.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblDoiMatKhau.setForeground(new java.awt.Color(255, 255, 255));
+        lblDoiMatKhau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDoiMatKhau.setText("ĐỔI MẬT KHẨU");
+        lblDoiMatKhau.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblDoiMatKhau.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblDoiMatKhau.setOpaque(true);
+        lblDoiMatKhau.setPreferredSize(new java.awt.Dimension(250, 50));
+        lblDoiMatKhau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDoiMatKhauMouseClicked(evt);
+            }
+        });
+        pnlMenuTroGiup.add(lblDoiMatKhau);
 
         lblHDSD.setBackground(new java.awt.Color(0, 0, 51));
         lblHDSD.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -482,25 +545,30 @@ public class MainJFrame extends javax.swing.JFrame {
 
         pnlLeft.add(pnlMenuTroGiup, "trogiup");
 
-        pnlRoot.add(pnlLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, -1, 460));
+        pnlRoot.add(pnlLeft, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, -1, 490));
 
-        lblQuayLai.setBackground(new java.awt.Color(0, 0, 51));
-        lblQuayLai.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        lblQuayLai.setForeground(new java.awt.Color(255, 255, 255));
+        lblQuayLai.setBackground(new java.awt.Color(0, 0, 0));
+        lblQuayLai.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblQuayLai.setForeground(new java.awt.Color(255, 255, 0));
         lblQuayLai.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuayLai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/icons8_Go_Back_32px.png"))); // NOI18N
         lblQuayLai.setText("QUAY LẠI");
         lblQuayLai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblQuayLai.setOpaque(true);
         lblQuayLai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblQuayLaiMouseClicked(evt);
             }
         });
-        pnlRoot.add(lblQuayLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 540, 140, 30));
+        pnlRoot.add(lblQuayLai, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 250, 30));
 
+        lblBackgroundMenu.setBackground(new java.awt.Color(0, 0, 0));
         lblBackgroundMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/background.png"))); // NOI18N
+        lblBackgroundMenu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        lblBackgroundMenu.setOpaque(true);
         pnlRoot.add(lblBackgroundMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 310, 690));
 
+        pnlView.setBackground(new java.awt.Color(204, 204, 255));
         pnlView.setMaximumSize(new java.awt.Dimension(1050, 690));
         pnlView.setMinimumSize(new java.awt.Dimension(1050, 690));
         pnlView.setOpaque(false);
@@ -513,20 +581,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
         lblSlogan.setBackground(new java.awt.Color(255, 255, 255));
         lblSlogan.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblSlogan.setForeground(new java.awt.Color(153, 204, 255));
+        lblSlogan.setForeground(new java.awt.Color(255, 255, 255));
         lblSlogan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblSlogan.setText("Phần mềm Quản lý Phòng hát Karaoke theo phong cách chuyên nghiệp");
-        pnlView.add(lblSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 410, 1050, 40));
+        lblSlogan.setText("PHẦN MỀM QUẢN LÝ PHÒNG HÁT KARAOKE CHUYÊN NGHIỆP");
+        pnlView.add(lblSlogan, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 410, 1050, 30));
 
-        pnlRoot.add(pnlView, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, -1));
+        pnlRoot.add(pnlView, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 1060, 690));
 
-        lblBackgroundView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/background_room.jpg"))); // NOI18N
-        lblBackgroundView.setText("jLabel1");
-        lblBackgroundView.setMaximumSize(new java.awt.Dimension(1056, 650));
-        lblBackgroundView.setMinimumSize(new java.awt.Dimension(1056, 650));
-        lblBackgroundView.setName(""); // NOI18N
-        lblBackgroundView.setPreferredSize(new java.awt.Dimension(1056, 650));
-        pnlRoot.add(lblBackgroundView, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 1060, 690));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/background_room.jpg"))); // NOI18N
+        jLabel1.setOpaque(true);
+        pnlRoot.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, -1, 690));
 
         pnlFoot.setBackground(new java.awt.Color(30, 30, 30));
         pnlFoot.setPreferredSize(new java.awt.Dimension(1366, 700));
@@ -548,7 +612,7 @@ public class MainJFrame extends javax.swing.JFrame {
         lblTenKara.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlFoot.add(lblTenKara, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1370, 30));
 
-        lblInformationNhanVien.setFont(new java.awt.Font("Cambria", 0, 15)); // NOI18N
+        lblInformationNhanVien.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         lblInformationNhanVien.setForeground(new java.awt.Color(0, 102, 153));
         lblInformationNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblInformationNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/user.png"))); // NOI18N
@@ -584,10 +648,10 @@ public class MainJFrame extends javax.swing.JFrame {
         lblCloseWindow.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlTop.add(lblCloseWindow, new org.netbeans.lib.awtextra.AbsoluteConstraints(1335, 0, 30, 20));
 
-        jLabel1.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("<html><font color = YELLOW>KARAOKE MANAGEMENT v1.1</font> - Phần mềm Quản Lý Phòng Hát Karaoke");
-        pnlTop.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 1300, 20));
+        lblTitile.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitile.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitile.setText("<html><font color = YELLOW>KARAOKE MANAGEMENT v1.1</font> - Phần mềm Quản Lý Phòng Hát Karaoke");
+        pnlTop.add(lblTitile, new org.netbeans.lib.awtextra.AbsoluteConstraints(4, 4, 1300, 20));
 
         getContentPane().add(pnlTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 30));
 
@@ -598,64 +662,181 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         cardLayout.show(pnlLeft, "main");
         lblQuayLai.setVisible(false);
+        openJPanel(pnlView, new ViewHomeJPanel());
     }//GEN-LAST:event_lblQuayLaiMouseClicked
 
-    private void lblQLNguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNguoidungMouseClicked
+    private void lblTTTGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTTTGMouseClicked
         // TODO add your handling code here:
-        openJPanel(pnlView, new QLNguoiDung2());
-
-    }//GEN-LAST:event_lblQLNguoidungMouseClicked
-
-    private void lblQLPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLPhongMouseClicked
-        // TODO add your handling code here:
-        openJPanel(pnlView, new QLPhongJPanel());
-
-    }//GEN-LAST:event_lblQLPhongMouseClicked
-
-    private void lblQLDichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLDichvuMouseClicked
-        // TODO add your handling code here:
-        openJPanel(pnlView, new QLDichVuJPanel());
-    }//GEN-LAST:event_lblQLDichvuMouseClicked
-
-    private void lblQLNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNCCMouseClicked
-        // TODO add your handling code here:
-        openJPanel(pnlView, new QLNhaCungCapJPanel());
-
-    }//GEN-LAST:event_lblQLNCCMouseClicked
-
-    private void lblQLSMSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLSMSMouseClicked
-        // TODO add your handling code here:
-        //openJPanel(pnlView, new QLSMSJPanel());
-
-    }//GEN-LAST:event_lblQLSMSMouseClicked
-
-    private void lblTKHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKHoadonMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblTKHoadonMouseClicked
-
-    private void lblTKKhunggioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKKhunggioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblTKKhunggioMouseClicked
-
-    private void lnlTLThongtinquanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lnlTLThongtinquanMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lnlTLThongtinquanMouseClicked
-
-    private void lblTLThoigianmophongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTLThoigianmophongMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblTLThoigianmophongMouseClicked
-
-    private void lblTLGiamgiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTLGiamgiaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblTLGiamgiaMouseClicked
+    }//GEN-LAST:event_lblTTTGMouseClicked
 
     private void lblHDSDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHDSDMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblHDSDMouseClicked
 
-    private void lblTTTGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTTTGMouseClicked
+    private void lblTKKhunggioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKKhunggioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblTTTGMouseClicked
+    }//GEN-LAST:event_lblTKKhunggioMouseClicked
+
+    private void lblTKHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKHoadonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblTKHoadonMouseClicked
+
+    private void lblQLSMSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLSMSMouseClicked
+        // TODO add your handling code here:
+        //openJPanel(pnlView, new QLSMSJPanel());
+    }//GEN-LAST:event_lblQLSMSMouseClicked
+
+    private void lblQLNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNCCMouseClicked
+        // TODO add your handling code here:
+        openJPanel(pnlView, new QLNhaCungCapJPanel());
+    }//GEN-LAST:event_lblQLNCCMouseClicked
+
+    private void lblQLDichvuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLDichvuMouseClicked
+        // TODO add your handling code here:
+        openJPanel(pnlView, new QLDichVuJPanel(maUser));
+    }//GEN-LAST:event_lblQLDichvuMouseClicked
+
+    private void lblQLPhongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLPhongMouseClicked
+        // TODO add your handling code here:
+        openJPanel(pnlView, new QLPhongJPanel());
+    }//GEN-LAST:event_lblQLPhongMouseClicked
+
+    private void lblQLNguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNguoidungMouseClicked
+        // TODO add your handling code here:
+        openJPanel(pnlView, new QLNguoiDung());
+    }//GEN-LAST:event_lblQLNguoidungMouseClicked
+
+    private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
+        // TODO add your handling code here:
+        doiMatKhau();
+
+    }//GEN-LAST:event_lblDoiMatKhauMouseClicked
+
+    private void lblTLThoigianmophongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTLThoigianmophongMouseClicked
+        // TODO add your handling code here:
+        boolean check = true;
+        JSpinner phutMacDinh = new JSpinner(new SpinnerNumberModel(0, 0, 60, 1));
+        phutMacDinh.setPreferredSize(new Dimension(300, 30));
+        phutMacDinh.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        JSpinner phutHuyPhong = new JSpinner(new SpinnerNumberModel(0, 0, 60, 1));
+        phutHuyPhong.setPreferredSize(new Dimension(300, 30));
+        phutHuyPhong.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        Object[] message = {
+            XuLy.msg("Số phút mặc định mỗi khi đặt phòng:"), phutMacDinh,
+            XuLy.msg("Thời lượng cho phép hủy phòng:"), phutHuyPhong,};
+        ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.Information");
+        try {
+            if (rs.next()) {
+                phutMacDinh.setValue(rs.getInt("phutMacDinh"));
+                phutHuyPhong.setValue(rs.getInt("phutHuyPhong"));
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        do {
+            int option = JOptionPane.showConfirmDialog(rootPane, message, "THIẾT LẬP ĐẶT PHÒNG", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+
+                try {
+                    if (!JDBCHelper.executeQuery("SELECT * FROM Information").next()) {
+                        JDBCHelper.executeUpdate("INSERT INTO dbo.Information VALUES(?,?,?,?,?,?)", "", "", "", phutMacDinh.getValue() + "", phutHuyPhong.getValue() + "", "");
+
+                    } else {
+                        JDBCHelper.executeUpdate("UPDATE dbo.Information SET phutMacDinh = ?, phutHuyPhong = ?", phutMacDinh.getValue() + "", phutHuyPhong.getValue() + "");
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                check = false;
+                break;
+            }
+        } while (!check);
+        if (check) {
+            JOptionPane.showMessageDialog(this, XuLy.msg("Đã cập nhật thông tin"), "THÔNG TIN QUÁN", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }//GEN-LAST:event_lblTLThoigianmophongMouseClicked
+
+    private void lblTLThongtinquanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTLThongtinquanMouseClicked
+        // TODO add your handling code here:
+        lblTLThongtinquan.setForeground(Color.WHITE);
+        lblTLThongtinquan.setBackground(Color.RED);
+        boolean check = true;
+        JTextField tenKara = new JTextField();
+        tenKara.setPreferredSize(new Dimension(300, 30));
+        JTextField diaChi = new JTextField();
+        diaChi.setPreferredSize(new Dimension(300, 30));
+        JTextField sdt = new JTextField();
+        sdt.setPreferredSize(new Dimension(300, 30));
+        JTextField url = new JTextField();
+        url.setPreferredSize(new Dimension(300, 30));
+
+        tenKara.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        diaChi.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        sdt.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        url.setFont(new java.awt.Font("Segoe UI", 1, 14));
+
+        Object[] message = {
+            XuLy.msg("Tên Quán:"), tenKara,
+            XuLy.msg("Địa chỉ:"), diaChi,
+            XuLy.msg("Điện thoại:"), sdt,
+            XuLy.msg("URL SMS API (myMobkit): "), url
+
+        };
+        ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.Information");
+        try {
+            if (rs.next()) {
+                tenKara.setText(rs.getString("tenKara"));
+                diaChi.setText(rs.getString("diaChi"));
+                sdt.setText(rs.getString("soDT"));
+                url.setText(rs.getString("urlSMS"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        do {
+            int option = JOptionPane.showConfirmDialog(rootPane, message, "THÔNG TIN QUÁN", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                if (tenKara.getText().equals("")) {
+                    JOptionPaneHelper.popup("loi", this, "Chưa nhập Tên Kara", "LỖI");
+                    check = false;
+                    tenKara.requestFocus();
+                } else if (diaChi.getText().equals("")) {
+                    JOptionPaneHelper.popup("loi", this, "Chưa nhập Địa chỉ", "LỖI");
+                    check = false;
+                    diaChi.requestFocus();
+
+                } else {
+                    try {
+                        if (!JDBCHelper.executeQuery("SELECT * FROM Information").next()) {
+                            JDBCHelper.executeUpdate("INSERT INTO dbo.Information VALUES(?,?,?,?,?,?)", tenKara.getText(), diaChi.getText(), sdt.getText(), 0, 0, url.getText());
+
+                        } else {
+                            JDBCHelper.executeUpdate("UPDATE dbo.Information SET tenKara = ?, diaChi = ?, soDT = ?, urlSMS = ?", tenKara.getText(), diaChi.getText(), sdt.getText(), url.getText());
+
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
+                check = false;
+                break;
+            }
+        } while (!check);
+        if (check) {
+            lblTenKara.setText(tenKara.getText().trim());
+            lblDiaChiKara.setText(diaChi.getText().trim() + " - " + sdt.getText().trim());
+            JOptionPaneHelper.popup("ok", this, "Đã cập nhật thông tin", "THIẾT LẬP THÔNG TIN QUÁN");
+
+        }
+    }//GEN-LAST:event_lblTLThongtinquanMouseClicked
+
+    private void lblQLVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLVoucherMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblQLVoucherMouseClicked
     private void init() {
         new Timer(1000, new ActionListener() {
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy - h:mm:ss a");
@@ -673,6 +854,7 @@ public class MainJFrame extends javax.swing.JFrame {
             listJLabelsMenu.add(lb[i]);
         }
         for (JLabel lbl : listJLabelsMenu) {
+            lbl.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 2, Color.WHITE));
             lbl.setBackground(new Color(0, 0, 255, 50));
             lbl.setForeground(Color.WHITE);
             lbl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -684,6 +866,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     pnlMenuMain.revalidate();
                     pnlLeft.repaint();
                     pnlLeft.revalidate();
+
                 }
 
             });
@@ -693,18 +876,18 @@ public class MainJFrame extends javax.swing.JFrame {
     private void isJLabelActive(JLabel label) {
         for (JLabel lbl : listJLabelsMenu) {
             if (lbl == label) {
-                lbl.setForeground(Color.BLACK);
-                lbl.setBackground(new Color(255, 255, 255));
+                lbl.setForeground(Color.WHITE);
+                lbl.setBackground(Color.RED);
                 String lblName = label.getText();
                 switch (lblName) {
                     case "PHÒNG HÁT":
-                        openJPanel(pnlView, new RoomJPanel());
+                        openJPanel(pnlView, new PhongHatJPanel(maUser));
                         break;
-                    case "QUẢN LÝ":
+                    case "DANH MỤC QUẢN LÝ":
                         cardLayout.show(pnlLeft, "quanly");
                         lblQuayLai.setVisible(true);
                         break;
-                    case "THỐNG KÊ":
+                    case "BÁO CÁO THỐNG KÊ":
                         cardLayout.show(pnlLeft, "thongke");
                         lblQuayLai.setVisible(true);
                         break;
@@ -716,6 +899,18 @@ public class MainJFrame extends javax.swing.JFrame {
                         cardLayout.show(pnlLeft, "trogiup");
                         lblQuayLai.setVisible(true);
                         break;
+                    case "ĐĂNG XUẤT":
+                        pnlMenuMain.repaint();
+                        ImageIcon icon = new ImageIcon(this.getClass().getResource("/com/karaoke/images/icon/JoptionPaneQUESTION.png"));
+                        String[] options = new String[2];
+                        options[0] = "Đăng xuất";
+                        options[1] = "Hủy";
+                        int ask = JOptionPane.showOptionDialog(this, "<html><b><font color = #006699 size = 4>Bạn có chắn chắn đăng xuất?</b></font></html>", "Đăng xuất", 0, JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+                        if (ask == 0) {
+                            dispose();
+                            new DangNhapJPanel().setVisible(true);
+
+                        }
 
                 }
             } else {
@@ -764,16 +959,91 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
+    private void loadInformation() {
+        ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM dbo.Information");
+        try {
+            if (rs.next()) {
+                lblTenKara.setText(rs.getString("tenKara"));
+                lblDiaChiKara.setText(rs.getString("diaChi") + " - " + rs.getString("soDT"));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void doiMatKhau() {
+        ResultSet rs;
+        boolean check = true;
+        JTextField currentpwd = new JPasswordField();
+        currentpwd.setPreferredSize(new Dimension(300, 30));
+        JTextField newpwd = new JPasswordField();
+        newpwd.setPreferredSize(new Dimension(300, 30));
+        JTextField cfmpwd = new JPasswordField();
+        cfmpwd.setPreferredSize(new Dimension(300, 30));
+        Object[] message = {
+            XuLy.msg("Mật khẩu hiện tại:"), currentpwd,
+            XuLy.msg("Mật khẩu mới:"), newpwd,
+            XuLy.msg("Xác nhận mật khẩu mới:"), cfmpwd
+        };
+        do {
+            int option = JOptionPane.showConfirmDialog(null, message, "Đổi mật khẩu", JOptionPane.OK_CANCEL_OPTION);
+            if (option == JOptionPane.OK_OPTION) {
+                if (currentpwd.getText().equals("")) {
+                    JOptionPaneHelper.popup("loi", this, "Chưa nhập mật khẩu hiện tại", "Lỗi");
+                    check = false;
+                    currentpwd.requestFocus();
+                } else if (newpwd.getText().equals("")) {
+                    JOptionPaneHelper.popup("loi", this, "Chưa nhập mật khẩu mới", "Lỗi");
+                    check = false;
+                    newpwd.requestFocus();
+
+                } else {
+                    try {
+                        rs = JDBCHelper.executeQuery("SELECT * FROM dbo.USERS WHERE maUser = ?", maUser);
+                        if (rs.next()) {
+                            if (XuLy.MD5encryption(currentpwd.getText()).equals(rs.getString("password"))) {
+                                if (newpwd.getText().equals(cfmpwd.getText())) {
+                                    JDBCHelper.executeUpdate("UPDATE dbo.USERS SET password = ? WHERE maUser = ?", XuLy.MD5encryption(newpwd.getText()), maUser);
+                                    check = true;
+                                } else {
+                                    JOptionPaneHelper.popup("loi", this, "Xác nhận mật khẩu mới không khớp", "Lỗi");
+                                    check = false;
+                                    cfmpwd.requestFocus();
+                                }
+
+                            } else {
+                                JOptionPaneHelper.popup("loi", this, "Sai mật khẩu hiện tại", "Lỗi");
+                                check = false;
+                            }
+                        }
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            } else {
+                check = false;
+                break;
+            }
+        } while (!check);
+        if (check) {
+            JOptionPane.showMessageDialog(this, XuLy.msg("Đổi mật khẩu thành công"), "ĐỔI MẬT KHẨU", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblBackgroundMenu;
-    private javax.swing.JLabel lblBackgroundView;
     private javax.swing.JLabel lblCloseWindow;
     private javax.swing.JLabel lblDangXuat;
     private javax.swing.JLabel lblDiaChiKara;
+    private javax.swing.JLabel lblDoiMatKhau;
     private javax.swing.JLabel lblHDSD;
     private javax.swing.JLabel lblInformationNhanVien;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogoLARGE;
     private javax.swing.JLabel lblMinimizeWindow;
     private javax.swing.JLabel lblQLDichvu;
@@ -781,25 +1051,26 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblQLNguoidung;
     private javax.swing.JLabel lblQLPhong;
     private javax.swing.JLabel lblQLSMS;
+    private javax.swing.JLabel lblQLVoucher;
     private javax.swing.JLabel lblQuanLy;
-    private javax.swing.JLabel lblQuanLyTitle;
+    private javax.swing.JLabel lblQuanLyTitile;
     private javax.swing.JLabel lblQuayLai;
     private javax.swing.JLabel lblSlogan;
     private javax.swing.JLabel lblTKHoadon;
     private javax.swing.JLabel lblTKKhunggio;
-    private javax.swing.JLabel lblTLGiamgia;
     private javax.swing.JLabel lblTLThoigianmophong;
+    private javax.swing.JLabel lblTLThongtinquan;
     private javax.swing.JLabel lblTTTG;
     private javax.swing.JLabel lblTenKara;
     private javax.swing.JLabel lblThietLap;
     private javax.swing.JLabel lblThietLapTitle;
     private javax.swing.JLabel lblThongKe;
-    private javax.swing.JLabel lblThongKetTitle;
+    private javax.swing.JLabel lblThongKeTitle;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JLabel lblTitile;
     private javax.swing.JLabel lblTrangChinh;
     private javax.swing.JLabel lblTroGiup;
     private javax.swing.JLabel lblTroGiupTitle;
-    private javax.swing.JLabel lnlTLThongtinquan;
     private javax.swing.JPanel pnlFoot;
     private javax.swing.JPanel pnlLeft;
     private javax.swing.JPanel pnlMenuMain;

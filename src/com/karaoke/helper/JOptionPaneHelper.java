@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  *
  * @author PS08241 - Nguyen Nhat Thanh
  */
-public class JDialogHelper {
+public class JOptionPaneHelper {
     public static void popup(String type, JDialog j, String msg, String title) {
         if (type.equals("loi")) {
             ImageIcon icon = new ImageIcon(j.getClass().getResource("/com/karaoke/images/icon/JoptionPaneERROR.png"));

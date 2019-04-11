@@ -32,7 +32,6 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlRoot = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         pnlLeft = new javax.swing.JPanel();
         pnlChiTietHoaDon = new javax.swing.JPanel();
         txtGioVao = new javax.swing.JLabel();
@@ -105,9 +104,6 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlRoot.setPreferredSize(new java.awt.Dimension(1050, 690));
         pnlRoot.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ĐANG PHÁT TRIỂN LẠI. ");
-        pnlRoot.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 1040, 90));
-
         pnlLeft.setMaximumSize(new java.awt.Dimension(600, 560));
         pnlLeft.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -120,7 +116,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtGioVao.setBackground(new java.awt.Color(51, 51, 51));
-        txtGioVao.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        txtGioVao.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtGioVao.setForeground(new java.awt.Color(51, 51, 51));
         txtGioVao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtGioVao.setText("20/03/2019 08:30:34");
@@ -128,7 +124,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.add(txtGioVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 330, 20));
 
         txtTenPhong.setBackground(new java.awt.Color(51, 51, 51));
-        txtTenPhong.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTenPhong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTenPhong.setForeground(new java.awt.Color(255, 0, 0));
         txtTenPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTenPhong.setText("Phòng RM0004");
@@ -142,7 +138,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
 
         pnlHoaDon.setForeground(new java.awt.Color(153, 153, 255));
 
-        lblKhachhangchuasudung.setFont(new java.awt.Font("Cambria", 3, 12)); // NOI18N
+        lblKhachhangchuasudung.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         lblKhachhangchuasudung.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblKhachhangchuasudung.setText("(Khách hàng chưa sử dụng dịch vụ nào)");
         lblKhachhangchuasudung.setMaximumSize(new java.awt.Dimension(300, 20));
@@ -162,7 +158,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.add(lblGiaPhong, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 130, 20));
 
         txtGiaPhong.setBackground(new java.awt.Color(51, 51, 51));
-        txtGiaPhong.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        txtGiaPhong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtGiaPhong.setForeground(new java.awt.Color(51, 51, 51));
         txtGiaPhong.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtGiaPhong.setText("190,000đ");
@@ -191,14 +187,14 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.add(lblTienGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 130, 30));
 
         txtTienGio.setBackground(new java.awt.Color(51, 51, 51));
-        txtTienGio.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTienGio.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTienGio.setForeground(new java.awt.Color(255, 0, 0));
         txtTienGio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtTienGio.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlChiTietHoaDon.add(txtTienGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, 230, 30));
 
         txtTongTamTinh.setBackground(new java.awt.Color(51, 51, 51));
-        txtTongTamTinh.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTongTamTinh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTongTamTinh.setForeground(new java.awt.Color(255, 0, 0));
         txtTongTamTinh.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtTongTamTinh.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -248,14 +244,14 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.add(lblThoiluong, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 100, 20));
 
         txtThoiluong.setBackground(new java.awt.Color(51, 51, 51));
-        txtThoiluong.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        txtThoiluong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtThoiluong.setForeground(new java.awt.Color(51, 51, 51));
         txtThoiluong.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtThoiluong.setText("02 giờ 30 phút");
         txtThoiluong.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlChiTietHoaDon.add(txtThoiluong, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 310, 20));
 
-        txtTenKH.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        txtTenKH.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtTenKH.setForeground(new java.awt.Color(51, 51, 51));
         txtTenKH.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtTenKH.setText("TRỊNH TỐ NHƯ");
@@ -277,7 +273,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         lblGiovao.setText("Giờ vào:");
         pnlChiTietHoaDon.add(lblGiovao, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 90, 20));
 
-        txtSDT.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        txtSDT.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtSDT.setForeground(new java.awt.Color(51, 51, 51));
         txtSDT.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtSDT.setText("0357991805");
@@ -300,7 +296,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlChiTietHoaDon.add(lblDT, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 30, 20));
 
         txtTienDV.setBackground(new java.awt.Color(51, 51, 51));
-        txtTienDV.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTienDV.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTienDV.setForeground(new java.awt.Color(255, 0, 0));
         txtTienDV.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtTienDV.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -354,7 +350,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlThanhToan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtTenPhong1.setBackground(new java.awt.Color(51, 51, 51));
-        txtTenPhong1.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTenPhong1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTenPhong1.setForeground(new java.awt.Color(255, 0, 0));
         txtTenPhong1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTenPhong1.setText("THANH TOÁN HÓA ĐƠN");
@@ -450,7 +446,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         lblStatusVoucher.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pnlThanhToan.add(lblStatusVoucher, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 140, 270, 20));
 
-        txtVoucher.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtVoucher.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtVoucher.setForeground(new java.awt.Color(0, 204, 0));
         txtVoucher.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtVoucher.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -503,21 +499,21 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlThanhToan.add(lblTongThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 150, 40));
 
         txtTongThanhTien.setBackground(new java.awt.Color(51, 51, 51));
-        txtTongThanhTien.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        txtTongThanhTien.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtTongThanhTien.setForeground(new java.awt.Color(255, 0, 0));
         txtTongThanhTien.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTongThanhTien.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlThanhToan.add(txtTongThanhTien, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 270, 40));
 
         txtTongTienHD.setBackground(new java.awt.Color(51, 51, 51));
-        txtTongTienHD.setFont(new java.awt.Font("Cambria", 1, 18)); // NOI18N
+        txtTongTienHD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         txtTongTienHD.setForeground(new java.awt.Color(255, 0, 0));
         txtTongTienHD.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTongTienHD.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         pnlThanhToan.add(txtTongTienHD, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, 270, 40));
 
         txtTienKhachDua.setBackground(new java.awt.Color(51, 51, 51));
-        txtTienKhachDua.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
+        txtTienKhachDua.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtTienKhachDua.setForeground(new java.awt.Color(0, 0, 204));
         txtTienKhachDua.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTienKhachDua.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
@@ -543,7 +539,7 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
         pnlQuickSearch.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtQuickSearch.setBackground(new java.awt.Color(51, 51, 51));
-        txtQuickSearch.setFont(new java.awt.Font("Cambria", 1, 14)); // NOI18N
+        txtQuickSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtQuickSearch.setForeground(new java.awt.Color(255, 255, 0));
         txtQuickSearch.setMaximumSize(new java.awt.Dimension(10, 20));
         txtQuickSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -673,7 +669,6 @@ public class ChiTietPhongJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnTinhTien;
     private javax.swing.JCheckBox chkInHoaDon;
     private javax.swing.JCheckBox chkSMS;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblChitiet;
     private javax.swing.JLabel lblDT;
     private javax.swing.JLabel lblGiaPhong;

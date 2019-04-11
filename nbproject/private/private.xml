@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/dao/UsersDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/ui/MainJFrame.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/dao/HoaDonDAO.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/model/Users.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/main/Main.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/ui/WelcomeJDialog.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/ui/DangNhapJPanel.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/KaraokeManagement/src/com/karaoke/ui/RoomDetail.java</file>
         </group>
     </open-files>
 </project-private>

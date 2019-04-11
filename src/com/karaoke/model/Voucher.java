@@ -11,17 +11,15 @@ package com.karaoke.model;
  */
 public class Voucher {
     private String codevoucher;
-    private String tenvoucher;
-    private int phantram;
+    private int triGia;
     private String hanDung;
 
     public Voucher() {
     }
 
-    public Voucher(String codevoucher, String tenvoucher, int phantram, String hanDung) {
+    public Voucher(String codevoucher, int triGia, String hanDung) {
         this.codevoucher = codevoucher;
-        this.tenvoucher = tenvoucher;
-        this.phantram = phantram;
+        this.triGia = triGia;
         this.hanDung = hanDung;
     }
 
@@ -33,20 +31,12 @@ public class Voucher {
         this.codevoucher = codevoucher;
     }
 
-    public String getTenvoucher() {
-        return tenvoucher;
+    public int getTriGia() {
+        return triGia;
     }
 
-    public void setTenvoucher(String tenvoucher) {
-        this.tenvoucher = tenvoucher;
-    }
-
-    public int getPhantram() {
-        return phantram;
-    }
-
-    public void setPhantram(int phantram) {
-        this.phantram = phantram;
+    public void setTriGia(int triGia) {
+        this.triGia = triGia;
     }
 
     public String getHanDung() {
@@ -56,6 +46,8 @@ public class Voucher {
     public void setHanDung(String hanDung) {
         this.hanDung = hanDung;
     }
+
+    
     
     
 }

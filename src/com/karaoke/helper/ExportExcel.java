@@ -84,7 +84,7 @@ public class ExportExcel {
 
             }
             fileOutputStream.close();
-            if (JDialogHelper.ask(JD, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
+            if (JOptionPaneHelper.ask(JD, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
                 Desktop.getDesktop().open(save.getSelectedFile());
 
                 JD.requestFocusInWindow();
@@ -174,7 +174,7 @@ public class ExportExcel {
 
             }
             fileOutputStream.close();
-            if (JDialogHelper.ask(JD, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
+            if (JOptionPaneHelper.ask(JD, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
                 Desktop.getDesktop().open(save.getSelectedFile());
 
                 JD.requestFocusInWindow();
@@ -234,7 +234,7 @@ public class ExportExcel {
 
             }
             fileOutputStream.close();
-            if (JDialogHelper.ask(JF, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
+            if (JOptionPaneHelper.ask(JF, "Trích xuất file Excel thành công, mở file vừa lưu?", "Export to Excel") == 0) {
                 Desktop.getDesktop().open(save.getSelectedFile());
 
                 JF.requestFocusInWindow();
