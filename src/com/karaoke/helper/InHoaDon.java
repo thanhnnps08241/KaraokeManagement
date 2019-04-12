@@ -146,7 +146,7 @@ public class InHoaDon {
         return noidung;
     }
 
-    public static void inHoaDon(String maHD, JDialog j) {
+    public static void inHoaDon(String maHD) {
         ResultSet rs = null;
         long giaphong = 0;
         String voucher = "";

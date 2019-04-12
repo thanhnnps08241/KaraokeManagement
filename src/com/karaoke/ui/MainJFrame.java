@@ -1,17 +1,19 @@
 package com.karaoke.ui;
 
-import com.karaoke.ui.quanly.QLNguoiDung;
+import com.karaoke.ui.quanly.QLNguoiDungJPanel;
 import com.karaoke.ui.quanly.QLDichVuJPanel;
 import com.karaoke.ui.quanly.QLNhaCungCapJPanel;
 import com.karaoke.ui.quanly.QLPhongJPanel;
 import com.karaoke.helper.JDBCHelper;
 import com.karaoke.helper.JOptionPaneHelper;
-import com.karaoke.helper.MarqueeLabel;
 import static com.karaoke.helper.OpenJPanel.openJPanel;
 import com.karaoke.helper.XuLy;
+import com.karaoke.ui.quanly.QLVoucherJPanel;
+import com.karaoke.ui.thongke.TKHoaDonJPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -29,11 +31,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.Timer;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -71,6 +80,7 @@ public class MainJFrame extends javax.swing.JFrame {
             info += "Vai trò: <font color = WHITE><b>Nhân viên</font></b></html>";
         }
         lblInformationNhanVien.setText(info);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/com/karaoke/images/icon/iconFrame.png")));
 
     }
 
@@ -99,8 +109,8 @@ public class MainJFrame extends javax.swing.JFrame {
         lblQLPhong = new javax.swing.JLabel();
         lblQLDichvu = new javax.swing.JLabel();
         lblQLNCC = new javax.swing.JLabel();
-        lblQLSMS = new javax.swing.JLabel();
         lblQLVoucher = new javax.swing.JLabel();
+        lblQLSMS = new javax.swing.JLabel();
         pnlMenuThongKe = new javax.swing.JPanel();
         lblThongKeTitle = new javax.swing.JLabel();
         lblTKHoadon = new javax.swing.JLabel();
@@ -325,22 +335,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         pnlMenuQuanLy.add(lblQLNCC);
 
-        lblQLSMS.setBackground(new java.awt.Color(0, 0, 51));
-        lblQLSMS.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblQLSMS.setForeground(new java.awt.Color(255, 255, 255));
-        lblQLSMS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblQLSMS.setText("SMS MARKETING");
-        lblQLSMS.setMaximumSize(new java.awt.Dimension(250, 50));
-        lblQLSMS.setMinimumSize(new java.awt.Dimension(250, 50));
-        lblQLSMS.setOpaque(true);
-        lblQLSMS.setPreferredSize(new java.awt.Dimension(250, 50));
-        lblQLSMS.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblQLSMSMouseClicked(evt);
-            }
-        });
-        pnlMenuQuanLy.add(lblQLSMS);
-
         lblQLVoucher.setBackground(new java.awt.Color(0, 0, 51));
         lblQLVoucher.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblQLVoucher.setForeground(new java.awt.Color(255, 255, 255));
@@ -356,6 +350,22 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         pnlMenuQuanLy.add(lblQLVoucher);
+
+        lblQLSMS.setBackground(new java.awt.Color(0, 0, 51));
+        lblQLSMS.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lblQLSMS.setForeground(new java.awt.Color(255, 255, 255));
+        lblQLSMS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblQLSMS.setText("SMS MARKETING");
+        lblQLSMS.setMaximumSize(new java.awt.Dimension(250, 50));
+        lblQLSMS.setMinimumSize(new java.awt.Dimension(250, 50));
+        lblQLSMS.setOpaque(true);
+        lblQLSMS.setPreferredSize(new java.awt.Dimension(250, 50));
+        lblQLSMS.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblQLSMSMouseClicked(evt);
+            }
+        });
+        pnlMenuQuanLy.add(lblQLSMS);
 
         pnlLeft.add(pnlMenuQuanLy, "quanly");
 
@@ -675,10 +685,39 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblTKKhunggioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKKhunggioMouseClicked
         // TODO add your handling code here:
+        int luotKhach[] = new int[24];
+        String khungGio[] = new String[24];
+        for (int i = 0; i < khungGio.length; i++) {
+            khungGio[i] = i + "h";
+        }
+        try {
+            // TODO add your handling code here:
+
+            int i = 0;
+            ResultSet rs = JDBCHelper.executeQuery("SELECT * FROM LuotKhach");
+            while (rs.next()) {
+                luotKhach[i] = rs.getInt(1);
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Tạo frame chứa biểu đồ 
+        ChartPanel chartPanel = new ChartPanel(createLineChart(luotKhach, khungGio));
+        chartPanel.setPreferredSize(new java.awt.Dimension(1040, 680));
+        JPanel pnlChart = new JPanel();
+        pnlChart.setBackground(Color.BLACK);
+        pnlChart.add(chartPanel);
+        pnlChart.setSize(1050, 690);
+
+        pnlChart.setVisible(true);
+        openJPanel(pnlView, pnlChart);
     }//GEN-LAST:event_lblTKKhunggioMouseClicked
 
     private void lblTKHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTKHoadonMouseClicked
         // TODO add your handling code here:
+        openJPanel(pnlView, new TKHoaDonJPanel());
     }//GEN-LAST:event_lblTKHoadonMouseClicked
 
     private void lblQLSMSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLSMSMouseClicked
@@ -703,7 +742,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblQLNguoidungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLNguoidungMouseClicked
         // TODO add your handling code here:
-        openJPanel(pnlView, new QLNguoiDung());
+        openJPanel(pnlView, new QLNguoiDungJPanel());
     }//GEN-LAST:event_lblQLNguoidungMouseClicked
 
     private void lblDoiMatKhauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDoiMatKhauMouseClicked
@@ -836,6 +875,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void lblQLVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblQLVoucherMouseClicked
         // TODO add your handling code here:
+        openJPanel(pnlView, new QLVoucherJPanel());
     }//GEN-LAST:event_lblQLVoucherMouseClicked
     private void init() {
         new Timer(1000, new ActionListener() {
@@ -924,7 +964,14 @@ public class MainJFrame extends javax.swing.JFrame {
         lblCloseWindow.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
+                ImageIcon icon = new ImageIcon(getClass().getResource("/com/karaoke/images/icon/JoptionPaneQUESTION.png"));
+                String[] options = new String[2];
+                options[0] = "Thoát";
+                options[1] = "Hủy";
+                int ask = JOptionPane.showOptionDialog(null, "<html><b><font color = #006699 size = 4>Bạn có chắn chắn kết thúc?</b></font></html>", "Thoát", 0, JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+                if (ask == 0) {
+                    System.exit(0);
+                }
             }
 
             @Override
@@ -1033,6 +1080,26 @@ public class MainJFrame extends javax.swing.JFrame {
         }
     }
 
+    private DefaultCategoryDataset createDataset(int luotKhach[], String khungGio[]) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (int i = 0; i < 24; i++) {
+            dataset.addValue(luotKhach[i], "Khung giờ", khungGio[i]);
+        }
+        return dataset;
+    }
+
+    public JFreeChart createLineChart(int luotKhach[], String khungGio[]) {
+        JFreeChart lineChart = ChartFactory.createLineChart3D(
+                "THỐNG KÊ LƯỢT KHÁCH THEO KHUNG GIỜ",
+                "Khung giờ", "Lượt khách (lượt)", createDataset(luotKhach, khungGio),
+                PlotOrientation.VERTICAL, false, false, false);
+        lineChart.setBackgroundPaint(new Color(255, 153, 0));
+        lineChart.getTitle().setPaint(Color.WHITE);
+        CategoryPlot cp = lineChart.getCategoryPlot();
+        cp.setRangeGridlinePaint(Color.BLACK);
+
+        return lineChart;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

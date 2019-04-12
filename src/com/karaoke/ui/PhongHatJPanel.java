@@ -95,7 +95,7 @@ public class PhongHatJPanel extends javax.swing.JPanel {
         pnlRoom.setMinimumSize(new java.awt.Dimension(1030, 500));
         pnlRoom.setOpaque(false);
         pnlRoom.setPreferredSize(new java.awt.Dimension(1030, 500));
-        pnlRoom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 12, 10));
+        pnlRoom.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 10, 10));
         scrRoom.setViewportView(pnlRoom);
 
         pnlRoot.add(scrRoom, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, -1));
@@ -210,10 +210,10 @@ public class PhongHatJPanel extends javax.swing.JPanel {
         PhongDAO ph = new PhongDAO();
         List<Phong> listphong = ph.filter(cls);
         int slp = listphong.size();
-        while (slp % 5 != 0) {
+        while (slp % 4 != 0) {
             slp++;
         }
-        pnlRoom.setPreferredSize(new Dimension(1000, 155 * slp / 5));
+        pnlRoom.setPreferredSize(new Dimension(1000, 160 * slp / 4));
         scrRoom.getVerticalScrollBar().setUnitIncrement(20);
         scrRoom.setViewportView(pnlRoom);
         scrRoom.getVerticalScrollBar().setUI(new WindowsScrollBarUI());
@@ -229,10 +229,10 @@ public class PhongHatJPanel extends javax.swing.JPanel {
 
             RoundedPanel room = new RoundedPanel(); //tạo Phòng
             room.setPreferredSize(new Dimension(235, 150));
-            
+
             JLabel roomInfo = new JLabel();
             roomInfo.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            
+
             roomInfo.setPreferredSize(new Dimension(230, 150));
             if (phong.isTinhTrang()) {
                 roomInfo.setToolTipText("Click vào để xem hóa đơn chi tiết phòng " + phong.getMaPhong());

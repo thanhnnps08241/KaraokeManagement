@@ -241,7 +241,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlChiTietHoaDon.add(txtGioVao, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 330, 20));
 
         txtTenPhong.setBackground(new java.awt.Color(51, 51, 51));
-        txtTenPhong.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        txtTenPhong.setFont(new java.awt.Font("Segoe UI", 1, 17)); // NOI18N
         txtTenPhong.setForeground(new java.awt.Color(255, 0, 0));
         txtTenPhong.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtTenPhong.setText("Phòng RM0004");
@@ -325,7 +325,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlChiTietHoaDon.add(lblTongTamTinh, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 160, 30));
 
         btnCapNhat.setBackground(new java.awt.Color(255, 255, 255));
-        btnCapNhat.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnCapNhat.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnCapNhat.setForeground(new java.awt.Color(0, 102, 153));
         btnCapNhat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/update.png"))); // NOI18N
         btnCapNhat.setText("CẬP NHẬT");
@@ -337,7 +337,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlChiTietHoaDon.add(btnCapNhat, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 130, 40));
 
         btnTinhTien.setBackground(new java.awt.Color(255, 255, 255));
-        btnTinhTien.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnTinhTien.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnTinhTien.setForeground(new java.awt.Color(0, 102, 153));
         btnTinhTien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/pay.png"))); // NOI18N
         btnTinhTien.setText("TÍNH TIỀN");
@@ -419,7 +419,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlChiTietHoaDon.add(txtTienDV, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, 230, 30));
 
         btnChuyenPhong.setBackground(new java.awt.Color(255, 255, 255));
-        btnChuyenPhong.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnChuyenPhong.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnChuyenPhong.setForeground(new java.awt.Color(0, 102, 153));
         btnChuyenPhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/change.png"))); // NOI18N
         btnChuyenPhong.setText("CHUYỂN");
@@ -435,7 +435,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlChiTietHoaDon.add(pnlTNQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 540, 20));
 
         btnHuy.setBackground(new java.awt.Color(255, 255, 255));
-        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnHuy.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnHuy.setForeground(new java.awt.Color(0, 102, 153));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/karaoke/images/icon/clear.png"))); // NOI18N
         btnHuy.setText("HỦY PHÒNG");
@@ -459,6 +459,7 @@ public class RoomDetail extends javax.swing.JDialog {
         pnlDichVu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabbedDV.setBackground(new java.awt.Color(51, 51, 51));
+        tabbedDV.setForeground(new java.awt.Color(255, 255, 255));
         tabbedDV.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
         tabbedDV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         tabbedDV.setMaximumSize(new java.awt.Dimension(450, 580));
@@ -1112,6 +1113,7 @@ public class RoomDetail extends javax.swing.JDialog {
             scrDV.getVerticalScrollBar().setUI(new WindowsScrollBarUI());
 
             tabbedDV.addTab(ldv.getTenLoaiDV(), scrDV);
+            
             scrDV.setName(ldv.getMaLoaiDV());
             listScr.add(scrDV); //add vào list scr để xử lý QuickSearch
             soLuongLoai++;
@@ -1324,7 +1326,7 @@ public class RoomDetail extends javax.swing.JDialog {
     }
 
     private void inHD() {
-        InHoaDon.inHoaDon(maHoaDon, this);
+        InHoaDon.inHoaDon(maHoaDon);
 
     }
 

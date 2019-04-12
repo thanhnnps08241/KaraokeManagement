@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumnModel;
@@ -33,7 +34,7 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
  */
 public class ExportExcel {
 
-    public static void Writer(JDialog JD, JTable jTable1) throws FileNotFoundException, IOException {
+    public static void Writer(JPanel JD, JTable jTable1) throws FileNotFoundException, IOException {
         JFileChooser save = new JFileChooser();
         save.setDialogTitle("Save as...");
         save.setSelectedFile(new File(jTable1.getName() + ".xls"));
@@ -93,7 +94,7 @@ public class ExportExcel {
         }
     }
 
-    public static void Writer(JDialog JD, JTable jTable1, JTable jTable2) throws FileNotFoundException, IOException {
+    public static void Writer(JPanel JD, JTable jTable1, JTable jTable2) throws FileNotFoundException, IOException {
         JFileChooser save = new JFileChooser();
         save.setDialogTitle("Save as...");
         save.setSelectedFile(new File(jTable1.getName() + ".xls"));

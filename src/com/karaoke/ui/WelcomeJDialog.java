@@ -91,12 +91,13 @@ public class WelcomeJDialog extends javax.swing.JDialog {
 
         prgBar.setBackground(new java.awt.Color(255, 255, 255));
         prgBar.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        prgBar.setForeground(new java.awt.Color(0, 255, 51));
         prgBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         prgBar.setStringPainted(true);
         getContentPane().add(prgBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 450, 30));
 
         lblText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblText.setForeground(new java.awt.Color(0, 51, 204));
+        lblText.setForeground(new java.awt.Color(255, 0, 0));
         lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblText.setText("Phần Mềm Quản Lý Phòng Karaoke");
         getContentPane().add(lblText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 450, 30));
