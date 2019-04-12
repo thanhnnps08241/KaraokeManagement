@@ -214,7 +214,7 @@ public class PhongHatJPanel extends javax.swing.JPanel {
             slp++;
         }
         pnlRoom.setPreferredSize(new Dimension(1000, 160 * slp / 4));
-        scrRoom.getVerticalScrollBar().setUnitIncrement(20);
+        scrRoom.getVerticalScrollBar().setUnitIncrement(80);
         scrRoom.setViewportView(pnlRoom);
         scrRoom.getVerticalScrollBar().setUI(new WindowsScrollBarUI());
 
